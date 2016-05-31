@@ -389,7 +389,7 @@ public class Adventure
             } else if (theInputText.equalsIgnoreCase("n")) { // if they don't want to fight
                     mobImagePane.setImage(null);
                     text.appendText("You fled from the fight!" + "\n");
-                    setNewLoc("TOWN"); // brings you back to town
+                    setNewLoc("MEADOW"); // brings you back to town
                     //System.out.print("Will i run?"); //DEBUG
 
             } else // they don't make any sense
@@ -640,45 +640,134 @@ public class Adventure
     {
         Location start = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, homeImg);
         start.addExit("N", "TOWN");
+        start.addExit("S", "MEADOW");
 
-        Location town = new Location("town", "TOWN", "You are in a small town. There is a massive menacing mountain over the northern horizon, a store to the west, and a spooky forest to the east.", false, townImg);
-        town.addExit("N", "MOUNTAIN");
-        town.addExit("E", "FOREST");
-        town.addExit("S", "START");
-        town.addExit("W", "STORE");
+        Location meadow = new Location("meadow", "MEADOW", "You are in a meadow, there are lots of flowers, it's nice.", false, null);
+        meadow.addExit("N", "START");
+        meadow.addExit("E", "LAKE");
+        meadow.addExit("S", "CAVE");
+        meadow.addExit("W", "FOREST");
 
         Location forest = new Location("forest", "FOREST", "You are in a spooky forest. Many spooky monsters can be found here. There is a cave to the east", false, forestImg);
-        forest.addExit("N", "TUNDRA");
-        forest.addExit("W", "TOWN");
-        forest.addExit("E", "CAVE");
-        forest.addExit("S", "SWAMP");
+        forest.addExit("E", "MEADOW");
+        forest.addExit("W", "GROTTO");
         Monster noob = new Monster("Noob", 40, 8, 10, true, null);
         forest.addMonster(noob);
         forest.setAllMonsters(this.makeMonsterArray());
 
-        Location tundra = new Location("tundra", "TUNDRA", "You are in a freezing tundra, not much is happening here...", false, tundraImg);
-        tundra.addExit("S", "FOREST");
+        Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, null);
+        grotto.addExit("E", "FOREST");
 
-        Location cave = new Location("cave", "CAVE", "You are in a spooky cave", false, caveImg);
-        cave.addExit("W", "FOREST");
+        Location town = new Location("town", "TOWN", "You are in a small town. There is a massive menacing mountain over the northern horizon, a store to the west, and a forgotten path to the east.", false, townImg);
+        town.addExit("N", "MOUNTAIN");
+        town.addExit("E", "PATH");
+        town.addExit("S", "START");
+        town.addExit("W", "STORE");
+
+        Location cave = new Location("cave", "CAVE", "You are in a crystal cave, a lot of crystals here", false, caveImg);
+        cave.addExit("N", "MEADOW");
+        cave.addExit("S", "ALTAR");
+
+        Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, null);
+        altar.addExit("N", "CAVE");
+
+        Location lake = new Location("lake", "LAKE", "You are at a lake, go do some fishin", false, null);
+        lake.addExit("N", "SWAMP");
+        lake.addExit("E", "COVE");
+        lake.addExit("W", "MEADOW");
+
+        Location cove = new Location("cove", "COVE", "You are in a cove, it's got a cool ancient vibe to it", false, null);
+        cove.addExit("W", "LAKE");
 
         Location swamp = new Location("swamp", "SWAMP", "You are in a spooky swamp", false,  swampImg);
-        swamp.addExit("N", "FOREST");
+        swamp.addExit("N", "PATH");
+        swamp.addExit("E", "CABIN");
+        swamp.addExit("S", "LAKE");
+
+        Location cabin = new Location("abandoned cabin", "CABIN", "You are in an abandoned cabin, the walls are rotting and the floor is overgrown", false, null);
+        cabin.addExit("W", "CABIN");
+
+        Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, null);
+        path.addExit("N", "TUNDRA");
+        path.addExit("E", "GRAVEYARD");
+        path.addExit("S", "SWAMP");
+        path.addExit("W", "TOWN");
+
+        Location graveyard = new Location("graveyard", "GRAVEYARD", "You are in a graveyard, where the dead come to life, and the living come to die", false, null);
+        graveyard.addExit("N", "CATACOMBS");
+        graveyard.addExit("E", "TREE");
+        graveyard.addExit("W", "PATH");
+
+        Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, null);
+        tree.addExit("W", "GRAVEYARD");
+
+        Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, null);
+        catacombs.addExit("S", "GRAVEYARD");
+
+        Location tundra = new Location("tundra", "TUNDRA", "You are in a freezing tundra, not much is happening here...", false, tundraImg);
+        tundra.addExit("S", "PATH");
+        tundra.addExit("W", "MOUNTAIN");
+
+        Location mountain = new Location("mountain", "MOUNTAIN", "You are at a mountain, there's a great view up here", false, mountainImg);
+        mountain.addExit("N", "GATE");
+        mountain.addExit("E", "TUNDRA");
+        mountain.addExit("S", "TOWN");
+        mountain.addExit("W", "PASS");
 
         Location store = new Location("store", "STORE", "You are in a store. A wide variety of weapons and items can be bought here", false, shopImg);
         store.addExit("E", "TOWN");
 
-        Location mountain = new Location("mountain", "MOUNTAIN", "You are at Mount Valve, where all wallets are stored, guarded by our omnipotent Lord Gaben. You can choose to fight him or wait until you are ready", true, mountainImg);
-        mountain.addExit("N", "HELL");
-        mountain.addExit("S", "TOWN");
+        Location pass = new Location("icy pass", "PASS", "You are in an icy pass, it's very high up, and there's not much visibility", false, null);
+        pass.addExit("E", "MOUNTAIN");
+        pass.addExit("W", "TWINPEAK");
+
+        Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, null);
+        twinpeak.addExit("W", "PASS");
+
+        Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, null);
+        gate.addExit("N", "CASTLE");
+        gate.addExit("S", "MOUNTAIN");
+
+        Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, null);
+        castle.addExit("N", "HALL");
+        castle.addExit("E", "BARRACKS");
+        castle.addExit("S", "GATE");
+        castle.addExit("W", "ARMORY");
+
+        Location barracks = new Location("barracks", "BARRACKS", "You are at the barracks, a lot of faithful servants to the land were properly here", false, null);
+        barracks.addExit("W", "CASTLE");
+
+        Location armory = new Location("armory", "ARMORY", "You are at the armory, I'm sure you could find something useful here", false, null);
+        armory.addExit("E", "CASTLE");
+
+        Location hall = new Location("Hall of Chosen", "HALL", "You are at the Hall of the Chosen, nearly every direction here will challenge your destiny", false, null);
+        hall.addExit("N", "SANCTUM");
+        hall.addExit("E", "EASTTOWER");
+        hall.addExit("S", "CASTLE");
+        hall.addExit("W", "WESTTOWER");
+
+        Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
+        etower.addExit("W", "HALL");
+
+        Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
+        wtower.addExit("E", "HALL");
+
+        Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null);
+        sanctum.addExit("N", "THRONE");
+        sanctum.addExit("S", "HALL");
+
+        Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null);
+        throne.addExit("N", "CHAMBER");
+        throne.addExit("S", "SANCTUM");
+
+        Location chamber = new Location("ling's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, null);
+        chamber.addExit("S", "THRONE");
 
 
         Location hell = new Location("hell", "HELL", "Welcome to hell, you must have screwed something up to end here", false, hellImg);
-        hell.addExit("N", "END");
-        hell.addExit("S","TOWN");
+
 
         Location end = new Location("end", "END", "awkfnawlfnalwkfnalkwf", true, endImg);
-        end.addExit("S", "HELL");
         Monster god = new Monster("GOD", 300, 35, 9000, true, godImg);
         end.addMonster(god);
 
@@ -686,6 +775,27 @@ public class Adventure
 
         //add Locations to allLocs
         this.allLocs.add(start);
+        this.allLocs.add(meadow);
+        this.allLocs.add(grotto);
+        this.allLocs.add(lake);
+        this.allLocs.add(altar);
+        this.allLocs.add(path);
+        this.allLocs.add(graveyard);
+        this.allLocs.add(tree);
+        this.allLocs.add(catacombs);
+        this.allLocs.add(cabin);
+        this.allLocs.add(pass);
+        this.allLocs.add(twinpeak);
+        this.allLocs.add(gate);
+        this.allLocs.add(castle);
+        this.allLocs.add(barracks);
+        this.allLocs.add(armory);
+        this.allLocs.add(hall);
+        this.allLocs.add(etower);
+        this.allLocs.add(wtower);
+        this.allLocs.add(sanctum);
+        this.allLocs.add(throne);
+        this.allLocs.add(chamber);
         this.allLocs.add(town);
         this.allLocs.add(forest);
         this.allLocs.add(cave);
@@ -701,7 +811,7 @@ public class Adventure
     public void makeMove(String move)
     {
         ArrayList<String> locExits = p.currentLoc.getExits();
-        if (locExits.contains(move) && !p.currentLoc.isLocked())
+        if (locExits.contains(move))
         {
             this.setNewLoc(p.currentLoc.getConnectedLoc(move));
         }
