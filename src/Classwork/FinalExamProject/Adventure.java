@@ -54,6 +54,8 @@ public class Adventure
     public Shop s;
     public ArrayList<Location> allLocs;
 
+    private boolean invBtnActive = false;
+
     @FXML
     private TextArea text;
     @FXML
@@ -780,33 +782,36 @@ public class Adventure
 
     @FXML protected void handleInvButtonPressed(ActionEvent event)
     {
-        inventoryPane.setVisible(true);
-        invText.appendText(p.printInventory());
-        invInputText.setOnAction(event2 ->
-        {
-            String choice = invInputText.getText();
-            for(int i = 0; i < p.inventory.size(); i++)
-            {
-            if (choice.equalsIgnoreCase(p.inventory.get(i).getItemName()))
-            {
-                if (p.inventory.get(i) instanceof Weapon)
-                {
-                    p.equipWeapon(p.inventory.get(i));
-                    playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
-                }
-                else if (p.inventory.get(i) instanceof Armor)
-                {
-                    p.equipArmor(p.inventory.get(i));
-                }
-            }
-            else
-            {
-                invText.appendText("Item not recognized");
-            }
-            }
+
+        if (invBtnActive) {
+            invBtnActive = false;
+            inventoryPane.setVisible(invBtnActive);
 
 
-        });
+        } else {
+            invBtnActive = true;
+
+            inventoryPane.setVisible(invBtnActive);
+            invText.setText(p.printInventory());
+            invInputText.setOnAction(event2 ->
+            {
+                String choice = invInputText.getText();
+                for (int i = 0; i < p.inventory.size(); i++) {
+                    if (choice.equalsIgnoreCase(p.inventory.get(i).getItemName())) {
+                        if (p.inventory.get(i) instanceof Weapon) {
+                            p.equipWeapon(p.inventory.get(i));
+                            playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
+                        } else if (p.inventory.get(i) instanceof Armor) {
+                            p.equipArmor(p.inventory.get(i));
+                        }
+                    } else {
+                        invText.appendText("Item not recognized");
+                    }
+                }
+
+
+            });
+        }
     }
 /*
     @FXML protected boolean handleYesButtonPressed(ActionEvent event)
