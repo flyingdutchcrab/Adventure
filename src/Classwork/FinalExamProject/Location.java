@@ -111,10 +111,7 @@ public class Location
 
     public boolean isLocked()
     {
-        if (this.locked = true)
-            return true;
-        else
-            return false;
+        return locked;
     }
 
     // Adds an exit to this location

@@ -700,13 +700,16 @@ public class Adventure
     //makes a move based on user input
     public void makeMove(String move)
     {
-        String newLoc = p.currentLoc.getConnectedLoc(move);
         ArrayList<String> locExits = p.currentLoc.getExits();
-        if (locExits.contains(move) )
+        if (locExits.contains(move) && !p.currentLoc.isLocked())
         {
-            this.setNewLoc(newLoc);
+            this.setNewLoc(p.currentLoc.getConnectedLoc(move));
         }
-
+        else
+        {
+            text.appendText("\n" + "Cannot go in that direction");
+        }
+/*
         else
         {
             imagePane.setImage(gameOverImg);
@@ -731,7 +734,8 @@ public class Adventure
             }
         });
         }
-    }
+        */
+    } //end makeMove
 
     public void centerMobImage()
     {
