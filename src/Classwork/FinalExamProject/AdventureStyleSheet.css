@@ -1,0 +1,147 @@
+    @font-face
+    {
+        font-family: '8-bit Operator Mono';
+        src: url('fonts/8-bit_operator_mono-regular-webfont.eot');
+        src url('fonts/8-bit_operator_mono-regular-webfont.eot?#iefix') format('embedded-opentype'),
+            url('fonts/8-bit_operator_mono-regular-webfont.woff2') format('woff2'),
+            url('fonts/8-bit_operator_mono-regular-webfont.woff') format('woff'),
+            url('fonts/8-bit_operator_mono-regular-webfont.ttf') format('truetype'),
+            url('fonts/8-bit_operator_mono-regular-webfont.svg#8-bit_operatorbold') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+
+    #basePanel
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+    }
+
+    #buttonPanel
+    {
+            -fx-border-color: white;
+            -fx-border-width: 1px;
+            -fx-border-radius: 2px;
+            -fx-background-color: black;
+    }
+
+    #north
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+    }
+
+
+    #east
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+
+    }
+
+
+    #south
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+    }
+
+
+    #west
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+    }
+
+
+    #inventory
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+
+    }
+
+
+    #map
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+    }
+
+
+
+
+    #text
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-color: white;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+    }
+
+    #inputText
+    {
+        -fx-border-color: white;
+        -fx-border-width: 1px;
+        -fx-border-radius: 2px;
+        -fx-background-color: black;
+        -fx-font-color: white;
+        -fx-font-family: "8-bit Operator Mono", Fixedsys;
+        -fx-font-weight: normal;
+
+    }
+
+     #playerInfo
+     {
+         -fx-border-color: white;
+         -fx-border-width: 1px;
+         -fx-border-radius: 2px;
+         -fx-background-color: black;
+         -fx-font-color: white;
+
+     }
+
+    #imagePane
+    {
+            -fx-border-color: white;
+            -fx-border-width: 1px;
+            -fx-border-radius: 2px;
+            -fx-background-color: black;
+    }
