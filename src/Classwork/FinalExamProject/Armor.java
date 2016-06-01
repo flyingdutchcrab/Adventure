@@ -5,26 +5,29 @@ package Classwork.FinalExamProject;
  */
 public class Armor extends Item
 {
-    //declare variables
+
     private double armorValue;
 
 
-    //constructor
-    public Armor(String n, double c, double av)
+    public Armor(String itemName, double cost, double armorValue)
     {
-        super(n, c);
-        this.armorValue = av;
-    }
-
-    //getters and setters
-
-    //get armor value
-    public double getArmorValue()
-    {
-        return this.armorValue;
+        super(itemName, cost);
+        this.armorValue = armorValue;
     }
 
 
+    /**
+     * Get the armor's valuse
+     * @return double of armor's value
+     */
+    public double getArmorValue() { return this.armorValue; }
+
+
+    /**
+     * toString
+     * @return the toString
+     */
+    @Override
     public String toString()
     {
         return "Armor: " + super.getItemName() + " | " + "$" + super.getCost() + " | " + armorValue + "\n";

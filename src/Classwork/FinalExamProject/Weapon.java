@@ -6,37 +6,27 @@ package Classwork.FinalExamProject;
 import java.util.*;
 public class Weapon extends Item
 {
-    //declare variables
+
     private double damage;
 
 
-    //constructor
     public Weapon(String n, double c, double dmg)
     {
         super(n, c);
         this.damage = dmg;
     }
 
-    //getters and setters
+    /**
+     * Get weapon's damage
+     * @return double of damage
+     */
+    public double getDamage() { return this.damage; }
 
-   /* //accesses weapon name
-    public String getItemName()
-    {
-        super.getItemName();
-    }
-*/
-    //get weapon damage
-    public double getDamage()
-    {
-        return this.damage;
-    }
-/*
-    //get weapon cost
-    public double getCost()
-    {
-        super.getCost();
-    }
-*/
+
+    /**
+     * toString
+     * @return toStirng
+     */
     public String toString()
     {
         return "Weapon: " + super.getItemName() + " | " + "$" + super.getCost() + " | " + damage + "\n";

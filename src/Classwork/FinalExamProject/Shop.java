@@ -12,58 +12,24 @@ import javafx.scene.control.TextField;
  */
 public class Shop
 {
+
     public ArrayList<Item> shopInventory;
     private Scanner scan;
     @FXML private TextArea text;
     @FXML private TextField inputText;
-    public Shop()
-    {
+
+
+    public Shop() {
         this.shopInventory = new ArrayList<Item>();
     }
-/*
-    public void doShop()
-    {
-        String answer = "";
-        Player pl = new Player();
-        boolean buying;
-        while(buying = true)
-        {
-            initializeShopInventory();
-            printShopInventory();
 
-            text.appendText("Type the item name to buy a weapon here. Or \"exit\" to leave shop." + "\n");
-            answer = inputText.getText();
-            if(answer.equals("exit"))
-            {
-                buying = false;
-                break;
-            }
 
-            for(Item i : shopInventory)
-            {
-                if(i.getItemName().equals(answer))
-                {
-                    if(pl.wallet >= i.getCost())
-                    {
-                        text.appendText("You buy the " + i.getItemName() + " for " + i.getCost() + "\n");
-                        pl.inventory.add(i);
-                        pl.wallet -= i.getCost();
-                        buying = false;
-                        break;
-                    }
-                    else
-                    {
-                        text.appendText("You don't have enough money to buy that." + "\n");
-                    }
-                }
-            }
+    /**
+     * Init. shop inv
+     * @return ArrayList of the init. shop inv
+     */
+    public ArrayList<Item> initializeShopInventory() {
 
-        }
-    } //end doShop
-    */
-
-    public ArrayList<Item> initializeShopInventory()
-    {
         Item wep1 = new Weapon("Boomstick", 300, 100);
         Item wep2 = new Weapon("Bow and Arrow", 50, 18);
         Item wep3 = new Weapon("Iron Sword", 70 , 20);
@@ -77,6 +43,11 @@ public class Shop
         return shopInventory;
     }
 
+
+    /**
+     * toString for shop
+     * @return toString
+     */
     public String printShopInventory()
     {
         String shopItemList = "These are the items for sale:\n";
@@ -86,7 +57,12 @@ public class Shop
         }
         return shopItemList;
 
-    } //end printShopInventory
+    }
+
+    @Override
+    public String toString() {
+        return printShopInventory();
+    }
 
 
-} //end class
+}

@@ -1,4 +1,10 @@
-package Classwork.FinalExamProject;
+package Classwork.FinalExamProject.Testers;
+
+import Classwork.FinalExamProject.*;
+
+import Classwork.FinalExamProject.Location;
+import Classwork.FinalExamProject.Player;
+import Classwork.FinalExamProject.Shop;
 
 /**
  * Created by andrewbrook on 5/13/16.

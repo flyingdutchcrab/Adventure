@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 
 public class Monster
 {
-    //declare variables
+
     private String mobName;
     private double health;
     private double damage;
@@ -18,17 +18,15 @@ public class Monster
     public Image image;
 
 
-    //constructor
-    public Monster(String mn, double h, double dmg, double m, boolean a, Image img)
-    {
-        this.mobName = mn;
-        this.health = h;
-        this.damage = dmg;
-        this.loot = m;
-        this.alive = a;
+
+    public Monster(String mobName, double health, double damage, double loot, boolean isAlive, Image img) {
+
+        this.mobName = mobName;
+        this.health = health;
+        this.damage = damage;
+        this.loot = loot;
+        this.alive = isAlive;
         this.image = img;
-
-
     }
     //getters and setters
 

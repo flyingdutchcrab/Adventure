@@ -1,4 +1,7 @@
-package Classwork.FinalExamProject;
+package Classwork.FinalExamProject.Testers;
+
+import Classwork.FinalExamProject.*;
+
 
 /**
  * Created by andrewbrook on 4/7/16.

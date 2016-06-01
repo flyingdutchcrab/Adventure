@@ -1,8 +1,15 @@
-package Classwork.FinalExamProject;
+package Classwork.FinalExamProject.Testers;
+
+import Classwork.FinalExamProject.*;
+
 
 /**
  * Created by andrewbrook on 5/13/16.
  */
+import Classwork.FinalExamProject.Item;
+import Classwork.FinalExamProject.KeyItem;
+import Classwork.FinalExamProject.Weapon;
+
 import java.util.*;
 public class ItemTester {
     public static void main(String args[])

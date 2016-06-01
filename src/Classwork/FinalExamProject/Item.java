@@ -5,28 +5,35 @@ package Classwork.FinalExamProject;
  */
 public class Item
 {
+
     private String itemName;
     private double cost;
 
-    public Item(String n, double c)
+
+    public Item(String itemName, double cost)
     {
-        this.itemName = n;
-        this.cost = c;
+        this.itemName = itemName;
+        this.cost = cost;
 
-    } //end Item constructor
+    }
 
-    public String getItemName()
-    {
-        return this.itemName;
-    } //end getItemName
 
-    public double getCost()
-    {
-        return this.cost;
-    } //end getCost
+    /**
+     * getters
+     */
 
+    public String getItemName() { return this.itemName; }
+
+    public double getCost() { return this.cost; }
+
+    /**
+     * toString
+     * @return the toString of this item
+     */
     public String toString()
     {
         return "Item: " + itemName + " | " + "$" + cost + "\n";
-    } //end toString
+    }
+
+
 } //end class

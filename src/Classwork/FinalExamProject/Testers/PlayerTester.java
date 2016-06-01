@@ -1,4 +1,11 @@
-package Classwork.FinalExamProject;
+package Classwork.FinalExamProject.Testers;
+
+import Classwork.FinalExamProject.Item;
+import Classwork.FinalExamProject.KeyItem;
+import Classwork.FinalExamProject.Player;
+import Classwork.FinalExamProject.Weapon;
+
+import Classwork.FinalExamProject.*;
 
 /**
  * Created by andrewbrook on 5/13/16.

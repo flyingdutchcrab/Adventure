@@ -47,11 +47,11 @@ public class Adventure
 
     private boolean gameWon;
     private Scanner scan;
-    public String choice;
-    public boolean fled;
-    public Player p;
-    public Location l;
-    public Shop s;
+    private String choice;
+    private boolean fled;
+    private Player p;
+    private Location l;
+    private Shop s;
     public ArrayList<Location> allLocs;
 
     private boolean invBtnActive = false;
@@ -75,27 +75,25 @@ public class Adventure
 
 
 
-    public Image homeImg;
-    public Image townImg;
-    public Image forestImg;
-    public Image caveImg;
-    public Image shopImg;
-    public Image mountainImg;
-    public Image hellImg;
-    public Image endImg;
-    public Image tundraImg;
-    public Image swampImg;
-    public Image gameOverImg;
-    public Image skeletonImg;
-    public Image skeletonImg2;
-    public Image spritieImg;
-    public Image lizardImg;
-    public Image landSharkImg;
-    public Image llamaImg;
-    public Image mingeImg;
-    public Image godImg;
-
-    //public AudioClip laugh;
+    private Image homeImg;
+    private Image townImg;
+    private Image forestImg;
+    private Image caveImg;
+    private Image shopImg;
+    private Image mountainImg;
+    private Image hellImg;
+    private Image endImg;
+    private Image tundraImg;
+    private Image swampImg;
+    private Image gameOverImg;
+    private Image skeletonImg;
+    private Image skeletonImg2;
+    private Image spritieImg;
+    private Image lizardImg;
+    private Image landSharkImg;
+    private Image llamaImg;
+    private Image mingeImg;
+    private Image godImg;
 
 
     //default constructor
@@ -141,13 +139,12 @@ public class Adventure
         this.godImg = new Image("monsters/specimen9.gif");
 
 
-
         allLocs = new ArrayList<Location>();
         initLocs();
 
 
-
     }
+
 
     public void initialize()
     {
@@ -159,17 +156,18 @@ public class Adventure
         inputText.setOnAction(event ->
         {
             if (p.getPlayerName().equals("NotSet")) {
+
                 p.setPlayerName(inputText.getText());
                 text.appendText("Welcome, " + p.getPlayerName() + "\n");
                 playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
                 this.setNewLoc("START");
                 inputText.deleteText(0, inputText.getLength());
-            }
 
+            } else {
 
-        else {
                 inputText.deleteText(0, inputText.getLength());
                 text.appendText("\nThere is nothing to input at this time. ");
+
             }
 
         });
@@ -187,19 +185,11 @@ public class Adventure
 
 
         //rest to restore health at home
-        if (p.currentLoc.getID().equals("START") && p.health < 100) {
-            p.health = 100.0;
+        if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
+
+            p.setHealth(100.0);
             text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
         }
-
-
-
-
-
-
-
-
-
 
 
     } //end initialize
@@ -212,15 +202,11 @@ public class Adventure
     {
         //welcome user
         text.appendText("Welcome to the land of euphoria!" + "\n");
+
         //gets users name
         text.appendText("What's your name?" + "\n");
-        p.playerName = inputText.getText();
-        text.appendText("Really? Welcome, " + p.playerName + "\n");
-
-        //choose jobSkill
-
-        //print health and wallet
-        //System.out.println("You have $" + p.wallet + "\nYour health is " + p.getHealth());
+        p.setPlayerName(inputText.getText());
+        text.appendText("Really? Welcome, " + p.getPlayerName() + "\n");
 
 
         //sets start location
@@ -273,9 +259,9 @@ public class Adventure
             //this.multiBattle(mobMonsters);
 
             //rest to restore health at home
-            if (p.currentLoc.getID().equals("START") && p.health < 100)
+            if (p.currentLoc.getID().equals("START") && p.getHealth() < 100)
             {
-                p.health = 100.0;
+                p.setHealth(100.0);
                 text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
             }
             /*
@@ -290,22 +276,23 @@ public class Adventure
 
     }
 
+
     //takes a monster and simulates a battle until the monster or player dies
-    public void doBattle(Monster enemy)
+    private void doBattle(Monster enemy)
     {
         //first time run
         text.appendText("\n" + "A wild " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
-/*
+
+
+        /*
         if (enemy.getName().equals("GOD"))
         {
             this.laugh = new AudioClip(this.getClass().getResource("laugh.mp3").toExternalForm());
             laugh.play();
         }
         */
-
-
 
 
         //System.out.println("Player Health: " + p.alive + " Enemy health: " +  enemy.isAlive() );
@@ -332,10 +319,10 @@ public class Adventure
                 p.setHealth(p.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
                 text.appendText("The " + enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + p.getHealth() + "\n"); //prints how much damage the monster does to the player
                 playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
-                if (p.health < 20.0)
-                {
+
+                if (p.getHealth() < 20.0)
                     text.appendText("Your health is low, you should return home and restore health!" + "\n");
-                }
+
 
                 //checks if the player or monster is dead
                 p.checkLife(); //calculate if dead
@@ -347,7 +334,7 @@ public class Adventure
                 {
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
-                    p.wallet += enemy.getLoot();
+                    p.addWallet(enemy.getLoot());
                     playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n");
                     text.setText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
 
@@ -356,31 +343,8 @@ public class Adventure
 
                     mobImagePane.setImage(null);
                     text.setText("You have been shrekt by the " + enemy.getName());
-
                     setNewLoc(null);
 
-
-                    /**
-                     *
-                     * create game over location
-                     *
-                     *
-                     * remember: append text and ask if play again.
-
-                    String answer = inputText.getText();
-                    answer.toUpperCase();
-                    //String answer = this.choice;
-
-                    if (answer.equals("Y")) //if they want to play again
-                    {
-                        text.appendText("Alright! Let's go!" + "\n");
-                        this.reset();
-                    } else //if they want to quit
-                    {
-                        text.appendText("Wow. What a skrub, okay bye." + "\n");
-                        System.out.close();
-                    }
-                     */
 
                 } else {
                     text.appendText("Attack again? (Y/N) \n");
@@ -402,12 +366,15 @@ public class Adventure
 
 
     //Resets adventure to default
-    public void reset()
+    private void reset()
     {
         this.gameWon = false;
         p.alive = true;
         this.setNewLoc("START");
     }
+
+
+
     //setters and getters
     /*public double getHealth() //gets health
     {
@@ -449,16 +416,19 @@ public class Adventure
         return (int) (Math.random()*(Max-Min))+Min;
     }
 
+
     //set and get gameWon
     public void win()
     {
         this.gameWon = true;
     }
 
+
     public boolean won()
     {
         return this.gameWon;
     }
+
 
     public ArrayList<Monster> makeMonsterArray()
     {
@@ -488,6 +458,7 @@ public class Adventure
 
     } //end makeMonsterArray
 
+
     //multibattle takes in an array of monsters and does battle with each of them if the player is in the forest
     public void multiBattle(ArrayList<Monster> allMobs)
     {
@@ -496,13 +467,8 @@ public class Adventure
             this.doBattle(aMob);
         }
 
-		/*
-		for (i = 0; i < allMobs.length; i++)
-		{
-			this.doBattle(allMobs[i]);
-		}
-		*/
     }
+
 
     //set/get currentLoc
     public String checkLocID()
@@ -510,7 +476,8 @@ public class Adventure
         return p.currentLoc.getID();
     }
 
-    public Location getSingleLoc(String ID)
+
+    private Location getSingleLoc(String ID)
     {
         Location singleLoc = null;
         for(Location aLoc : allLocs)
@@ -521,21 +488,24 @@ public class Adventure
                 break;
             }
         }
+
         return singleLoc;
     }
+
 /*
     public Location getCurrentLoc()
     {
         return this.currentLoc;
     }
 */
-    public void doShop()
+
+
+    private void doShop()
     {
         s.initializeShopInventory();
 
         text.appendText(s.printShopInventory() + "\n");
         text.appendText("Type the item name to buy a weapon here. Go back west to leave shop." + "\n");
-
 
 
         Platform.runLater(() -> inputText.requestFocus());
@@ -544,26 +514,23 @@ public class Adventure
             inputText.deleteText(0, answer.length());
 
 
-            //System.out.print("\n\n" + answer); //debug
-
             boolean item_found = false;
-
             for (Item i : s.shopInventory) {
-
                 if (i.getItemName().equalsIgnoreCase(answer)) {
                     item_found = true;
+                    if (p.getWallet() >= i.getCost()) {
 
-                    if (p.wallet >= i.getCost()) {
                         text.appendText("You bought the " + i.getItemName() + " for " + i.getCost() + "\n");
                         p.inventory.add(i);
-                        p.wallet -= i.getCost();
+                        p.addWallet(-i.getCost());
                         playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n");
                         break;
+
                     } else {
                         text.appendText("You don't have enough money to buy that." + "\n");
                     }
                 }
-            }
+            } //end for
 
 
             if (item_found)
@@ -572,69 +539,62 @@ public class Adventure
             else
                 text.appendText("Sorry we didn't find that item, try again. ");
 
-
-
-
         });
 
 
     } //end doShop
 
-    public void setNewLoc(String ID)
+
+    private void setNewLoc(String ID)
     {
 
         /**
          * reset all things that need to be, yeah
          */
         mobImagePane.setImage(null); //always remove mob when location chances
-        inputText.setOnAction(event ->
-                {text.appendText("\nNo input at this time. "); inputText.deleteText(0, inputText.getText().length());});
-
+        inputText.setOnAction(event -> {
+            text.appendText("\nNo input at this time. ");
+            inputText.deleteText(0, inputText.getText().length());
+        });
 
 
         p.currentLoc = this.getSingleLoc(ID);
         if(p.currentLoc == null)
         {
+
             text.appendText("You have been killed!" + "\n");
             imagePane.setImage(gameOverImg);
             p.alive = false;
 
-        }
+        } else if (p.getCurrentLoc().getMonsters().size() > 0) {
 
-        else if (p.getCurrentLoc().getMonsters().size() > 0)
-        {
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             ArrayList<Monster> monsters = p.getCurrentLoc().getMonsters();
             Monster randomMob = monsters.get(random_int(0, monsters.size()));
             doBattle(randomMob); //does multibattle if there are monsters
 
-        }
+        } else if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
 
-        else if (p.currentLoc.getID().equals("START") && p.health < 100)
-        {
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
-            p.health = 100.0;
+            p.setHealth(100.0);
             playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n");
             text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
-        }
+        } else if(p.currentLoc.getID().equals("STORE")) {
 
-
-
-        else if(p.currentLoc.getID().equals("STORE"))
-        {
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             doShop();
-        }
+        } else {
 
-        else
-        {
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
+
         }
-    }
+    } //end setNewLoc
+
+
     //creates all locations for the game and puts them in allLocs
     public void initLocs()
     {
@@ -807,19 +767,20 @@ public class Adventure
         this.allLocs.add(end);
     }
 
+
     //makes a move based on user input
     public void makeMove(String move)
     {
         ArrayList<String> locExits = p.currentLoc.getExits();
         if (locExits.contains(move))
-        {
             this.setNewLoc(p.currentLoc.getConnectedLoc(move));
-        }
+
         else
-        {
             text.appendText("\n" + "Cannot go in that direction");
-        }
-/*
+
+
+
+        /*
         else
         {
             imagePane.setImage(gameOverImg);
@@ -847,6 +808,7 @@ public class Adventure
         */
     } //end makeMove
 
+
     public void centerMobImage()
     {
         Image img = mobImagePane.getImage();
@@ -871,7 +833,15 @@ public class Adventure
             mobImagePane.setY((mobImagePane.getFitHeight() - h) / 2);
 
         }
+
     } //end centerMobImage
+
+
+    /**
+     * @FXML
+     * Buttons
+     */
+
 
     @FXML protected void handleNorthButtonPressed(ActionEvent event)
     {
@@ -927,6 +897,7 @@ public class Adventure
             });
         }
     }
+
 /*
     @FXML protected boolean handleYesButtonPressed(ActionEvent event)
     {
@@ -943,7 +914,6 @@ public class Adventure
         return true;
     }
 */
-
 
 
 
