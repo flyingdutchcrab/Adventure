@@ -85,11 +85,17 @@ public class Adventure
     public Image lakeImg;
     public Image reefImg;
     public Image mountainImg;
+    public Image icyPassImg;
+    public Image twinPeakImg;
+    public Image pathImg;
     public Image hellImg;
     public Image endImg;
     public Image tundraImg;
     public Image swampImg;
+    public Image cabinImg;
     public Image gameOverImg;
+
+
     public Image skeletonImg;
     public Image skeletonImg2;
     public Image spritieImg;
@@ -126,17 +132,22 @@ public class Adventure
 
         this.homeImg = new Image("locations/rsz_bedroom2.jpg");
         this.townImg = new Image("locations/rsz_nighttown.jpg");
+        this.pathImg = new Image("locations/forgottenpath.gif");
         this.forestImg = new Image("locations/betterforest.gif");
-        this.meadowImg = new Image("locations/meadow.jpg");
-        this.coveImg = new Image("locations/bettercove.jpg");
+        this.meadowImg = new Image("locations/bettermeadow.gif");
+        this.lakeImg = new Image("locations/finallake.gif");
+        this.coveImg = new Image("locations/covefinal.gif");
         this.reefImg = new Image("locations/reef.jpg");
-        this.caveImg = new Image("locations/bettercave.jpg");
+        this.caveImg = new Image("locations/crystalcave.gif");
         this.shopImg = new Image("locations/shopanim3.gif");
-        this.mountainImg = new Image("locations/mountainanim.gif");
+        this.mountainImg = new Image("locations/mountain.gif");
+        this.icyPassImg = new Image("locations/icypass.gif");
+        this.twinPeakImg = new Image("locations/mountainanim.gif");
         this.hellImg = new Image("locations/hellsurface2.gif");
         this.endImg = new Image("locations/scarybackground.gif");
         this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
         this.swampImg = new Image("locations/8bitswamp.gif");
+        this.cabinImg = new Image("locations/cabin.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
 
         this.skeletonImg = new Image("monsters/skeletonwarrior.gif");
@@ -663,10 +674,10 @@ public class Adventure
         swamp.addExit("E", "CABIN");
         swamp.addExit("S", "LAKE");
 
-        Location cabin = new Location("abandoned cabin", "CABIN", "You are in an abandoned cabin, the walls are rotting and the floor is overgrown", false, null);
-        cabin.addExit("W", "CABIN");
+        Location cabin = new Location("abandoned cabin", "CABIN", "You are in an abandoned cabin, the walls are rotting and the floor is overgrown", false, cabinImg);
+        cabin.addExit("W", "SWAMP");
 
-        Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, null);
+        Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, pathImg);
         path.addExit("N", "TUNDRA");
         path.addExit("E", "GRAVEYARD");
         path.addExit("S", "SWAMP");
@@ -696,12 +707,12 @@ public class Adventure
         Location store = new Location("store", "STORE", "You are in a store. A wide variety of weapons and items can be bought here", false, shopImg);
         store.addExit("E", "TOWN");
 
-        Location pass = new Location("icy pass", "PASS", "You are in an icy pass, it's very high up, and there's not much visibility", false, null);
+        Location pass = new Location("icy pass", "PASS", "You are in an icy pass, it's very high up, and there's not much visibility", false, icyPassImg);
         pass.addExit("E", "MOUNTAIN");
         pass.addExit("W", "TWINPEAK");
 
-        Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, null);
-        twinpeak.addExit("W", "PASS");
+        Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg);
+        twinpeak.addExit("E", "PASS");
 
         Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, null);
         gate.addExit("N", "CASTLE");
