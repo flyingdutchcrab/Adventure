@@ -176,12 +176,6 @@ public class Adventure
         //this.shamanImg = new Image("monsters/shaman.gif");
         this.llamaImg = new Image("monsters/llama.gif");
         //this.wolfBeastImg = new Image("monsters/wolfbeast.gif");
-
-
-
-
-
-        //this is Kyle's amazing <code></code>
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
