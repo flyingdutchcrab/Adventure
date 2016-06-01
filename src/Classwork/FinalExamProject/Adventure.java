@@ -108,6 +108,7 @@ public class Adventure
     public Image llamaImg;
     public Image mingeImg;
     public Image godImg;
+    public Image wyvernImg;
     public Image dagonImg;
     public Image ghostGirlImg;
 
@@ -169,6 +170,7 @@ public class Adventure
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
+        this.wyvernImg = new Image("monsters/rathian.gif");
 
 
         allLocs = new ArrayList<Location>();
@@ -725,6 +727,9 @@ public class Adventure
 
         Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg);
         twinpeak.addExit("E", "PASS");
+        Monster wyvern = new Monster("Wyvern", 400, 45, 2000, true, wyvernImg);
+        twinpeak.addMonster(wyvern);
+
 
         Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, gateImg);
         gate.addExit("N", "CASTLE");
