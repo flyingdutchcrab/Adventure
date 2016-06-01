@@ -79,6 +79,7 @@ public class Adventure
     public Image townImg;
     public Image forestImg;
     public Image caveImg;
+    public Image altarImg;
     public Image shopImg;
     public Image meadowImg;
     public Image coveImg;
@@ -88,6 +89,8 @@ public class Adventure
     public Image icyPassImg;
     public Image twinPeakImg;
     public Image pathImg;
+    public Image graveyardImg;
+    public Image treeImg;
     public Image hellImg;
     public Image endImg;
     public Image tundraImg;
@@ -105,6 +108,7 @@ public class Adventure
     public Image mingeImg;
     public Image godImg;
     public Image dagonImg;
+    public Image ghostGirlImg;
 
     //public AudioClip laugh;
 
@@ -133,12 +137,15 @@ public class Adventure
         this.homeImg = new Image("locations/rsz_bedroom2.jpg");
         this.townImg = new Image("locations/rsz_nighttown.jpg");
         this.pathImg = new Image("locations/forgottenpath.gif");
-        this.forestImg = new Image("locations/betterforest.gif");
+        this.graveyardImg = new Image("locations/graveyard.gif");
+        this.treeImg = new Image("locations/hangingtree.gif");
+        this.forestImg = new Image("locations/bestforest.gif");
         this.meadowImg = new Image("locations/bettermeadow.gif");
         this.lakeImg = new Image("locations/finallake.gif");
         this.coveImg = new Image("locations/covefinal.gif");
         this.reefImg = new Image("locations/reef.jpg");
         this.caveImg = new Image("locations/crystalcave.gif");
+        this.altarImg = new Image("locations/altar.gif");
         this.shopImg = new Image("locations/shopanim3.gif");
         this.mountainImg = new Image("locations/mountain.gif");
         this.icyPassImg = new Image("locations/icypass.gif");
@@ -159,6 +166,7 @@ public class Adventure
         this.mingeImg = new Image("monsters/minge.gif");
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
+        this.ghostGirlImg = new Image("monsters/spookyghost.gif");
 
 
         allLocs = new ArrayList<Location>();
@@ -683,13 +691,15 @@ public class Adventure
         path.addExit("S", "SWAMP");
         path.addExit("W", "TOWN");
 
-        Location graveyard = new Location("graveyard", "GRAVEYARD", "You are in a graveyard, where the dead come to life, and the living come to die", false, null);
+        Location graveyard = new Location("graveyard", "GRAVEYARD", "You are in a graveyard, where the dead come to life, and the living come to die", false, graveyardImg);
         graveyard.addExit("N", "CATACOMBS");
         graveyard.addExit("E", "TREE");
         graveyard.addExit("W", "PATH");
 
-        Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, null);
+        Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg);
         tree.addExit("W", "GRAVEYARD");
+        Monster ghostGirl = new Monster("Vengeful Spirit", 300, 35, 9000, true, ghostGirlImg);
+        tree.addMonster(ghostGirl);
 
         Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, null);
         catacombs.addExit("S", "GRAVEYARD");
