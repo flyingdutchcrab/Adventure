@@ -75,25 +75,32 @@ public class Adventure
 
 
 
-    private Image homeImg;
-    private Image townImg;
-    private Image forestImg;
-    private Image caveImg;
-    private Image shopImg;
-    private Image mountainImg;
-    private Image hellImg;
-    private Image endImg;
-    private Image tundraImg;
-    private Image swampImg;
-    private Image gameOverImg;
-    private Image skeletonImg;
-    private Image skeletonImg2;
-    private Image spritieImg;
-    private Image lizardImg;
-    private Image landSharkImg;
-    private Image llamaImg;
-    private Image mingeImg;
-    private Image godImg;
+    public Image homeImg;
+    public Image townImg;
+    public Image forestImg;
+    public Image caveImg;
+    public Image shopImg;
+    public Image meadowImg;
+    public Image coveImg;
+    public Image lakeImg;
+    public Image reefImg;
+    public Image mountainImg;
+    public Image hellImg;
+    public Image endImg;
+    public Image tundraImg;
+    public Image swampImg;
+    public Image gameOverImg;
+    public Image skeletonImg;
+    public Image skeletonImg2;
+    public Image spritieImg;
+    public Image lizardImg;
+    public Image landSharkImg;
+    public Image llamaImg;
+    public Image mingeImg;
+    public Image godImg;
+    public Image dagonImg;
+
+    //public AudioClip laugh;
 
 
     //default constructor
@@ -120,6 +127,9 @@ public class Adventure
         this.homeImg = new Image("locations/rsz_bedroom2.jpg");
         this.townImg = new Image("locations/rsz_nighttown.jpg");
         this.forestImg = new Image("locations/betterforest.gif");
+        this.meadowImg = new Image("locations/meadow.jpg");
+        this.coveImg = new Image("locations/bettercove.jpg");
+        this.reefImg = new Image("locations/reef.jpg");
         this.caveImg = new Image("locations/bettercave.jpg");
         this.shopImg = new Image("locations/shopanim3.gif");
         this.mountainImg = new Image("locations/mountainanim.gif");
@@ -137,6 +147,7 @@ public class Adventure
         this.llamaImg = new Image("monsters/llama.gif");
         this.mingeImg = new Image("monsters/minge.gif");
         this.godImg = new Image("monsters/specimen9.gif");
+        this.dagonImg = new Image("monsters/dagon.gif");
 
 
         allLocs = new ArrayList<Location>();
@@ -602,7 +613,7 @@ public class Adventure
         start.addExit("N", "TOWN");
         start.addExit("S", "MEADOW");
 
-        Location meadow = new Location("meadow", "MEADOW", "You are in a meadow, there are lots of flowers, it's nice.", false, null);
+        Location meadow = new Location("meadow", "MEADOW", "You are in a meadow, there are lots of flowers, it's nice.", false, meadowImg);
         meadow.addExit("N", "START");
         meadow.addExit("E", "LAKE");
         meadow.addExit("S", "CAVE");
@@ -631,13 +642,21 @@ public class Adventure
         Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, null);
         altar.addExit("N", "CAVE");
 
-        Location lake = new Location("lake", "LAKE", "You are at a lake, go do some fishin", false, null);
+        Location lake = new Location("lake", "LAKE", "You are at a lake, go do some fishin", false, lakeImg);
         lake.addExit("N", "SWAMP");
         lake.addExit("E", "COVE");
         lake.addExit("W", "MEADOW");
 
-        Location cove = new Location("cove", "COVE", "You are in a cove, it's got a cool ancient vibe to it", false, null);
+
+        Location cove = new Location("cove", "COVE", "You are in a cove, it's got a cool ancient vibe to it", false, coveImg);
+        cove.addExit("E", "REEF");
         cove.addExit("W", "LAKE");
+
+        Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg);
+        reef.addExit("W", "COVE");
+        Monster dagon = new Monster("Dagon", 300, 35, 9000, true, dagonImg);
+        reef.addMonster(dagon);
+
 
         Location swamp = new Location("swamp", "SWAMP", "You are in a spooky swamp", false,  swampImg);
         swamp.addExit("N", "PATH");
@@ -740,6 +759,8 @@ public class Adventure
         this.allLocs.add(lake);
         this.allLocs.add(altar);
         this.allLocs.add(path);
+        this.allLocs.add(cove);
+        this.allLocs.add(reef);
         this.allLocs.add(graveyard);
         this.allLocs.add(tree);
         this.allLocs.add(catacombs);
