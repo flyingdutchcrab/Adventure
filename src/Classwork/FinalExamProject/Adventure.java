@@ -94,6 +94,7 @@ public class Adventure
     public Image hellImg;
     public Image endImg;
     public Image tundraImg;
+    public Image gateImg;
     public Image swampImg;
     public Image cabinImg;
     public Image gameOverImg;
@@ -153,6 +154,7 @@ public class Adventure
         this.hellImg = new Image("locations/hellsurface2.gif");
         this.endImg = new Image("locations/scarybackground.gif");
         this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
+        this.gateImg = new Image("locations/castlegate2.gif");
         this.swampImg = new Image("locations/8bitswamp.gif");
         this.cabinImg = new Image("locations/cabin.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
@@ -724,7 +726,7 @@ public class Adventure
         Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg);
         twinpeak.addExit("E", "PASS");
 
-        Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, null);
+        Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, gateImg);
         gate.addExit("N", "CASTLE");
         gate.addExit("S", "MOUNTAIN");
 
