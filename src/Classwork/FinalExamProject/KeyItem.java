@@ -5,25 +5,28 @@ package Classwork.FinalExamProject;
  */
 public class KeyItem extends Item
 {
-    //declare variables
+
     private String use;
 
 
-    //constructor
-    public KeyItem(String n, double c, String u)
+    public KeyItem(String itemName, double cost, String use)
     {
-        super(n, c);
-        this.use = u;
+        super(itemName, cost);
+        this.use = use;
     }
 
-    //getters and setters
 
-    //get weapon damage
-    public String getUse()
-    {
-        return this.use;
-    }
+    /**
+     * Getters
+     */
 
+    public String getUse() { return this.use; }
+
+
+    /**
+     * toString
+     * @return toString
+     */
     public String toString()
     {
         return "KeyItem: " + super.getItemName() + " | " + "$" + super.getCost() + " | " + use + "\n";

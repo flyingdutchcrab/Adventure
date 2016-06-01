@@ -22,39 +22,24 @@ import javafx.application.Platform;
 
 public class Adventure
 {
-    //declare variables
-    /*private double health;
-    private double damage;
-    private String playerName;
-    private String jobSkill;
-    private String weapon;
-    private double wallet;
 
-    private boolean alive;
-    private Location currentLoc;
-    private ArrayList<Location> allLocs;
-    */
+    /**
+     * Buttons and other things
+     */
     @FXML
     private Button north;
     private Button east;
     private Button south;
     private Button west;
-    //private Button yes;
-    //private Button no;
-
     private ToggleButton inventory;
     private Button map;
-
     private boolean gameWon;
-    private Scanner scan;
-    private String choice;
-    private boolean fled;
     private Player p;
-    private Location l;
+    private Location location;
     private Shop s;
     public ArrayList<Location> allLocs;
-
     private boolean invBtnActive = false;
+
 
     @FXML
     private TextArea text;
@@ -74,6 +59,47 @@ public class Adventure
     private TextField invInputText;
 
 
+    /**
+     * Images
+     */
+    private Image homeImg;
+    private Image townImg;
+    private Image forestImg;
+    private Image grottoImg;
+    private Image caveImg;
+    private Image altarImg;
+    private Image shopImg;
+    private Image meadowImg;
+    private Image coveImg;
+    private Image lakeImg;
+    private Image reefImg;
+    private Image mountainImg;
+    private Image icyPassImg;
+    private Image twinPeakImg;
+    private Image pathImg;
+    private Image graveyardImg;
+    private Image treeImg;
+    private Image hellImg;
+    private Image endImg;
+    private Image tundraImg;
+    private Image gateImg;
+    private Image castleImg;
+    private Image swampImg;
+    private Image cabinImg;
+    private Image gameOverImg;
+    private Image skeletonImg;
+    private Image skeletonImg2;
+    private Image spritieImg;
+    private Image lizardImg;
+    private Image landSharkImg;
+    private Image llamaImg;
+    private Image godImg;
+    private Image wyvernImg;
+    private Image dagonImg;
+    private Image ghostGirlImg;
+    private Image princeImg;
+    private Image alrothiaImg;
+    private Image forestSpiritImg;
 
     private Image homeImg;
     private Image townImg;
@@ -119,29 +145,14 @@ public class Adventure
     private Image alrothiaImg;
     private Image forestSpiritImg;
 
-    //public AudioClip laugh;
 
-
-    //default constructor
     public Adventure() {
-        /*
-        this.health = 150.0; //sets players default health to 100
-        this.playerName = "NotSet"; //sets players default name as not set
-        this.damage = 10.0; //sets players default damage as 10
-        this.wallet = 100.0; //sets players default wallet as $0
-        this.jobSkill = "NotSet"; //sets players default skill as not set
-        this.weapon = "wooden stick"; //sets players default weapon as no weapon
-        this.alive = true; //sets players default status to alive
-        */
 
-        this.scan = new Scanner(System.in); //enables system to scan for players response
         this.gameWon = false;
         this.p = new Player();
-        this.l = new Location();
+        this.location = new Location();
         this.s = new Shop();
         this.allLocs = new ArrayList<Location>();
-        this.choice = "";
-        this.fled = false;
 
         this.homeImg = new Image("locations/rsz_bedroom2.jpg");
         this.townImg = new Image("locations/rsz_nighttown.jpg");
@@ -170,14 +181,13 @@ public class Adventure
         this.cabinImg = new Image("locations/cabin.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
 
+
         this.skeletonImg = new Image("monsters/skeletonwarrior.gif");
         this.skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
         this.spritieImg = new Image("monsters/spritie.gif");
         this.lizardImg = new Image("monsters/lizardman.gif");
         this.landSharkImg = new Image("monsters/landshark.gif");
-        //this.shamanImg = new Image("monsters/shaman.gif");
         this.llamaImg = new Image("monsters/llama.gif");
-        //this.wolfBeastImg = new Image("monsters/wolfbeast.gif");
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
@@ -194,6 +204,9 @@ public class Adventure
     }
 
 
+    /**
+     * Init. Things. This should be only called once.
+     */
     public void initialize()
     {
         inventoryPane.setVisible(false);
@@ -220,18 +233,6 @@ public class Adventure
 
         });
 
-
-        /*if (p.getCurrentLoc().getMonsters().size() > 0)
-        {
-            ArrayList<Monster> monsters = p.getCurrentLoc().getMonsters();
-            Monster randomMob = monsters.get(random_int(0, monsters.size()));
-
-            doBattle(randomMob); //does multibattle if there are monsters
-        }
-        */
-
-
-
         //rest to restore health at home
         if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
 
@@ -243,9 +244,9 @@ public class Adventure
     } //end initialize
 
 
-
-    //methods
-    //starts a new method by setting the playerName
+    /**
+     * Start the Adventure
+     */
     public void startAdventure()
     {
         //welcome user
@@ -260,90 +261,55 @@ public class Adventure
         //sets start location
         this.setNewLoc("START");
 
-        while(p.alive)
-        {
-            if(p.getCurrentLoc().getMonsters().size() > 0)
-            {
+        while(p.alive) {
+
+            if(p.getCurrentLoc().getMonsters().size() > 0) {
+
                 ArrayList<Monster> monsters = p.getCurrentLoc().getMonsters();
                 Monster randomMob = monsters.get(random_int(0, monsters.size()));
-
                 doBattle(randomMob); //does multibattle if there are monsters
-                if(p.alive && randomMob.getName().equals("GOD"))
-                {
+
+                if(p.alive && randomMob.getName().equals("GOD")) {
+
                     this.win();
                     text.setText("You have beaten the steam sales, you have won life!" + "\n");
                     text.appendText("Play again? (Y/N)" + "\n");
                     String answer = inputText.getText();
                     answer = answer.toUpperCase();
-                    if (answer.equals("Y")) //if they want to play again
-                    {
+                    if (answer.equals("Y")) //if they want to play again{
                         text.setText("Alright! Let's go!" + "\n");
                         this.reset();
-                    }
-                    else //if they want to quit
-                    {
+                    } else {
                         text.appendText("Wow. What a skrub, okay bye." + "\n");
                         System.out.close();
                     }
 
                 }
 
-            }
+            } //end while
 
-            //move system
-            /*
-            System.out.println("Which way do you want to go? (N, E, S, W)");
-            String move = scan.nextLine();
-            p.makeMove(move);
-            */
-
-            //monster
-            //Monster dragon = new Monster("Adolescent Dragon", 45, 7, true); //sets the name, health, damage, and life status
-            //this.doBattle(dragon); //initiates battle with dragon
-
-            //makes a monsterArray and has player fight the monsters in the array
-
-            //Monster[] mobMonsters = this.makeMonsterArray();
-            //this.multiBattle(mobMonsters);
 
             //rest to restore health at home
-            if (p.currentLoc.getID().equals("START") && p.getHealth() < 100)
-            {
+            if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
+
                 p.setHealth(100.0);
                 text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
+
             }
-            /*
-            if (p.currentLoc.getID().equals("STORE"))
-            {
-               this.doShop();
-            }
-            */
+
+    } //end adventure
 
 
-        }
-
-    }
-
-
-    //takes a monster and simulates a battle until the monster or player dies
-    private void doBattle(Monster enemy)
-    {
+    /**
+     * Takes a monster and simulates a battle until the monster or player dies
+     */
+    private void doBattle(Monster enemy) {
         //first time run
         text.appendText("\n" + "A wild " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
 
-        /*
-        if (enemy.getName().equals("GOD"))
-        {
-            this.laugh = new AudioClip(this.getClass().getResource("laugh.mp3").toExternalForm());
-            laugh.play();
-        }
-        */
-
-
-        //System.out.println("Player Health: " + p.alive + " Enemy health: " +  enemy.isAlive() );
         //Prompts user to attack or run
         text.appendText("Attack " + enemy.getName() + "? (Y/N) " + "\n");
 
@@ -413,120 +379,92 @@ public class Adventure
     } //end doBattle
 
 
-    //Resets adventure to default
-    private void reset()
-    {
+    /**
+     * Resets adventure to default
+     */
+    private void reset() {
         this.gameWon = false;
         p.alive = true;
         this.setNewLoc("START");
+
     }
 
 
-
-    //setters and getters
-    /*public double getHealth() //gets health
-    {
-        return this.health;
-    }
-
-    public void setHealth(double newhealth) //sets health
-    {
-        this.health = newhealth;
-    }
-
-    public double getDamage() //gets damage
-    {
-        return this.damage;
-    }
-    */
-
-    //check if player/monster is alive
-    /*
-    public void checkLife()
-    {
-        if (p.health <= 0)
-        {
-            if (p.health < 0 )
-            {
-                p.health = 0.0;
-                p.alive = false;
-            }
-            else
-            {
-                p.alive = false;
-            }
-        }
-    }
-    */
-
-    public static int random_int(int Min, int Max)
-    {
-        return (int) (Math.random()*(Max-Min))+Min;
-    }
+    /**
+     * Generate a random int
+     * @param min smalled number expected
+     * @param max largest number expected
+     * @return a random int
+     */
+    public static int random_int(int min, int max) { return (int) (Math.random()*(max-min))+min; }
 
 
-    //set and get gameWon
-    public void win()
-    {
-        this.gameWon = true;
-    }
+    /**
+     * YOU WON!
+     */
+    public void win() { this.gameWon = true; }
 
 
-    public boolean won()
-    {
-        return this.gameWon;
-    }
+    /**
+     * Did you win?
+     * @return true if won; false if not yet won
+     */
+    public boolean won() { return this.gameWon; }
 
 
+    /**
+     * Creates the monster's array. Should only be called when resetting the array of monsters.
+     * @return array of monsters
+     */
     public ArrayList<Monster> makeMonsterArray()
     {
         //make 3 monsters
-        Monster mob1 = new Monster("skrub", 20, 5, 25, true, skeletonImg);
-        Monster mob2= new Monster("skrublord", 25, 10, 45, true, skeletonImg2);
-        Monster mob3 = new Monster("land shark", 20, 20, 60, true, landSharkImg);
-        Monster mob4 = new Monster("Wolf Beast", 20, 20, 70, true, wolfBeastImg);
-        Monster mob5 = new Monster("llama", 20, 15, 30, true, llamaImg);
-        Monster mob6 = new Monster("smurf", 25, 15, 50, true, spritieImg);
-        Monster mob7 = new Monster("Lizardman", 25, 15, 100, true, lizardImg);
-        Monster mob8 = new Monster("Shaman", 25, 15, 90, true, shamanImg);
+        Monster skrub = new Monster("skrub", 20, 5, 25, true, skeletonImg);
+        Monster skrublord= new Monster("skrublord", 25, 10, 45, true, skeletonImg2);
+        Monster landShark = new Monster("land shark", 20, 20, 60, true, landSharkImg);
+        Monster llama = new Monster("llama", 20, 15, 30, true, llamaImg);
+        Monster smurf = new Monster("smurf", 25, 15, 50, true, spritieImg);
+        Monster lizardman = new Monster("Lizardman", 25, 15, 100, true, lizardImg);
 
         //create a Monster array
         ArrayList<Monster> mobCollection = new ArrayList<Monster>();
 
         //put the monsters in the array
-        mobCollection.add(mob1);
-        mobCollection.add(mob2);
-        mobCollection.add(mob3);
-        mobCollection.add(mob4);
-        mobCollection.add(mob5);
-        mobCollection.add(mob6);
-        mobCollection.add(mob7);
-        mobCollection.add(mob8);
+        mobCollection.add(skrub);
+        mobCollection.add(skrublord);
+        mobCollection.add(landShark);
+        mobCollection.add(llama);
+        mobCollection.add(smurf);
+        mobCollection.add(lizardman);
 
         //return the array
         return mobCollection;
 
-    } //end makeMonsterArray
-
-
-    //multibattle takes in an array of monsters and does battle with each of them if the player is in the forest
-    public void multiBattle(ArrayList<Monster> allMobs)
-    {
-        for(Monster aMob : allMobs)
-        {
-            this.doBattle(aMob);
-        }
-
     }
 
 
-    //set/get currentLoc
-    public String checkLocID()
+    /**
+     * Multibattle takes in an array of monsters and does battle with each of them if the player is in the forest
+     */
+    public void multiBattle(ArrayList<Monster> arrayOfMonsters)
     {
-        return p.currentLoc.getID();
+        for(Monster mob : arrayOfMonsters)
+            this.doBattle(mob);
     }
 
 
+    /**
+     * Get the current LocID
+     * @return String of current location ID
+     */
+    public String checkLocID() { return p.currentLoc.getID(); }
+
+
+    /**
+     * Gets a sinle locaion baised off a location String ID
+     * @param ID Location's ID
+     * @return the Location
+     */
     private Location getSingleLoc(String ID)
     {
         Location singleLoc = null;
@@ -542,14 +480,10 @@ public class Adventure
         return singleLoc;
     }
 
-/*
-    public Location getCurrentLoc()
-    {
-        return this.currentLoc;
-    }
-*/
 
-
+    /**
+     * doShop function to run the shop
+     */
     private void doShop()
     {
         s.initializeShopInventory();
@@ -595,6 +529,10 @@ public class Adventure
     } //end doShop
 
 
+    /**
+     * Sets a new location
+     * @param ID new Location
+     */
     private void setNewLoc(String ID)
     {
 
@@ -609,8 +547,7 @@ public class Adventure
 
 
         p.currentLoc = this.getSingleLoc(ID);
-        if(p.currentLoc == null)
-        {
+        if(p.currentLoc == null) {
 
             text.appendText("You have been killed!" + "\n");
             imagePane.setImage(gameOverImg);
@@ -631,21 +568,26 @@ public class Adventure
             p.setHealth(100.0);
             playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n");
             text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
+
         } else if(p.currentLoc.getID().equals("STORE")) {
 
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             doShop();
+
         } else {
 
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
 
         }
-    } //end setNewLoc
+
+    }
 
 
-    //creates all locations for the game and puts them in allLocs
+    /**
+     * Creates all locations for the game and puts them in allLocs. Should only be called once
+     */
     public void initLocs()
     {
         Location start = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, homeImg);
@@ -805,7 +747,6 @@ public class Adventure
         end.addMonster(god);
 
 
-
         //add Locations to allLocs
         this.allLocs.add(start);
         this.allLocs.add(meadow);
@@ -840,12 +781,15 @@ public class Adventure
         this.allLocs.add(mountain);
         this.allLocs.add(hell);
         this.allLocs.add(end);
+
     }
 
 
-    //makes a move based on user input
-    public void makeMove(String move)
-    {
+    /**
+     * Makes a move based on user input
+     */
+    public void makeMove(String move) {
+
         ArrayList<String> locExits = p.currentLoc.getExits();
         if (locExits.contains(move))
             this.setNewLoc(p.currentLoc.getConnectedLoc(move));
@@ -853,43 +797,18 @@ public class Adventure
         else
             text.appendText("\n" + "Cannot go in that direction");
 
+    }
 
 
-        /*
-        else
-        {
-            imagePane.setImage(gameOverImg);
-            text.appendText("You have been destroyed by the world!" + "\nGAME OVER" + "\n");
-            p.alive = false;
-            text.appendText("\nPlay again? (Y/N)" + "\n");
-            inputText.setOnAction(event ->
-            {
+    /**
+     * Center Mob Image Function
+     */
+    public void centerMobImage() {
 
-            String answer = inputText.getText();
-            answer = answer.toUpperCase();
-            //String answer = this.choice;
-            if (answer.equalsIgnoreCase("y")) //if they want to play again
-            {
-                text.appendText("Alright! Let's go!" + "\n");
-                this.reset();
-            }
-            else //if they want to quit
-            {
-                text.appendText("Wow. What a skrub, okay bye." + "\n");
-                System.out.close();
-            }
-        });
-        }
-        */
-    } //end makeMove
-
-
-    public void centerMobImage()
-    {
         Image img = mobImagePane.getImage();
         if (img != null) {
-            double w = 0;
-            double h = 0;
+            double width = 0;
+            double height = 0;
 
             double ratioX = mobImagePane.getFitWidth() / img.getWidth();
             double ratioY = mobImagePane.getFitHeight() / img.getHeight();
@@ -901,15 +820,15 @@ public class Adventure
                 reducCoeff = ratioX;
             }
 
-            w = img.getWidth() * reducCoeff;
-            h = img.getHeight() * reducCoeff;
+            width = img.getWidth() * reducCoeff;
+            height = img.getHeight() * reducCoeff;
 
-            mobImagePane.setX((mobImagePane.getFitWidth() - w) / 2);
-            mobImagePane.setY((mobImagePane.getFitHeight() - h) / 2);
+            mobImagePane.setX((mobImagePane.getFitWidth() - width) / 2);
+            mobImagePane.setY((mobImagePane.getFitHeight() - height) / 2);
 
         }
 
-    } //end centerMobImage
+    }
 
 
     /**
@@ -917,10 +836,8 @@ public class Adventure
      * Buttons
      */
 
-
     @FXML protected void handleNorthButtonPressed(ActionEvent event)
     {
-        //text.appendText("Moved north!" + "\n");
         this.makeMove("N");
     }
 
@@ -946,12 +863,13 @@ public class Adventure
             invBtnActive = false;
             inventoryPane.setVisible(invBtnActive);
 
-
         } else {
+
             invBtnActive = true;
 
             inventoryPane.setVisible(invBtnActive);
             invText.setText(p.printInventory());
+
             invInputText.setOnAction(event2 ->
             {
                 String choice = invInputText.getText();
@@ -970,26 +888,9 @@ public class Adventure
 
 
             });
+
         }
+
     }
 
-/*
-    @FXML protected boolean handleYesButtonPressed(ActionEvent event)
-    {
-        this.choice = "Y";
-        //text.appendText("Yes was pressed!" + "\n");
-        return true;
-    }
-    */
-/*
-    @FXML protected boolean handleNoButtonPressed(ActionEvent event)
-    {
-        this.choice = "N";
-        //text.appendText("No was pressed!" + "\n");
-        return true;
-    }
-*/
-
-
-
-} //end class
+}

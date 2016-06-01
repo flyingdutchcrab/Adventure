@@ -1,6 +1,6 @@
 package Classwork.FinalExamProject;
 
-import javax.swing.*;
+
 import java.util.*;
 
 import javafx.fxml.FXML;
@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 /**
  * Created by andrewbrook on 5/13/16.
  */
+
 public class Shop
 {
 
@@ -59,7 +60,10 @@ public class Shop
 
     }
 
-    @Override
+    /**
+     * toString
+     * @return toString
+     */
     public String toString() {
         return printShopInventory();
     }
