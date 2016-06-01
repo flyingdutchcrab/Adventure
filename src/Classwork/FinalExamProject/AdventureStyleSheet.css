@@ -2,7 +2,7 @@
     {
         font-family: '8-bit Operator Mono';
         src: url('fonts/8-bit_operator_mono-regular-webfont.eot');
-        src url('fonts/8-bit_operator_mono-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        src: url('fonts/8-bit_operator_mono-regular-webfont.eot?#iefix') format('embedded-opentype'),
             url('fonts/8-bit_operator_mono-regular-webfont.woff2') format('woff2'),
             url('fonts/8-bit_operator_mono-regular-webfont.woff') format('woff'),
             url('fonts/8-bit_operator_mono-regular-webfont.ttf') format('truetype'),
