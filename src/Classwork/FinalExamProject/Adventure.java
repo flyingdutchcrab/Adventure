@@ -78,6 +78,7 @@ public class Adventure
     public Image homeImg;
     public Image townImg;
     public Image forestImg;
+    public Image grottoImg;
     public Image caveImg;
     public Image altarImg;
     public Image shopImg;
@@ -95,6 +96,7 @@ public class Adventure
     public Image endImg;
     public Image tundraImg;
     public Image gateImg;
+    public Image castleImg;
     public Image swampImg;
     public Image cabinImg;
     public Image gameOverImg;
@@ -105,12 +107,16 @@ public class Adventure
     public Image spritieImg;
     public Image lizardImg;
     public Image landSharkImg;
+    public Image shamanImg;
     public Image llamaImg;
-    public Image mingeImg;
+    public Image wolfBeastImg;
     public Image godImg;
     public Image wyvernImg;
     public Image dagonImg;
     public Image ghostGirlImg;
+    public Image princeImg;
+    public Image alrothiaImg;
+    public Image forestSpiritImg;
 
     //public AudioClip laugh;
 
@@ -143,6 +149,7 @@ public class Adventure
         this.treeImg = new Image("locations/hangingtree.gif");
         this.forestImg = new Image("locations/bestforest.gif");
         this.meadowImg = new Image("locations/bettermeadow.gif");
+        this.grottoImg = new Image("locations/bettergrotto.png");
         this.lakeImg = new Image("locations/finallake.gif");
         this.coveImg = new Image("locations/covefinal.gif");
         this.reefImg = new Image("locations/reef.jpg");
@@ -156,6 +163,7 @@ public class Adventure
         this.endImg = new Image("locations/scarybackground.gif");
         this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
         this.gateImg = new Image("locations/castlegate2.gif");
+        this.castleImg = new Image("locations/wintercastle.jpg");
         this.swampImg = new Image("locations/8bitswamp.gif");
         this.cabinImg = new Image("locations/cabin.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
@@ -165,12 +173,16 @@ public class Adventure
         this.spritieImg = new Image("monsters/spritie.gif");
         this.lizardImg = new Image("monsters/lizardman.gif");
         this.landSharkImg = new Image("monsters/landshark.gif");
+        this.shamanImg = new Image("monsters/shaman.gif");
         this.llamaImg = new Image("monsters/llama.gif");
-        this.mingeImg = new Image("monsters/minge.gif");
+        this.wolfBeastImg = new Image("monsters/wolfbeast.gif");
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
         this.wyvernImg = new Image("monsters/rathian.gif");
+        this.princeImg = new Image("monsters/fireprince.gif");
+        this.alrothiaImg = new Image("monsters/alrothia.gif");
+        this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
 
         allLocs = new ArrayList<Location>();
@@ -470,10 +482,11 @@ public class Adventure
         Monster mob1 = new Monster("skrub", 20, 5, 25, true, skeletonImg);
         Monster mob2= new Monster("skrublord", 25, 10, 45, true, skeletonImg2);
         Monster mob3 = new Monster("land shark", 20, 20, 60, true, landSharkImg);
-        Monster mob4 = new Monster("mingebag", 15, 5, 20, true, mingeImg);
+        Monster mob4 = new Monster("Wolf Beast", 20, 20, 70, true, wolfBeastImg);
         Monster mob5 = new Monster("llama", 20, 15, 30, true, llamaImg);
         Monster mob6 = new Monster("smurf", 25, 15, 50, true, spritieImg);
         Monster mob7 = new Monster("Lizardman", 25, 15, 100, true, lizardImg);
+        Monster mob8 = new Monster("Shaman", 25, 15, 90, true, shamanImg);
 
         //create a Monster array
         ArrayList<Monster> mobCollection = new ArrayList<Monster>();
@@ -486,6 +499,7 @@ public class Adventure
         mobCollection.add(mob5);
         mobCollection.add(mob6);
         mobCollection.add(mob7);
+        mobCollection.add(mob8);
 
         //return the array
         return mobCollection;
@@ -649,8 +663,11 @@ public class Adventure
         forest.addMonster(noob);
         forest.setAllMonsters(this.makeMonsterArray());
 
-        Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, null);
+        Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg);
         grotto.addExit("E", "FOREST");
+        Monster forestSpirit = new Monster("Forest Spirit", 300, 35, 9000, true, forestSpiritImg);
+        grotto.addMonster(forestSpirit);
+
 
         Location town = new Location("town", "TOWN", "You are in a small town. There is a massive menacing mountain over the northern horizon, a store to the west, and a forgotten path to the east.", false, townImg);
         town.addExit("N", "MOUNTAIN");
@@ -735,11 +752,14 @@ public class Adventure
         gate.addExit("N", "CASTLE");
         gate.addExit("S", "MOUNTAIN");
 
-        Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, null);
+
+        Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, castleImg);
         castle.addExit("N", "HALL");
         castle.addExit("E", "BARRACKS");
         castle.addExit("S", "GATE");
         castle.addExit("W", "ARMORY");
+
+
 
         Location barracks = new Location("barracks", "BARRACKS", "You are at the barracks, a lot of faithful servants to the land were properly here", false, null);
         barracks.addExit("W", "CASTLE");
@@ -755,6 +775,8 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
         etower.addExit("W", "HALL");
+        Monster alrothia = new Monster("Alrothia", 400, 45, 2000, true, alrothiaImg);
+        etower.addMonster(alrothia);
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
         wtower.addExit("E", "HALL");
@@ -762,6 +784,8 @@ public class Adventure
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null);
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
+        Monster prince = new Monster("Prince Jerry", 400, 45, 2000, true, princeImg);
+        sanctum.addMonster(prince);
 
         Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null);
         throne.addExit("N", "CHAMBER");
