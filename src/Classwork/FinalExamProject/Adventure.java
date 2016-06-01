@@ -173,9 +173,9 @@ public class Adventure
         this.spritieImg = new Image("monsters/spritie.gif");
         this.lizardImg = new Image("monsters/lizardman.gif");
         this.landSharkImg = new Image("monsters/landshark.gif");
-        this.shamanImg = new Image("monsters/shaman.gif");
+        //this.shamanImg = new Image("monsters/shaman.gif");
         this.llamaImg = new Image("monsters/llama.gif");
-        this.wolfBeastImg = new Image("monsters/wolfbeast.gif");
+        //this.wolfBeastImg = new Image("monsters/wolfbeast.gif");
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
