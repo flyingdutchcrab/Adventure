@@ -75,48 +75,49 @@ public class Adventure
 
 
 
-    public Image homeImg;
-    public Image townImg;
-    public Image forestImg;
-    public Image grottoImg;
-    public Image caveImg;
-    public Image altarImg;
-    public Image shopImg;
-    public Image meadowImg;
-    public Image coveImg;
-    public Image lakeImg;
-    public Image reefImg;
-    public Image mountainImg;
-    public Image icyPassImg;
-    public Image twinPeakImg;
-    public Image pathImg;
-    public Image graveyardImg;
-    public Image treeImg;
-    public Image hellImg;
-    public Image endImg;
-    public Image tundraImg;
-    public Image gateImg;
-    public Image castleImg;
-    public Image swampImg;
-    public Image cabinImg;
-    public Image gameOverImg;
+    private Image homeImg;
+    private Image townImg;
+    private Image forestImg;
+    private Image grottoImg;
+    private Image caveImg;
+    private Image altarImg;
+    private Image shopImg;
+    private Image meadowImg;
+    private Image coveImg;
+    private Image lakeImg;
+    private Image reefImg;
+    private Image mountainImg;
+    private Image icyPassImg;
+    private Image twinPeakImg;
+    private Image pathImg;
+    private Image graveyardImg;
+    private Image catacombsImg;
+    private Image treeImg;
+    private Image hellImg;
+    private Image endImg;
+    private Image tundraImg;
+    private Image gateImg;
+    private Image castleImg;
+    private Image swampImg;
+    private Image cabinImg;
+    private Image gameOverImg;
 
 
-    public Image skeletonImg;
-    public Image skeletonImg2;
-    public Image spritieImg;
-    public Image lizardImg;
-    public Image landSharkImg;
-    public Image shamanImg;
-    public Image llamaImg;
-    public Image wolfBeastImg;
-    public Image godImg;
-    public Image wyvernImg;
-    public Image dagonImg;
-    public Image ghostGirlImg;
-    public Image princeImg;
-    public Image alrothiaImg;
-    public Image forestSpiritImg;
+    private Image skeletonImg;
+    private Image skeletonImg2;
+    private Image spritieImg;
+    private Image lizardImg;
+    private Image landSharkImg;
+    private Image shamanImg;
+    private Image llamaImg;
+    private Image wolfBeastImg;
+    private Image godImg;
+    private Image wyvernImg;
+    private Image dagonImg;
+    private Image ghostGirlImg;
+    private Image princeImg;
+    private Image alrothiaImg;
+    private Image forestSpiritImg;
 
     //public AudioClip laugh;
 
@@ -146,6 +147,7 @@ public class Adventure
         this.townImg = new Image("locations/rsz_nighttown.jpg");
         this.pathImg = new Image("locations/forgottenpath.gif");
         this.graveyardImg = new Image("locations/graveyard.gif");
+        this.catacombsImg = new Image("locations/catacombs.gif");
         this.treeImg = new Image("locations/hangingtree.gif");
         this.forestImg = new Image("locations/bestforest.gif");
         this.meadowImg = new Image("locations/bettermeadow.gif");
@@ -154,7 +156,7 @@ public class Adventure
         this.coveImg = new Image("locations/covefinal.gif");
         this.reefImg = new Image("locations/reef.jpg");
         this.caveImg = new Image("locations/crystalcave.gif");
-        this.altarImg = new Image("locations/altar.gif");
+        this.altarImg = new Image("locations/chamber.gif");
         this.shopImg = new Image("locations/shopanim3.gif");
         this.mountainImg = new Image("locations/mountain.gif");
         this.icyPassImg = new Image("locations/icypass.gif");
@@ -722,7 +724,7 @@ public class Adventure
         Monster ghostGirl = new Monster("Vengeful Spirit", 300, 35, 9000, true, ghostGirlImg);
         tree.addMonster(ghostGirl);
 
-        Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, null);
+        Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, catacombsImg);
         catacombs.addExit("S", "GRAVEYARD");
 
         Location tundra = new Location("tundra", "TUNDRA", "You are in a freezing tundra, not much is happening here...", false, tundraImg);
