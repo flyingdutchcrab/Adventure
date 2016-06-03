@@ -88,8 +88,6 @@ public class Adventure
     private Image swampImg;
     private Image cabinImg;
     private Image gameOverImg;
-
-
     private Image skeletonImg;
     private Image skeletonImg2;
     private Image spritieImg;
@@ -158,7 +156,7 @@ public class Adventure
         this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
 
-        allLocs = new ArrayList<Location>();
+        allLocs = new ArrayList<>();
         initLocs();
 
 
@@ -202,7 +200,7 @@ public class Adventure
         }
 
 
-    } //end initialize
+    }
 
 
     /**
