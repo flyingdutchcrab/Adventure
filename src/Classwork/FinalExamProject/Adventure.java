@@ -748,12 +748,17 @@ public class Adventure
      * Makes a move based on user input
      */
     public void makeMove(String move) {
+        if (p.currentLoc.getExits().contains(move)) {
+            for (int i = 0; i < allLocs.size(); i++)
+                if ((allLocs.get(i).getID().equalsIgnoreCase(p.currentLoc.getConnectedLoc(move))))
+                    if (!allLocs.get(i).isLocked()) {
+                        this.setNewLoc(p.currentLoc.getConnectedLoc(move));
+                        break;
+                    } else
+                        text.appendText("\nThat direction, " + move + ", is locked. Try again later. \n\n");
 
-        ArrayList<String> locExits = p.currentLoc.getExits();
-        if (locExits.contains(move))
-            this.setNewLoc(p.currentLoc.getConnectedLoc(move));
 
-        else
+        } else
             text.appendText("\n" + "Cannot go in that direction");
 
     }
