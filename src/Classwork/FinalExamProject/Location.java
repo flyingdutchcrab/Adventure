@@ -28,6 +28,7 @@ public class Location
     private Player p;
     @FXML public TextArea text;
     @FXML public TextArea inputText;
+    String keyItemUnlock;
 
 
     public Location()
@@ -38,6 +39,7 @@ public class Location
         this.image = null;
         this.p = new Player();
         this.locked = false;
+        this.keyItemUnlock = "";
 
     }
 
@@ -52,6 +54,30 @@ public class Location
         connectedLocs = new ArrayList<String>();
         monsters = new ArrayList<Monster>();
         strayItems = new ArrayList<Item>();
+        this.keyItemUnlock = "";
+
+        if (isLocked && keyItemUnlock.isEmpty())
+            System.out.println("WARNING: NO UNLOCK ITEM SET IN " + name + ", " + id);
+
+
+    }
+
+    public Location (String name, String id, String desc, boolean isLocked, Image img, String keyItemUnlock) {
+        this.Name = name;
+        this.id = id;
+        this.description = desc;
+        this.locked = isLocked;
+        this.image = img;
+        exits = new ArrayList<String>();
+        connectedLocs = new ArrayList<String>();
+        monsters = new ArrayList<Monster>();
+        strayItems = new ArrayList<Item>();
+        this.keyItemUnlock = keyItemUnlock;
+
+
+        if (isLocked && keyItemUnlock.isEmpty())
+            System.out.println("WARNING: NO UNLOCK ITEM SET");
+
 
     }
 
@@ -117,10 +143,7 @@ public class Location
 
     public ArrayList<Monster> getMonsters() { return monsters; }
 
-    public ArrayList<Item> getStrayItems()
-    {
-        return strayItems;
-    }
+    public ArrayList<Item> getStrayItems() { return strayItems; }
 
     public void setAllMonsters(ArrayList<Monster> newMonsters) { this.monsters = newMonsters; }
 
@@ -128,5 +151,10 @@ public class Location
 
     public void removeStrayItem(Item item) { strayItems.remove(item); }
 
+    public String getKeyItemUnlock() { return keyItemUnlock; }
+
+    public ArrayList<String> getConnectedLocs() { return connectedLocs; }
+
+    public boolean isKeyItem(String key) { return keyItemUnlock.equalsIgnoreCase(key); }
 
 } //end class

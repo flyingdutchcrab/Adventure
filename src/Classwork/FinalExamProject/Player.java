@@ -113,17 +113,15 @@ public class Player
 
 
     /**
-     * Check if player has Key Item in their inventory
-     * @param keyItemName the key item
+     * Check if player has a Item in their inventory
+     * @param item the item to search for
      * @return true if player has item; false if no item found
      */
-    public boolean hasKeyItem(String keyItemName) {
-
-        boolean found = false;
+    public boolean containsItem(String item) {
 
         for (int i = 0; i < this.inventory.size(); i++)
-            if (this.inventory.get(i).getItemName().equals(keyItemName))
-                return  true;
+            if (this.inventory.get(i).getItemName().equalsIgnoreCase(item))
+                return true;
 
         return false;
 

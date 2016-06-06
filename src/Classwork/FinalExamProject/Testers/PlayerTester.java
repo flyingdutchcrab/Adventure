@@ -5,8 +5,6 @@ import Classwork.FinalExamProject.KeyItem;
 import Classwork.FinalExamProject.Player;
 import Classwork.FinalExamProject.Weapon;
 
-import Classwork.FinalExamProject.*;
-
 /**
  * Created by andrewbrook on 5/13/16.
  */
@@ -25,7 +23,7 @@ public class PlayerTester
         p.inventory.add(sword);
         p.inventory.add(key);
 
-        if (p.hasKeyItem("Gate Key"))
+        if (p.containsItem("Gate Key"))
         {
             System.out.println("Player has key");
         }
