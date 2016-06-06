@@ -898,15 +898,25 @@ public class Adventure
                 for (int i = 0; i < p.inventory.size(); i++) {
                     if (choice.equalsIgnoreCase(p.inventory.get(i).getItemName())) {
                         if (p.inventory.get(i) instanceof Weapon) {
+                            invInputText.deleteText(0, invInputText.getLength());
                             p.equipWeapon(p.inventory.get(i));
+                            inputText.deleteText(0, inputText.getLength());
                             playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
                         } else if (p.inventory.get(i) instanceof Armor) {
+                            invInputText.deleteText(0, invInputText.getLength());
                             p.equipArmor(p.inventory.get(i));
                         }
+                        else if (p.inventory.get(i) instanceof KeyItem && p.inventory.get(i).getItemName().equalsIgnoreCase("Eye Rune"))
+                        {
+                            invInputText.deleteText(0, invInputText.getLength());
+                            invText.appendText("\nYour insight level: " + p.getInsight() + "\n");
+                        }
                     } else {
-                        invText.appendText("Item not recognized");
+                        invInputText.deleteText(0, invInputText.getLength());
+                        invText.appendText("\nItem not recognized" + "\n");
                     }
                 }
+
 
 
             });

@@ -13,6 +13,7 @@ public class Player
     private double health;
     private double damage;
     private int level;
+    private int insight;
     private int xp;
     private String playerName;
     private String jobSkill;
@@ -33,6 +34,7 @@ public class Player
         this.damage = 10.0; //sets players default damage as 10
         this.level = 1;
         this.xp = 0;
+        this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
         this.jobSkill = "NotSet"; //sets players default skill as not set
         Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
@@ -148,21 +150,26 @@ public class Player
 
     public void setHealth(double newhealth) { this.health = newhealth; }
 
-    public int getLevel(int level)
+    public int getLevel()
     {
         return this.level;
     }
 
-    public int getXp(int xp)
+    public int getXp()
     {
         return this.xp;
+    }
+
+    public int getInsight()
+    {
+        return this.insight;
     }
 
     public double getDamage() { return this.damage; }
 
     public double getWallet() { return this.wallet; }
 
-    public void addWallet(double ammount) { wallet += ammount;}
+    public void addWallet(double amount) { wallet += amount;}
 
     public Item getWeapon() { return this.weapon; }
 
