@@ -520,6 +520,34 @@ public class Adventure
             Monster randomMob = monsters.get(random_int(0, monsters.size()));
             doBattle(randomMob); //does multibattle if there are monsters
 
+        } else if (p.getCurrentLoc().getStrayItems().size() > 0) {
+            text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
+            imagePane.setImage(p.getCurrentLoc().getImage());
+            text.appendText("There is an item here! Pick it up? (Y/N)" + "\n" );
+            Item strayItemFound = p.currentLoc.getStrayItems().get(random_int(0, p.currentLoc.getStrayItems().size())); //Item
+            inputText.setOnAction(event ->
+            {
+                String theInputText = inputText.getText();
+                inputText.deleteText(0, theInputText.length());
+                if (theInputText.equalsIgnoreCase("y"))
+                {
+                    p.inventory.add(strayItemFound);
+                    p.currentLoc.removeStrayItem(strayItemFound);
+                    text.appendText("You picked up the " + strayItemFound.getItemName() + "\n");
+
+                }
+                else if(theInputText.equalsIgnoreCase("n"))
+                {
+                    text.appendText("You chose to leave the " + strayItemFound.getItemName() + "\n");
+                }
+                else
+                {
+                    text.appendText("Unrecognized command" + "\n");
+                }
+
+
+            });
+
         } else if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
 
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
@@ -608,6 +636,8 @@ public class Adventure
 
         Location cabin = new Location("abandoned cabin", "CABIN", "You are in an abandoned cabin, the walls are rotting and the floor is overgrown", false, cabinImg);
         cabin.addExit("W", "SWAMP");
+        Item rune = new KeyItem("Eye Rune", 1000, "Reveals secrets, if you are smart enough to find them");
+        cabin.addStrayItem(rune);
 
         Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, pathImg);
         path.addExit("N", "TUNDRA");
@@ -694,7 +724,7 @@ public class Adventure
         throne.addExit("N", "CHAMBER");
         throne.addExit("S", "SANCTUM");
 
-        Location chamber = new Location("ling's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, null);
+        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, null);
         chamber.addExit("S", "THRONE");
 
 

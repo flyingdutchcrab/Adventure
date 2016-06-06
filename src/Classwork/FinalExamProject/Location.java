@@ -23,6 +23,7 @@ public class Location
     private ArrayList<String> exits;
     private ArrayList<String> connectedLocs;
     private ArrayList<Monster> monsters;
+    private ArrayList<Item> strayItems;
     //public ArrayList<Location> allLocs;
     private Player p;
     @FXML public TextArea text;
@@ -50,6 +51,7 @@ public class Location
         exits = new ArrayList<String>();
         connectedLocs = new ArrayList<String>();
         monsters = new ArrayList<Monster>();
+        strayItems = new ArrayList<Item>();
 
     }
 
@@ -83,6 +85,11 @@ public class Location
      */
     public void addMonster(Monster monster) { monsters.add(monster); }
 
+    public void addStrayItem(Item item)
+    {
+        strayItems.add(item);
+    }
+
 
     /**
      * Getters and setters
@@ -104,16 +111,22 @@ public class Location
 
     public boolean isLocked() { return locked; }
 
-
     public ArrayList<String> getExits () { return this.exits; }
 
     public String getConnectedLoc(String exit) { return this.connectedLocs.get(exits.indexOf(exit)); }
 
     public ArrayList<Monster> getMonsters() { return monsters; }
 
+    public ArrayList<Item> getStrayItems()
+    {
+        return strayItems;
+    }
+
     public void setAllMonsters(ArrayList<Monster> newMonsters) { this.monsters = newMonsters; }
 
     public String checkLocID() { return p.currentLoc.getID(); }
+
+    public void removeStrayItem(Item item) { strayItems.remove(item); }
 
 
 } //end class

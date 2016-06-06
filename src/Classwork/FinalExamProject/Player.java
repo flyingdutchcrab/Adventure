@@ -12,6 +12,8 @@ public class Player
 
     private double health;
     private double damage;
+    private int level;
+    private int xp;
     private String playerName;
     private String jobSkill;
     private Item weapon; //Expecting an Weapon here
@@ -29,6 +31,8 @@ public class Player
         this.health = 150.0; //sets players default health to 100
         this.playerName = "NotSet"; //sets players default name as not set
         this.damage = 10.0; //sets players default damage as 10
+        this.level = 1;
+        this.xp = 0;
         this.wallet = 100.0; //sets players default wallet as $0
         this.jobSkill = "NotSet"; //sets players default skill as not set
         Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
@@ -146,6 +150,16 @@ public class Player
 
     public void setHealth(double newhealth) { this.health = newhealth; }
 
+    public int getLevel(int level)
+    {
+        return this.level;
+    }
+
+    public int getXp(int xp)
+    {
+        return this.xp;
+    }
+
     public double getDamage() { return this.damage; }
 
     public double getWallet() { return this.wallet; }
@@ -169,52 +183,7 @@ public class Player
     } //end toString
 
 
-/*
-    public void setNewLoc(String ID)
-    {
-        this.currentLoc = this.getSingleLoc(ID);
-        if(this.currentLoc == null)
-        {
-            text.appendText("You have been killed!" + "\n");
-            this.alive = false;
-
-        }
-        else
-        {
-            text.setText("You are now in " + this.currentLoc.getName() + "\n" + this.currentLoc.getDescription() + "\n");
-        }
-    } //end setNewLoc
 
 
-    public void makeMove(String move)
-    {
-        Location l = new Location();
-        Adventure adv = new Adventure();
-        ArrayList<String> locExits = this.currentLoc.getExits();
-        if (locExits.contains(move))
-        {
-            this.setNewLoc(this.currentLoc.getConnectedLoc(move));
-        }
-
-        else
-        {
-            text.appendText("You have been destroyed by the world!" + "\nGAME OVER" + "\n");
-            this.alive = false;
-            text.appendText("\nPlay again? (Y/N)" + "\n");
-            String answer = inputText.getText();
-            answer = answer.toUpperCase();
-            if (answer.equals("Y")) //if they want to play again
-            {
-                text.appendText("Alright! Let's go!" + "\n");
-                adv.reset();
-            }
-            else //if they want to quit
-            {
-                text.appendText("Wow. What a skrub, okay bye." + "\n");
-                System.out.close();
-            }
-        }
-    } //end makeMove
-    */
 
 } //end class
