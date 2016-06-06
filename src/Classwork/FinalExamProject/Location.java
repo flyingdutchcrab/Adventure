@@ -118,6 +118,19 @@ public class Location
 
 
     /**
+     * Lock/Unlock functions
+     */
+
+    public void unlock() {
+        locked = false;
+    }
+
+    public void lock() {
+        locked = true;
+    }
+
+
+    /**
      * Getters and setters
      */
 

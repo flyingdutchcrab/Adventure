@@ -104,6 +104,8 @@ public class Adventure
     private Image alrothiaImg;
     private Image forestSpiritImg;
 
+    private Image intoScreen;
+
 
     public Adventure() {
 
@@ -155,6 +157,8 @@ public class Adventure
         this.alrothiaImg = new Image("monsters/alrothia.gif");
         this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
+        this.intoScreen = new Image("codefall.gif");
+
 
         allLocs = new ArrayList<>();
         initLocs();
@@ -168,6 +172,10 @@ public class Adventure
      */
     public void initialize()
     {
+        imagePane.setImage(new Image("yetanotherforest.jpg"));  //need to force this.
+        imagePane.setVisible(true);
+
+
         inventoryPane.setVisible(false);
         text.appendText("Welcome to the land of euphoria!\n");
         text.appendText("What's your name?\n");
@@ -506,6 +514,7 @@ public class Adventure
 
 
         p.currentLoc = this.getSingleLoc(ID);
+
         if(p.currentLoc == null) {
 
             text.appendText("You have been killed!" + "\n");
@@ -804,14 +813,20 @@ public class Adventure
             for (int i = 0; i < allLocs.size(); i++)
                 if (allLocs.get(i).getID().equalsIgnoreCase(p.currentLoc.getConnectedLoc(move))) //find move Location
                     if (!allLocs.get(i).isLocked()) { //is Location locked?
-                        this.setNewLoc(p.currentLoc.getConnectedLoc(move));
+                        this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //there is no problem, move to location
                         break;
                     } else { //location is locked
-                        for (int j = 0; j < p.inventory.size(); i++) { //check for key
+                        for (int j = 0; j < p.inventory.size(); j++) { //check for key
                             if (p.inventory.get(j).getItemName().equalsIgnoreCase(allLocs.get(i).getKeyItemUnlock())) { //had Key?
-                                break; //TODO: REPLACE THIS PLEASE!!!!
+                                System.out.println("found");
+                                this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //user has key to unlock area.
+                                p.inventory.remove(p.inventory.get(j)); //remove the key item
+                                allLocs.get(i).unlock(); //unlock the location.
+                                break;
                             }
                         }
+
+
 
                         //valid move but does not have key.
                         text.appendText("\nThat direction, " + moveName + ", is locked. Try again when you have the key. \n");
