@@ -127,7 +127,7 @@ public class Adventure
         this.reefImg = new Image("locations/reef.jpg");
         this.caveImg = new Image("locations/crystalcave.gif");
         this.altarImg = new Image("locations/chamber.gif");
-        this.shopImg = new Image("locations/shopanim3.gif");
+        this.shopImg = new Image("shop3.gif");
         this.mountainImg = new Image("locations/mountain.gif");
         this.icyPassImg = new Image("locations/icypass.gif");
         this.twinPeakImg = new Image("locations/mountainanim.gif");
@@ -778,18 +778,46 @@ public class Adventure
      * Makes a move based on user input
      */
     public void makeMove(String move) {
-        if (p.currentLoc.getExits().contains(move)) {
+
+        String moveName;
+
+        switch (move) {
+            case "N":
+                moveName = "North";
+                break;
+            case "S":
+                moveName = "South";
+                break;
+            case "E":
+                moveName = "East";
+                break;
+            case "W":
+                moveName = "West";
+                break;
+            default:
+                moveName = "move not found";
+                break;
+        }
+
+
+        if (p.currentLoc.getExits().contains(move)) { //valid move
             for (int i = 0; i < allLocs.size(); i++)
-                if ((allLocs.get(i).getID().equalsIgnoreCase(p.currentLoc.getConnectedLoc(move))))
-                    if (!allLocs.get(i).isLocked()) {
+                if (allLocs.get(i).getID().equalsIgnoreCase(p.currentLoc.getConnectedLoc(move))) //find move Location
+                    if (!allLocs.get(i).isLocked()) { //is Location locked?
                         this.setNewLoc(p.currentLoc.getConnectedLoc(move));
                         break;
-                    } else
-                        text.appendText("\nThat direction, " + move + ", is locked. Try again later. \n\n");
+                    } else { //location is locked
+                        for (int j = 0; j < p.inventory.size(); i++) { //check for key
+                            if (p.inventory.get(j).getItemName().equalsIgnoreCase(allLocs.get(i).getKeyItemUnlock())) { //had Key?
+                                break; //TODO: REPLACE THIS PLEASE!!!!
+                            }
+                        }
 
-
-        } else
-            text.appendText("\n" + "Cannot go in that direction");
+                        //valid move but does not have key.
+                        text.appendText("\nThat direction, " + moveName + ", is locked. Try again when you have the key. \n");
+                    }
+        } else //not valid move (nothing is there in that direction
+            text.appendText("\n" + "Cannot go in that direction. \n");
 
     }
 
@@ -797,7 +825,7 @@ public class Adventure
     /**
      * Center Mob Image Function
      */
-    public void centerMobImage() {
+    private void centerMobImage() {
 
         Image img = mobImagePane.getImage();
         if (img != null) {
