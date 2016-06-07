@@ -272,7 +272,7 @@ public class Adventure
      */
     private void doBattle(Monster enemy) {
         //first time run
-        text.appendText("\n" + "A wild " + enemy.getName() + " has appeared!" + "\n" );
+        text.appendText("\n" + "A wild Lvl. " + enemy.getLvl() + " " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
@@ -386,12 +386,12 @@ public class Adventure
     public ArrayList<Monster> makeMonsterArray()
     {
         //make 3 monsters
-        Monster skrub = new Monster("skrub", 20, 5, 25, true, skeletonImg);
-        Monster skrublord= new Monster("skrublord", 25, 10, 45, true, skeletonImg2);
-        Monster landShark = new Monster("land shark", 20, 20, 60, true, landSharkImg);
-        Monster llama = new Monster("llama", 20, 15, 30, true, llamaImg);
-        Monster smurf = new Monster("smurf", 25, 15, 50, true, spritieImg);
-        Monster lizardman = new Monster("Lizardman", 25, 15, 100, true, lizardImg);
+        Monster skrub = new Monster("skrub", 20, 10, 1, 10, 25, 5, 25, true, skeletonImg);
+        Monster skrublord= new Monster("skrublord", 25, 20, 10, 50, 35, 10, 45, true, skeletonImg2);
+        Monster landShark = new Monster("land shark", 20, 15, 8, 35, 20, 20, 60, true, landSharkImg);
+        Monster llama = new Monster("llama", 20, 5, 1, 15, 10, 30, 20,  true, llamaImg);
+        Monster smurf = new Monster("smurf", 25, 5, 1, 15, 10, 15, 50, true, spritieImg);
+        Monster lizardman = new Monster("Lizardman", 25, 15, 8, 35, 20,  15, 100, true, lizardImg);
 
         //create a Monster array
         ArrayList<Monster> mobCollection = new ArrayList<Monster>();
@@ -599,13 +599,13 @@ public class Adventure
         Location forest = new Location("forest", "FOREST", "You are in a spooky forest. Many spooky monsters can be found here. There is a cave to the east", false, forestImg);
         forest.addExit("E", "MEADOW");
         forest.addExit("W", "GROTTO");
-        Monster noob = new Monster("Noob", 40, 8, 10, true, null);
+        Monster noob = new Monster("Noob", 40, 5, 1, 15, 10,  8, 10, true, null);
         forest.addMonster(noob);
         forest.setAllMonsters(this.makeMonsterArray());
 
         Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg);
         grotto.addExit("E", "FOREST");
-        Monster forestSpirit = new Monster("Forest Spirit", 300, 35, 9000, true, forestSpiritImg);
+        Monster forestSpirit = new Boss("Forest Spirit", 300, 35, 9000, true, forestSpiritImg, 300, 1000);
         grotto.addMonster(forestSpirit);
 
 
@@ -634,7 +634,7 @@ public class Adventure
 
         Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg);
         reef.addExit("W", "COVE");
-        Monster dagon = new Monster("Dagon", 300, 35, 9000, true, dagonImg);
+        Monster dagon = new Boss("Dagon", 300, 35, 9000, true, dagonImg, 400, 2000);
         reef.addMonster(dagon);
 
 
@@ -661,7 +661,7 @@ public class Adventure
 
         Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg);
         tree.addExit("W", "GRAVEYARD");
-        Monster ghostGirl = new Monster("Vengeful Spirit", 300, 35, 9000, true, ghostGirlImg);
+        Monster ghostGirl = new Boss("Vengeful Spirit", 300, 35, 9000, true, ghostGirlImg, 250, 1500);
         tree.addMonster(ghostGirl);
 
         Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, catacombsImg);
@@ -686,7 +686,7 @@ public class Adventure
 
         Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg);
         twinpeak.addExit("E", "PASS");
-        Monster wyvern = new Monster("Wyvern", 400, 45, 2000, true, wyvernImg);
+        Monster wyvern = new Boss("Wyvern", 400, 45, 2000, true, wyvernImg, 500, 5000);
         twinpeak.addMonster(wyvern);
 
 
@@ -717,7 +717,7 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
         etower.addExit("W", "HALL");
-        Monster alrothia = new Monster("Alrothia", 400, 45, 2000, true, alrothiaImg);
+        Monster alrothia = new Boss("Alrothia", 400, 45, 2000, true, alrothiaImg, 450, 6000);
         etower.addMonster(alrothia);
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
@@ -726,7 +726,7 @@ public class Adventure
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null);
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
-        Monster prince = new Monster("Prince Jerry", 400, 45, 2000, true, princeImg);
+        Monster prince = new Boss("Prince Jerry", 400, 45, 2000, true, princeImg, 500, 8000);
         sanctum.addMonster(prince);
 
         Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null);
@@ -741,7 +741,7 @@ public class Adventure
 
 
         Location end = new Location("end", "END", "awkfnawlfnalwkfnalkwf", true, endImg);
-        Monster god = new Monster("GOD", 300, 35, 9000, true, godImg);
+        Monster god = new Boss("GOD", 300, 35, 9000, true, godImg, 1000, 100000000);
         end.addMonster(god);
 
 

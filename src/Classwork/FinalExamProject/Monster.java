@@ -11,22 +11,46 @@ public class Monster
 {
 
     private String mobName;
+    private int minLvl;
+    private int maxLvl;
+    private int minXp;
+    private int maxXp;
     private double health;
     private double damage;
     private boolean alive;
     private double loot;
     public Image image;
 
+    public Monster()
+    {
+        this.mobName = "";
+        this.health = -1.0;
+        this.minLvl = -1;
+        this.maxLvl = 0;
+        this.minXp = -1;
+        this.maxXp = 0;
+        this.damage = -1.0;
+        this.alive = false;
+        this.loot = -1.0;
+        this.image = null;
+
+    }
 
 
-    public Monster(String mobName, double health, double damage, double loot, boolean isAlive, Image img) {
+
+    public Monster(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img) {
 
         this.mobName = mobName;
+        this.maxLvl = mxLvl;
+        this.minLvl = mnLvl;
+        this.maxXp = mxXp;
+        this.minXp = mnXp;
         this.health = health;
         this.damage = damage;
         this.loot = loot;
         this.alive = isAlive;
         this.image = img;
+
     }
     //getters and setters
 
@@ -90,4 +114,24 @@ public class Monster
     {
         return this.image;
     }
+
+    public int getLvl()
+    {
+        return random_int(this.minLvl, this.maxLvl);
+    }
+
+    public int getXp()
+    {
+        return random_int(this.minXp, this.maxXp);
+    }
+
+    public static int random_int(int min, int max) { return (int) (Math.random()*(max-min))+min; }
+
+
+    public String toString()
+    {
+        return "Monster: " + mobName + " | " + "Lvl: " + getLvl() + " | " + "XP: " + getXp() + " | " + "HP: " + health + " | " + "Damage: " + damage + " | " + "Loot: " + loot + "\n";
+    }
+
+
 }
