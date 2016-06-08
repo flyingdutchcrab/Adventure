@@ -1,10 +1,8 @@
-package Classwork.FinalExamProject.Testers;
+package edu.Andrew.APCS.Adventure.Testers;
 
-import Classwork.FinalExamProject.*;
-
-import Classwork.FinalExamProject.Location;
-import Classwork.FinalExamProject.Player;
-import Classwork.FinalExamProject.Shop;
+import edu.Andrew.APCS.Adventure.Location;
+import edu.Andrew.APCS.Adventure.Player;
+import edu.Andrew.APCS.Adventure.Shop;
 
 /**
  * Created by andrewbrook on 5/13/16.

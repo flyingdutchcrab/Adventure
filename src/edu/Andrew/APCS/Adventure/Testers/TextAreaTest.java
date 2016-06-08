@@ -1,6 +1,4 @@
-package Classwork.FinalExamProject.Testers;
-
-import Classwork.FinalExamProject.*;
+package edu.Andrew.APCS.Adventure.Testers;
 
 
 /**
@@ -8,12 +6,9 @@ import Classwork.FinalExamProject.*;
  */
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import java.io.OutputStream;
+        import javafx.stage.Stage;
+
+        import java.io.OutputStream;
 import java.io.IOException;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextAreaBuilder;

@@ -1,9 +1,9 @@
-package Classwork.FinalExamProject.Testers;
+package edu.Andrew.APCS.Adventure.Testers;
 
-import Classwork.FinalExamProject.Item;
-import Classwork.FinalExamProject.KeyItem;
-import Classwork.FinalExamProject.Player;
-import Classwork.FinalExamProject.Weapon;
+import edu.Andrew.APCS.Adventure.Item;
+import edu.Andrew.APCS.Adventure.KeyItem;
+import edu.Andrew.APCS.Adventure.Player;
+import edu.Andrew.APCS.Adventure.Weapon;
 
 /**
  * Created by andrewbrook on 5/13/16.

@@ -1,9 +1,8 @@
-package Classwork.FinalExamProject;
+package edu.Andrew.APCS.Adventure;
 
 /**
  * Created by andrewbrook on 4/6/16.
  */
-import Classwork.FinalExamProject.Monster;
 
 import java.util.*;
 

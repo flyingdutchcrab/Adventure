@@ -1,15 +1,11 @@
-package Classwork.FinalExamProject.Testers;
-
-import Classwork.FinalExamProject.*;
+package edu.Andrew.APCS.Adventure.Testers;
 
 
 /**
  * Created by andrewbrook on 5/4/16.
  */
-import javafx.scene.control.*;
 import java.io.OutputStream;
-import javafx.scene.control.TextArea;
-import javax.swing.*;
+        import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintStream;
 

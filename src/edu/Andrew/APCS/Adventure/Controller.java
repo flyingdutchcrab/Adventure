@@ -1,18 +1,11 @@
-package Classwork.FinalExamProject;
+package edu.Andrew.APCS.Adventure;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ButtonBase;
-import java.util.ResourceBundle;
-import java.net.URL;
-import Classwork.FinalExamProject.Adventure;
 
 
 /**

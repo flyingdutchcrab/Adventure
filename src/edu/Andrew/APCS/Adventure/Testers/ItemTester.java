@@ -1,16 +1,13 @@
-package Classwork.FinalExamProject.Testers;
-
-import Classwork.FinalExamProject.*;
+package edu.Andrew.APCS.Adventure.Testers;
 
 
 /**
  * Created by andrewbrook on 5/13/16.
  */
-import Classwork.FinalExamProject.Item;
-import Classwork.FinalExamProject.KeyItem;
-import Classwork.FinalExamProject.Weapon;
+import edu.Andrew.APCS.Adventure.Item;
+import edu.Andrew.APCS.Adventure.KeyItem;
+import edu.Andrew.APCS.Adventure.Weapon;
 
-import java.util.*;
 public class ItemTester {
     public static void main(String args[])
     {

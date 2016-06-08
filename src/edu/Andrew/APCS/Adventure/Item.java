@@ -1,4 +1,4 @@
-package Classwork.FinalExamProject;
+package edu.Andrew.APCS.Adventure;
 
 /**
  * Created by andrewbrook on 5/12/16.

@@ -1,11 +1,9 @@
-package Classwork.FinalExamProject;
+package edu.Andrew.APCS.Adventure;
 
 /**
  * Created by andrewbrook on 4/6/16.
  */
-import java.util.*;
 import javafx.scene.image.Image;
-import javafx.fxml.FXML;
 
 public class Monster
 {
