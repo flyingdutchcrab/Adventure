@@ -87,7 +87,7 @@ public class Player
         Adventure adv = new Adventure();
         Location singleLoc = null;
 
-        for(Location aLoc : adv.allLocs)
+        for(Location aLoc : adv.getAllLocs())
         {
             if(aLoc.getID().equals(ID))
             {

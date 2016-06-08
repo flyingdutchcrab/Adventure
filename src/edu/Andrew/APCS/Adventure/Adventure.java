@@ -10,8 +10,6 @@ package edu.Andrew.APCS.Adventure;
 
 import java.util.*;
 import java.lang.*;
-
-
 import edu.Andrew.APCS.Adventure.Utilities.Items.Armor;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
 import edu.Andrew.APCS.Adventure.Utilities.Items.KeyItem;
@@ -49,7 +47,7 @@ public class Adventure
     private Player p;
     private Location location;
     private Shop s;
-    public ArrayList<Location> allLocs;
+    private ArrayList<Location> allLocs;
     private boolean invBtnActive = false;
 
 
@@ -105,9 +103,7 @@ public class Adventure
     private Image spritieImg;
     private Image lizardImg;
     private Image landSharkImg;
-    private Image shamanImg;
     private Image llamaImg;
-    private Image wolfBeastImg;
     private Image godImg;
     private Image wyvernImg;
     private Image dagonImg;
@@ -115,8 +111,6 @@ public class Adventure
     private Image princeImg;
     private Image alrothiaImg;
     private Image forestSpiritImg;
-
-    private Image intoScreen;
 
 
     public Adventure() {
@@ -168,8 +162,6 @@ public class Adventure
         this.princeImg = new Image("monsters/fireprince.gif");
         this.alrothiaImg = new Image("monsters/alrothia.gif");
         this.forestSpiritImg = new Image("monsters/forestspirit.gif");
-
-        this.intoScreen = new Image("codefall.gif");
 
 
         allLocs = new ArrayList<>();
@@ -884,6 +876,14 @@ public class Adventure
 
     }
 
+
+    /**
+     * Get array AllLocs
+     * @return AllLocs
+     */
+    public ArrayList<Location> getAllLocs() {
+        return allLocs;
+    }
 
     /**
      * @FXML

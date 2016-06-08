@@ -23,6 +23,7 @@ public class Monster
     private double loot;
     private Image image;
 
+
     public Monster()
     {
         this.mobName = "";
@@ -37,7 +38,6 @@ public class Monster
         this.image = null;
 
     }
-
 
 
     public Monster(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img) {
@@ -75,6 +75,8 @@ public class Monster
             this.alive = false;
         }
     }
+
+
     /**
      * getters
      */
