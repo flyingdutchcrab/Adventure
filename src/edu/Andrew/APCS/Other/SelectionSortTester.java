@@ -1,4 +1,4 @@
-package Classwork.Other;
+package edu.Andrew.APCS.Other;
 
 /**
  * Created by andrewbrook on 3/31/16.
