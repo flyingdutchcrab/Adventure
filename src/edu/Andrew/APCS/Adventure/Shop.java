@@ -8,20 +8,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * Created by andrewbrook on 5/13/16.
+ * Adventure
+ *
+ * Shop
+ *
+ * The Shop class containing the shop information.
  */
 
 public class Shop
 {
 
     private ArrayList<Item> shopInventory;
-    private Scanner scan;
     @FXML private TextArea text;
     @FXML private TextField inputText;
 
 
     public Shop() {
-        this.shopInventory = new ArrayList<Item>();
+        this.shopInventory = new ArrayList<>();
     }
 
 
@@ -47,7 +50,7 @@ public class Shop
 
     /**
      * Get the shop's inventory.
-     * @return
+     * @return ArrayList of shop's inventory
      */
     public ArrayList<Item> getShopInventory() {
         return shopInventory;

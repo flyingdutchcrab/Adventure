@@ -5,7 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 /**
- * Created by andrewbrook on 5/11/16.
+ * Adventure
+ *
+ * Player
+ *
+ * The Player him/her slef!
  */
 public class Player
 {
@@ -42,7 +46,7 @@ public class Player
         Armor shirt = new Armor("T-Shirt", 10, 2);
         this.armor = shirt;
         this.alive = true; //sets players default status to alive
-        this.inventory = new ArrayList<Item>();
+        this.inventory = new ArrayList<>();
         inventory.add(stick);
         inventory.add(shirt);
         Location start = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, null);

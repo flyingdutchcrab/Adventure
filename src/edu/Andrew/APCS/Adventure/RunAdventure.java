@@ -7,7 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Created by andrewbrook on 4/6/16.
+ * Adventure
+ *
+ * RunAdventure
+ *
+ * Runs the adventure, is the main class
  */
 public class RunAdventure extends Application
 {

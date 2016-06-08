@@ -3,7 +3,11 @@ package edu.Andrew.APCS.Adventure;
 import javafx.scene.image.Image;
 
 /**
- * Created by andrewbrook on 6/7/16.
+ * Adventure
+ *
+ * Boss, extends Monster
+ *
+ * Boss is a Monster than has more XP and levels.
  */
 public class Boss extends Monster
 {
@@ -22,7 +26,7 @@ public class Boss extends Monster
      * Getters
      */
 
-    public int getBossLevel() { return this.bossLevel; }
+    private int getBossLevel() { return this.bossLevel; }
 
     public int getBossXP() { return this.bossXP; }
 

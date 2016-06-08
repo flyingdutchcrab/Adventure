@@ -1,12 +1,13 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
-import edu.Andrew.APCS.Adventure.Item;
-import edu.Andrew.APCS.Adventure.KeyItem;
-import edu.Andrew.APCS.Adventure.Player;
-import edu.Andrew.APCS.Adventure.Weapon;
+import edu.Andrew.APCS.Adventure.*;
 
 /**
- * Created by andrewbrook on 5/13/16.
+ * Adventure
+ *
+ * PlayerTester
+ *
+ * Tests the Player class
  */
 public class PlayerTester
 {
@@ -24,20 +25,23 @@ public class PlayerTester
         p.inventory.add(key);
 
         if (p.containsItem("Gate Key"))
-        {
             System.out.println("Player has key");
-        }
+
 
         p.setHealth(50);
         p.checkLife();
         System.out.println(p.alive);
+
         if ( p.alive )
             System.out.println("Barley alive");
+
         p.setHealth(0);
         p.checkLife();
+
         if (!p.alive)
             System.out.println("Im Dead");
 
         System.out.println(p.printInventory());
-    } //end main
-} //end class
+
+    }
+}

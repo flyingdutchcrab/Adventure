@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 4/6/16.
+ * Adventure
+ *
+ * Weapon, extends Item
+ *
+ * A weapon that can be used to attack monsters
  */
 
 public class Weapon extends Item

@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
 /**
- * Created by andrewbrook on 5/9/16.
+ * Adventure
+ *
+ * AdventureGUITester
+ *
+ * Test the GUI
  */
 
 import javafx.application.Application;

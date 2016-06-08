@@ -1,14 +1,17 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
-
 /**
- * Created by andrewbrook on 5/4/16.
+ * Adventure
+ *
+ * TextAreaTest
+ *
+ * Testing the Text Area
  */
+
 import javafx.application.Application;
 import javafx.scene.Scene;
-        import javafx.stage.Stage;
-
-        import java.io.OutputStream;
+import javafx.stage.Stage;
+import java.io.OutputStream;
 import java.io.IOException;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextAreaBuilder;
@@ -40,11 +43,11 @@ public class TextAreaTest extends Application {
         launch(args);
     }
 
-    public static class Console extends OutputStream {
+    private static class Console extends OutputStream {
 
         private TextArea output;
 
-        public Console(TextArea ta) {
+        private Console(TextArea ta) {
             this.output = ta;
         }
 

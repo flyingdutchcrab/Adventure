@@ -1,11 +1,14 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 4/6/16.
+ * Adventure
+ *
+ * Location
+ *
+ * This is a location, stores data for that location.
  */
 
 import java.util.*;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -23,11 +26,8 @@ public class Location
     private ArrayList<String> connectedLocs;
     private ArrayList<Monster> monsters;
     private ArrayList<Item> strayItems;
-    //public ArrayList<Location> allLocs;
+    private String keyItemUnlock;
     private Player p;
-    @FXML public TextArea text;
-    @FXML public TextArea inputText;
-    String keyItemUnlock;
 
 
     public Location()
@@ -42,17 +42,16 @@ public class Location
 
     }
 
-
     public Location (String name, String id, String desc, boolean isLocked, Image img) {
         this.Name = name;
         this.id = id;
         this.description = desc;
         this.locked = isLocked;
         this.image = img;
-        exits = new ArrayList<String>();
-        connectedLocs = new ArrayList<String>();
-        monsters = new ArrayList<Monster>();
-        strayItems = new ArrayList<Item>();
+        exits = new ArrayList<>();
+        connectedLocs = new ArrayList<>();
+        monsters = new ArrayList<>();
+        strayItems = new ArrayList<>();
         this.keyItemUnlock = "";
 
         if (isLocked && keyItemUnlock.isEmpty())
@@ -67,10 +66,10 @@ public class Location
         this.description = desc;
         this.locked = isLocked;
         this.image = img;
-        exits = new ArrayList<String>();
-        connectedLocs = new ArrayList<String>();
-        monsters = new ArrayList<Monster>();
-        strayItems = new ArrayList<Item>();
+        exits = new ArrayList<>();
+        connectedLocs = new ArrayList<>();
+        monsters = new ArrayList<>();
+        strayItems = new ArrayList<>();
         this.keyItemUnlock = keyItemUnlock;
 
 
@@ -106,14 +105,16 @@ public class Location
 
     /**
      * Add a monster to the location
-     * @pram the monster
+     * @param monster the monster to be added
      */
     public void addMonster(Monster monster) { monsters.add(monster); }
 
-    public void addStrayItem(Item item)
-    {
-        strayItems.add(item);
-    }
+
+    /**
+     * Add a stray item to the location
+     * @param item the location to be added
+     */
+    public void addStrayItem(Item item) { strayItems.add(item); }
 
 
     /**

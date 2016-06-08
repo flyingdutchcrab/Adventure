@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 5/27/16.
+ * Adventure
+ *
+ * KeyItem, extends Item
+ *
+ * And item that can be used as a key to unlock a location
  */
 public class KeyItem extends Item
 {

@@ -2,13 +2,16 @@ package edu.Andrew.APCS.Adventure.Testers;
 
 
 /**
- * Created by andrewbrook on 5/4/16.
+ * Adventure
+ *
+ * TextAreaTest
+ *
+ * Testing the Text Area
  */
 import java.io.OutputStream;
-        import javax.swing.*;
+import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintStream;
-
 
 
 public class TextAreaTest2

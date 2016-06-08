@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrew brook on 4/6/16.
+ * Adventure
+ *
+ * Adventure
+ *
+ * The Adventure class, there's a lot of methods here.
  */
 
 import java.util.*;
@@ -519,7 +523,7 @@ public class Adventure
 
         if(p.currentLoc == null) {
 
-            text.appendText("You have been killed!" + "\n");
+            text.appendText("\n\nYou have been killed!\n");
             imagePane.setImage(gameOverImg);
             p.alive = false;
 
@@ -788,7 +792,7 @@ public class Adventure
     /**
      * Makes a move based on user input
      */
-    public void makeMove(String move) {
+    private void makeMove(String move) {
 
         String moveName;
 

@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 4/6/16.
+ * Adventure
+ *
+ * Monster
+ *
+ * This is mob that the player can attack, has health among other things that the Player and Adventure classes might need.
  */
 import javafx.scene.image.Image;
 
@@ -17,7 +21,7 @@ public class Monster
     private double damage;
     private boolean alive;
     private double loot;
-    public Image image;
+    private Image image;
 
     public Monster()
     {
@@ -50,43 +54,19 @@ public class Monster
         this.image = img;
 
     }
-    //getters and setters
 
-    public double getHealth()
-    {
-        return this.health;
-    }
 
-    public void setHealth(double newHealth)
-    {
-        this.health = newHealth;
-    }
+    /**
+     * Kill the Monster
+     */
+    public void kill() {this.alive = false;}
 
-    //gets damage
-    public double getDamage()
-    {
-        return this.damage;
-    }
 
-    public double setDamage(double dmg)
-    {
-        this.damage = dmg;
-        return this.damage;
-    }
-
-    //if the monster is alive it is alive
-    public boolean isAlive()
-    {
-        return this.alive;
-    }
-
-    //if the monster is killed, it is not alive
-    public void kill()
-    {
-        this.alive = false;
-    }
-
-    //checks if monster is alive
+    /**
+     * Checks the life and makes sure that the monster is maked as killed
+     *
+     * Should be called after each damage is set.
+     */
     public void checkLife()
     {
         if (this.health <= 0)
@@ -95,41 +75,52 @@ public class Monster
             this.alive = false;
         }
     }
+    /**
+     * getters
+     */
 
-    //access monster name
-    public String getName()
-    {
-        return this.mobName;
+    public double getHealth() { return this.health; }
+
+    public void setHealth(double newHealth) { this.health = newHealth; }
+
+    public double getDamage() { return this.damage; }
+
+    public double setDamage(double dmg) {
+        this.damage = dmg;
+        checkLife();
+        return this.damage;
     }
 
-    //gets the money you receive from killing enemy
-    public double getLoot()
-    {
-        return this.loot;
-    }
+    public boolean isAlive() { return this.alive; }
 
-    public Image getImage()
-    {
-        return this.image;
-    }
+    public String getName() { return this.mobName; }
 
-    public int getLvl()
-    {
-        return random_int(this.minLvl, this.maxLvl);
-    }
+    public double getLoot() { return this.loot; }
 
-    public int getXp()
-    {
-        return random_int(this.minXp, this.maxXp);
-    }
+    public Image getImage() { return this.image; }
 
-    public static int random_int(int min, int max) { return (int) (Math.random()*(max-min))+min; }
+    public int getLvl() { return random_int(this.minLvl, this.maxLvl); } /** should only be called once **/
+
+    private int getXp() { return random_int(this.minXp, this.maxXp); } /** should only be called once **/
 
 
+    /**
+     * toString
+     * @return toString
+     */
     public String toString()
     {
         return "Monster: " + mobName + " | " + "Lvl: " + getLvl() + " | " + "XP: " + getXp() + " | " + "HP: " + health + " | " + "Damage: " + damage + " | " + "Loot: " + loot + "\n";
     }
+
+
+    /**
+     * Generated a radom number
+     * @param min smalled number
+     * @param max largest number
+     * @return a random number in between the range.
+     */
+    private static int random_int(int min, int max) { return (int) (Math.random()*(max-min))+min; }
 
 
 }

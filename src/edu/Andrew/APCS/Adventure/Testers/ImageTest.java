@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
 /**
- * Created by andrewbrook on 5/4/16.
+ * Adventure
+ *
+ * ImageTest
+ *
+ * Test the images
  */
 import java.awt.*;
 import javax.swing.*;
@@ -11,7 +15,7 @@ public class ImageTest extends JFrame
     private ImageIcon image1;
     private JLabel label1;
 
-    public ImageTest()
+    private ImageTest()
     {
         setLayout(new FlowLayout());
 
@@ -24,7 +28,7 @@ public class ImageTest extends JFrame
     public static void main (String args[])
     {
         ImageTest gui = new ImageTest();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gui.setVisible(true);
         gui.pack();
 

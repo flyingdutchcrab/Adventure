@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 5/12/16.
+ * Adventure
+ *
+ * Item
+ *
+ * Item is used for things in the player's inv. and the shop.
  */
 public class Item
 {
@@ -25,6 +29,7 @@ public class Item
     public String getItemName() { return this.itemName; }
 
     public double getCost() { return this.cost; }
+
 
     /**
      * toString

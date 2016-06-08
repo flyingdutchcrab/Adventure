@@ -1,7 +1,11 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 5/27/16.
+ * Adventure
+ *
+ * Armor, extends Item
+ *
+ * Armor class is used for items that can hold health for the player
  */
 public class Armor extends Item
 {

@@ -2,7 +2,11 @@ package edu.Andrew.APCS.Adventure.Testers;
 
 
 /**
- * Created by andrewbrook on 5/13/16.
+ * Adventure
+ *
+ * ItemTester
+ *
+ * Test the Item class
  */
 import edu.Andrew.APCS.Adventure.Item;
 import edu.Andrew.APCS.Adventure.KeyItem;

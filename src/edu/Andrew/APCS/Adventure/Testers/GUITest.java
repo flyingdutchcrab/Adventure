@@ -2,7 +2,11 @@ package edu.Andrew.APCS.Adventure.Testers;
 
 
 /**
- * Created by andrewbrook on 4/7/16.
+ * Adventure
+ *
+ * GUITest
+ *
+ * Test the GUI
  */
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,11 +18,14 @@ import javafx.event.EventHandler;
 
 public class GUITest extends Application
 {
-    Button button;
+    private Button button;
+
+
     public static void main(String args[])
     {
         launch(args);
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception
