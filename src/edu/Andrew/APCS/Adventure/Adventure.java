@@ -662,7 +662,7 @@ public class Adventure
 
         Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg, "Grave Key");
         tree.addExit("W", "GRAVEYARD");
-        Monster ghostGirl = new Boss("Vengeful Spirit", 300, 35, 9000, true, ghostGirlImg, 250, 1500);
+        Monster ghostGirl = new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 9000, true, ghostGirlImg, 250, 1500);
         tree.addMonster(ghostGirl);
 
         Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, catacombsImg);

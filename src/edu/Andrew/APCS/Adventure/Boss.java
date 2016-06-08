@@ -7,28 +7,32 @@ import javafx.scene.image.Image;
  */
 public class Boss extends Monster
 {
-    private int bossLvl;
-    private int bossXp;
+    private int bossLevel;
+    private int bossXP;
 
-    public Boss(String mobName, double health, double damage, double loot, boolean isAlive, Image img, int bLvl, int bXp)
+    public Boss(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img, int bossLevel, int bossXP)
     {
-        super();
-        this.bossLvl = bLvl;
-        this.bossXp = bXp;
+        super(mobName, health, mxLvl, mnLvl, mxXp, mnXp, damage, loot, isAlive, img);
+        this.bossLevel = bossLevel;
+        this.bossXP = bossXP;
     }
 
-    public int getBossLvl()
-    {
-        return this.bossLvl;
-    }
 
-    public int getBossXp()
-    {
-        return this.bossXp;
-    }
+    /**
+     * Getters
+     */
 
+    public int getBossLevel() { return this.bossLevel; }
+
+    public int getBossXP() { return this.bossXP; }
+
+
+    /**
+     * toString
+     * @return toString
+     */
     public String toString()
     {
-        return "Boss: " + super.getName() + " | " + "Lvl: " + getBossLvl() + " | " + "HP: " + super.getHealth() + " | " + "Damage: " + super.getDamage() + " | " + "Loot: " + super.getLoot() + "\n";
+        return "Boss: " + super.getName() + " | " + "Lvl: " + getBossLevel() + " | " + "HP: " + super.getHealth() + " | " + "Damage: " + super.getDamage() + " | " + "Loot: " + super.getLoot() + "\n";
     }
 }
