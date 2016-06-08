@@ -8,9 +8,9 @@ package edu.Andrew.APCS.Adventure.Testers;
  *
  * Test the Item class
  */
-import edu.Andrew.APCS.Adventure.Item;
-import edu.Andrew.APCS.Adventure.KeyItem;
-import edu.Andrew.APCS.Adventure.Weapon;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
+import edu.Andrew.APCS.Adventure.Utilities.Items.KeyItem;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Weapon;
 
 public class ItemTester {
     public static void main(String args[])

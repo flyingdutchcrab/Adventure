@@ -1,6 +1,9 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
 import edu.Andrew.APCS.Adventure.*;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
+import edu.Andrew.APCS.Adventure.Utilities.Items.KeyItem;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Weapon;
 
 /**
  * Adventure

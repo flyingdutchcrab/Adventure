@@ -1,8 +1,12 @@
-package edu.Andrew.APCS.Adventure;
+package edu.Andrew.APCS.Adventure.Utilities.Locations;
 
 
 import java.util.*;
 
+import edu.Andrew.APCS.Adventure.Utilities.Items.Armor;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
+import edu.Andrew.APCS.Adventure.Utilities.Items.KeyItem;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Weapon;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;

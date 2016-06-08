@@ -1,4 +1,4 @@
-package edu.Andrew.APCS.Adventure;
+package edu.Andrew.APCS.Adventure.Utilities.Locations;
 
 /**
  * Adventure
@@ -9,8 +9,10 @@ package edu.Andrew.APCS.Adventure;
  */
 
 import java.util.*;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+
+import edu.Andrew.APCS.Adventure.Player;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
+import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
 import javafx.scene.image.Image;
 
 

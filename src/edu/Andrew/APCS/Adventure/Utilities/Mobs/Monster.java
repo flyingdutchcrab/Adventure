@@ -1,4 +1,4 @@
-package edu.Andrew.APCS.Adventure;
+package edu.Andrew.APCS.Adventure.Utilities.Mobs;
 
 /**
  * Adventure

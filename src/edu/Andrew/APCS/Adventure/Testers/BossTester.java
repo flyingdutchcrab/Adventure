@@ -1,6 +1,7 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
-import edu.Andrew.APCS.Adventure.*;
+import edu.Andrew.APCS.Adventure.Utilities.Mobs.Boss;
+import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
 
 /**
  * Adventure

@@ -1,8 +1,8 @@
 package edu.Andrew.APCS.Adventure.Testers;
 
-import edu.Andrew.APCS.Adventure.Location;
+import edu.Andrew.APCS.Adventure.Utilities.Locations.Location;
 import edu.Andrew.APCS.Adventure.Player;
-import edu.Andrew.APCS.Adventure.Shop;
+import edu.Andrew.APCS.Adventure.Utilities.Locations.Shop;
 
 /**
  * Adventure
