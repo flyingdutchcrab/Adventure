@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Case Study/Case Study.iml" filepath="$PROJECT_DIR$/Case Study/Case Study.iml" />
       <module fileurl="file://$PROJECT_DIR$/IntelliJ.iml" filepath="$PROJECT_DIR$/IntelliJ.iml" />
     </modules>
   </component>
