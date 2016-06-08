@@ -454,7 +454,8 @@ public class Adventure
      */
     private void doShop()
     {
-        s.initializeShopInventory();
+        if (s.getShopInventory().isEmpty())
+            s.initializeShopInventory(); //THIS SHOULD ONLY BE CALLED ONCE!
 
         text.appendText(s.printShopInventory() + "\n");
         text.appendText("Type the item name to buy a weapon here. Go back west to leave shop." + "\n");
@@ -467,7 +468,7 @@ public class Adventure
 
 
             boolean item_found = false;
-            for (Item i : s.shopInventory) {
+            for (Item i : s.getShopInventory()) {
                 if (i.getItemName().equalsIgnoreCase(answer)) {
                     item_found = true;
                     if (p.getWallet() >= i.getCost()) {

@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 public class Shop
 {
 
-    public ArrayList<Item> shopInventory;
+    private ArrayList<Item> shopInventory;
     private Scanner scan;
     @FXML private TextArea text;
     @FXML private TextField inputText;
@@ -44,6 +44,14 @@ public class Shop
         return shopInventory;
     }
 
+
+    /**
+     * Get the shop's inventory.
+     * @return
+     */
+    public ArrayList<Item> getShopInventory() {
+        return shopInventory;
+    }
 
     /**
      * toString for shop
