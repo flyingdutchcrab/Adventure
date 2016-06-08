@@ -1,4 +1,4 @@
-package Classwork.FinalExamProject;
+package edu.Andrew.APCS.Adventure;
 
 import javafx.scene.image.Image;
 

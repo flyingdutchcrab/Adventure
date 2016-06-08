@@ -1,6 +1,6 @@
-package Classwork.FinalExamProject.Testers;
+package edu.Andrew.APCS.Adventure.Testers;
 
-import Classwork.FinalExamProject.*;
+import edu.Andrew.APCS.Adventure.*;
 
 /**
  * Created by andrewbrook on 6/7/16.

@@ -659,7 +659,7 @@ public class Adventure
         graveyard.addExit("E", "TREE");
         graveyard.addExit("W", "PATH");
 
-        Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg);
+        Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg, "Grave Key");
         tree.addExit("W", "GRAVEYARD");
         Monster ghostGirl = new Boss("Vengeful Spirit", 300, 35, 9000, true, ghostGirlImg, 250, 1500);
         tree.addMonster(ghostGirl);
@@ -818,7 +818,7 @@ public class Adventure
                     } else { //location is locked
                         for (int j = 0; j < p.inventory.size(); j++) { //check for key
                             if (p.inventory.get(j).getItemName().equalsIgnoreCase(allLocs.get(i).getKeyItemUnlock())) { //had Key?
-                                System.out.println("found");
+                                System.out.println("found"); //DEBUG
                                 this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //user has key to unlock area.
                                 p.inventory.remove(p.inventory.get(j)); //remove the key item
                                 allLocs.get(i).unlock(); //unlock the location.

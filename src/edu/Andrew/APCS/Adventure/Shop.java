@@ -34,7 +34,7 @@ public class Shop
         Item wep1 = new Weapon("Boomstick", 300, 100);
         Item wep2 = new Weapon("Bow and Arrow", 50, 18);
         Item wep3 = new Weapon("Iron Sword", 70 , 20);
-        Item key = new KeyItem("Gate Key", 20, "Opens the castle gate");
+        Item key = new KeyItem("Grave Key", 20, "Opens a strange grave");
         Item arm1 = new Armor("Iron Armor", 100, 4);
         this.shopInventory.add(wep1);
         this.shopInventory.add(wep2);
