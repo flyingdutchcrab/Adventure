@@ -1,7 +1,7 @@
 package edu.Andrew.APCS.Adventure;
 
 /**
- * Created by andrewbrook on 4/6/16.
+ * Created by andrew brook on 4/6/16.
  */
 
 import java.util.*;
@@ -113,7 +113,7 @@ public class Adventure
         this.p = new Player();
         this.location = new Location();
         this.s = new Shop();
-        this.allLocs = new ArrayList<Location>();
+        this.allLocs = new ArrayList<>();
 
         this.homeImg = new Image("locations/rsz_bedroom2.jpg");
         this.townImg = new Image("locations/rsz_nighttown.jpg");
@@ -271,6 +271,7 @@ public class Adventure
      * Takes a monster and simulates a battle until the monster or player dies
      */
     private void doBattle(Monster enemy) {
+        System.out.print("doBattle");
         //first time run
         text.appendText("\n" + "A wild Lvl. " + enemy.getLvl() + " " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
@@ -338,7 +339,7 @@ public class Adventure
                     //System.out.print("Will i run?"); //DEBUG
 
             } else // they don't make any sense
-                text.appendText("Unrecognized command" + "\n");
+                text.appendText("Unrecognized command" + theInputText + "\n");
 
         });
 
@@ -363,13 +364,13 @@ public class Adventure
      * @param max largest number expected
      * @return a random int
      */
-    public static int random_int(int min, int max) { return (int) (Math.random()*(max-min))+min; }
+    private static int random_int(int min, int max) { return (int) (Math.random()*(max-min))+min; }
 
 
     /**
      * YOU WON!
      */
-    public void win() { this.gameWon = true; }
+    private void win() { this.gameWon = true; }
 
 
     /**
@@ -383,7 +384,7 @@ public class Adventure
      * Creates the monster's array. Should only be called when resetting the array of monsters.
      * @return array of monsters
      */
-    public ArrayList<Monster> makeMonsterArray()
+    private ArrayList<Monster> makeMonsterArray()
     {
         //make 3 monsters
         Monster skrub = new Monster("skrub", 20, 10, 1, 10, 25, 5, 25, true, skeletonImg);
@@ -394,7 +395,7 @@ public class Adventure
         Monster lizardman = new Monster("Lizardman", 25, 15, 8, 35, 20,  15, 100, true, lizardImg);
 
         //create a Monster array
-        ArrayList<Monster> mobCollection = new ArrayList<Monster>();
+        ArrayList<Monster> mobCollection = new ArrayList<>();
 
         //put the monsters in the array
         mobCollection.add(skrub);
@@ -584,7 +585,7 @@ public class Adventure
     /**
      * Creates all locations for the game and puts them in allLocs. Should only be called once
      */
-    public void initLocs()
+    private void initLocs()
     {
         Location start = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, homeImg);
         start.addExit("N", "TOWN");
@@ -816,20 +817,23 @@ public class Adventure
                         this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //there is no problem, move to location
                         break;
                     } else { //location is locked
+                        boolean found = false;
                         for (int j = 0; j < p.inventory.size(); j++) { //check for key
                             if (p.inventory.get(j).getItemName().equalsIgnoreCase(allLocs.get(i).getKeyItemUnlock())) { //had Key?
                                 System.out.println("found"); //DEBUG
-                                this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //user has key to unlock area.
                                 p.inventory.remove(p.inventory.get(j)); //remove the key item
                                 allLocs.get(i).unlock(); //unlock the location.
+                                text.appendText("\nThey key item to unlock this area has been removed. You have unlocked this location. \n");
+                                found = true;
+                                this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //user has key to unlock area.
                                 break;
                             }
                         }
 
 
+                        if (!found) //valid move but does not have key.
+                            text.appendText("\nThat direction, " + moveName + ", is locked. Try again when you have the key. \n");
 
-                        //valid move but does not have key.
-                        text.appendText("\nThat direction, " + moveName + ", is locked. Try again when you have the key. \n");
                     }
         } else //not valid move (nothing is there in that direction
             text.appendText("\n" + "Cannot go in that direction. \n");
@@ -844,13 +848,13 @@ public class Adventure
 
         Image img = mobImagePane.getImage();
         if (img != null) {
-            double width = 0;
-            double height = 0;
+            double width;
+            double height;
 
             double ratioX = mobImagePane.getFitWidth() / img.getWidth();
             double ratioY = mobImagePane.getFitHeight() / img.getHeight();
 
-            double reducCoeff = 0;
+            double reducCoeff;
             if(ratioX >= ratioY) {
                 reducCoeff = ratioY;
             } else {
