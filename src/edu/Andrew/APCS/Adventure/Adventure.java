@@ -606,7 +606,7 @@ public class Adventure
 
         Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg);
         grotto.addExit("E", "FOREST");
-        Monster forestSpirit = new Boss("Forest Spirit", 300, 35, 9000, true, forestSpiritImg, 300, 1000);
+        Monster forestSpirit = new Boss("Forest Spirit", 300, 1, 50, 50, 1000, 35, 9000, true, forestSpiritImg, 300, 1000);
         grotto.addMonster(forestSpirit);
 
 
@@ -635,7 +635,7 @@ public class Adventure
 
         Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg);
         reef.addExit("W", "COVE");
-        Monster dagon = new Boss("Dagon", 300, 35, 9000, true, dagonImg, 400, 2000);
+        Monster dagon = new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 9000, true, dagonImg, 400, 2000);
         reef.addMonster(dagon);
 
 
@@ -687,7 +687,7 @@ public class Adventure
 
         Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg);
         twinpeak.addExit("E", "PASS");
-        Monster wyvern = new Boss("Wyvern", 400, 45, 2000, true, wyvernImg, 500, 5000);
+        Monster wyvern = new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 2000, true, wyvernImg, 500, 5000);
         twinpeak.addMonster(wyvern);
 
 
@@ -718,7 +718,7 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
         etower.addExit("W", "HALL");
-        Monster alrothia = new Boss("Alrothia", 400, 45, 2000, true, alrothiaImg, 450, 6000);
+        Monster alrothia = new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 2000, true, alrothiaImg, 450, 6000);
         etower.addMonster(alrothia);
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
@@ -727,7 +727,7 @@ public class Adventure
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null);
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
-        Monster prince = new Boss("Prince Jerry", 400, 45, 2000, true, princeImg, 500, 8000);
+        Monster prince = new Boss("Prince Jerry", 400, 1, 75, 800, 1500, 45, 2000, true, princeImg, 500, 8000);
         sanctum.addMonster(prince);
 
         Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null);
@@ -742,7 +742,7 @@ public class Adventure
 
 
         Location end = new Location("end", "END", "awkfnawlfnalwkfnalkwf", true, endImg);
-        Monster god = new Boss("GOD", 300, 35, 9000, true, godImg, 1000, 100000000);
+        Monster god = new Boss("GOD", 300, 9998, 9999, 4999, 5000, 35, 9000, true, godImg, 1000, 100000000);
         end.addMonster(god);
 
 
