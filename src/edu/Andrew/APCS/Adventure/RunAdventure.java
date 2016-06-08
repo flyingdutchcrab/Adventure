@@ -22,7 +22,7 @@ public class RunAdventure extends Application
         );
         Parent root = loader.load();
         Scene scene = new Scene(root, 600, 600);
-        scene.getStylesheets().add("/edu/Andrew/APCS/FinalExamProject/AdventureStyleSheet.css");
+        scene.getStylesheets().add("/edu/Andrew/APCS/Adventure/AdventureStyleSheet.css");
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Adventure");
