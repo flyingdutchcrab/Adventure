@@ -609,7 +609,7 @@ public class Adventure
         forest.addMonster(noob);
         forest.setAllMonsters(this.makeMonsterArray());
 
-        Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg);
+        Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg, "Forest Key");
         grotto.addExit("E", "FOREST");
         Monster forestSpirit = new Boss("Forest Spirit", 300, 1, 50, 50, 1000, 35, 9000, true, forestSpiritImg, 300, 1000);
         grotto.addMonster(forestSpirit);
@@ -625,7 +625,7 @@ public class Adventure
         cave.addExit("N", "MEADOW");
         cave.addExit("S", "ALTAR");
 
-        Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, null);
+        Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, null, "Mysterious Rune");
         altar.addExit("N", "CAVE");
 
         Location lake = new Location("lake", "LAKE", "You are at a lake, go do some fishin", false, lakeImg);
@@ -638,7 +638,7 @@ public class Adventure
         cove.addExit("E", "REEF");
         cove.addExit("W", "LAKE");
 
-        Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg);
+        Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg, "Reef Key");
         reef.addExit("W", "COVE");
         Monster dagon = new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 9000, true, dagonImg, 400, 2000);
         reef.addMonster(dagon);
@@ -661,7 +661,6 @@ public class Adventure
         path.addExit("W", "TOWN");
 
         Location graveyard = new Location("graveyard", "GRAVEYARD", "You are in a graveyard, where the dead come to life, and the living come to die", false, graveyardImg);
-        graveyard.addExit("N", "CATACOMBS");
         graveyard.addExit("E", "TREE");
         graveyard.addExit("W", "PATH");
 
@@ -670,8 +669,6 @@ public class Adventure
         Monster ghostGirl = new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 9000, true, ghostGirlImg, 250, 1500);
         tree.addMonster(ghostGirl);
 
-        Location catacombs = new Location("catacombs", "CATACOMBS", "You are in the catacombs, there are bones literally everywhere", true, catacombsImg);
-        catacombs.addExit("S", "GRAVEYARD");
 
         Location tundra = new Location("tundra", "TUNDRA", "You are in a freezing tundra, not much is happening here...", false, tundraImg);
         tundra.addExit("S", "PATH");
@@ -690,7 +687,7 @@ public class Adventure
         pass.addExit("E", "MOUNTAIN");
         pass.addExit("W", "TWINPEAK");
 
-        Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg);
+        Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg, "Twin Peak Key");
         twinpeak.addExit("E", "PASS");
         Monster wyvern = new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 2000, true, wyvernImg, 500, 5000);
         twinpeak.addMonster(wyvern);
@@ -701,7 +698,7 @@ public class Adventure
         gate.addExit("S", "MOUNTAIN");
 
 
-        Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, castleImg);
+        Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, castleImg, "Gate Key");
         castle.addExit("N", "HALL");
         castle.addExit("E", "BARRACKS");
         castle.addExit("S", "GATE");
@@ -729,17 +726,17 @@ public class Adventure
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
         wtower.addExit("E", "HALL");
 
-        Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null);
+        Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null, "Twin Knight Key");
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
         Monster prince = new Boss("Prince Jerry", 400, 1, 75, 800, 1500, 45, 2000, true, princeImg, 500, 8000);
         sanctum.addMonster(prince);
 
-        Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null);
+        Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null, "Throne Key");
         throne.addExit("N", "CHAMBER");
         throne.addExit("S", "SANCTUM");
 
-        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, null);
+        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, null, "King's Key");
         chamber.addExit("S", "THRONE");
 
 
@@ -762,7 +759,6 @@ public class Adventure
         this.allLocs.add(reef);
         this.allLocs.add(graveyard);
         this.allLocs.add(tree);
-        this.allLocs.add(catacombs);
         this.allLocs.add(cabin);
         this.allLocs.add(pass);
         this.allLocs.add(twinpeak);
