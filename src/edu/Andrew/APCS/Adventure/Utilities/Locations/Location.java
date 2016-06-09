@@ -10,6 +10,7 @@ package edu.Andrew.APCS.Adventure.Utilities.Locations;
 
 import java.util.*;
 
+import edu.Andrew.APCS.Adventure.Adventure;
 import edu.Andrew.APCS.Adventure.Player;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
 import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
@@ -20,7 +21,7 @@ public class Location
 {
 
     private String Name;
-    private String id;
+    private String ID;
     private String description;
     private boolean locked;
     private Image image;
@@ -29,24 +30,23 @@ public class Location
     private ArrayList<Monster> monsters;
     private ArrayList<Item> strayItems;
     private String keyItemUnlock;
-    private Player p;
 
 
-    public Location()
+    /* public Location()
     {
         this.Name = "";
-        this.id = "";
+        this.ID = "";
         this.description = "";
         this.image = null;
         this.p = new Player();
         this.locked = false;
         this.keyItemUnlock = "";
 
-    }
+    } */
 
-    public Location (String name, String id, String desc, boolean isLocked, Image img) {
+    public Location (String name, String ID, String desc, boolean isLocked, Image img) {
         this.Name = name;
-        this.id = id;
+        this.ID = ID;
         this.description = desc;
         this.locked = isLocked;
         this.image = img;
@@ -57,14 +57,14 @@ public class Location
         this.keyItemUnlock = "";
 
         if (isLocked && keyItemUnlock.isEmpty())
-            System.out.println("WARNING: NO UNLOCK ITEM SET IN " + name + ", " + id);
+            System.out.println("WARNING: NO UNLOCK ITEM SET IN " + name + ", " + ID);
 
 
     }
 
-    public Location (String name, String id, String desc, boolean isLocked, Image img, String keyItemUnlock) {
+    public Location (String name, String ID, String desc, boolean isLocked, Image img, String keyItemUnlock) {
         this.Name = name;
-        this.id = id;
+        this.ID = ID;
         this.description = desc;
         this.locked = isLocked;
         this.image = img;
@@ -136,7 +136,7 @@ public class Location
      * Getters and setters
      */
 
-    public String getID() { return this.id; }
+    public String getID() { return this.ID; }
 
     public void setName ( String newName ) { this.Name = newName; }
 
@@ -161,8 +161,6 @@ public class Location
     public ArrayList<Item> getStrayItems() { return strayItems; }
 
     public void setAllMonsters(ArrayList<Monster> newMonsters) { this.monsters = newMonsters; }
-
-    public String checkLocID() { return p.currentLoc.getID(); }
 
     public void removeStrayItem(Item item) { strayItems.remove(item); }
 
