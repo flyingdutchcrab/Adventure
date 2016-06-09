@@ -191,7 +191,7 @@ public class Adventure
 
                 p.setPlayerName(inputText.getText());
                 text.appendText("Welcome, " + p.getPlayerName() + "\n");
-                playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
+                playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
                 this.setNewLoc("START");
                 inputText.deleteText(0, inputText.getLength());
 
@@ -277,7 +277,7 @@ public class Adventure
     private void doBattle(Monster enemy) {
         System.out.print("doBattle");
         //first time run
-        text.appendText("\n" + "A wild Lvl. " + enemy.getLvl() + " " + enemy.getName() + " has appeared!" + "\n" );
+        text.appendText("\n" + "A wild Lvl. " + enemy.getLevel() + " " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
@@ -304,7 +304,7 @@ public class Adventure
                 //enemy.setDamage(enemy.getDamage() / p.getArmor().getArmorValue());
                 p.setHealth(p.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
                 text.appendText("The " + enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + p.getHealth() + "\n"); //prints how much damage the monster does to the player
-                playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
+                playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
 
                 if (p.getHealth() < 20.0)
                     text.appendText("Your health is low, you should return home and restore health!" + "\n");
@@ -321,8 +321,9 @@ public class Adventure
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
                     p.addWallet(enemy.getLoot());
-                    playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n");
+                    playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
                     text.setText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
+                    p.setXp(p.getXp() + enemy.getXp());
 
 
                 } else if (!p.alive) { //if you died
@@ -929,7 +930,7 @@ public class Adventure
                             invInputText.deleteText(0, invInputText.getLength());
                             p.equipWeapon(p.inventory.get(i));
                             inputText.deleteText(0, inputText.getLength());
-                            playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n");
+                            playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
                         } else if (p.inventory.get(i) instanceof Armor) {
                             invInputText.deleteText(0, invInputText.getLength());
                             p.equipArmor(p.inventory.get(i));

@@ -169,6 +169,11 @@ public class Player
         return this.xp;
     }
 
+    public void setXp(int xp)
+    {
+        this.xp = xp;
+    }
+
     public int getInsight()
     {
         return this.insight;

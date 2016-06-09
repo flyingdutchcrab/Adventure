@@ -15,6 +15,8 @@ public class Monster
     private String mobName;
     private int minLvl;
     private int maxLvl;
+    private int level;
+    private int xp;
     private int minXp;
     private int maxXp;
     private double health;
@@ -28,10 +30,12 @@ public class Monster
     {
         this.mobName = "";
         this.health = -1.0;
+        this.level = -1;
         this.minLvl = -1;
         this.maxLvl = 0;
         this.minXp = -1;
         this.maxXp = 0;
+        this.xp = -1;
         this.damage = -1.0;
         this.alive = false;
         this.loot = -1.0;
@@ -52,6 +56,8 @@ public class Monster
         this.loot = loot;
         this.alive = isAlive;
         this.image = img;
+        this.level = generateLvl();
+        this.xp = generateXp();
 
     }
 
@@ -101,9 +107,19 @@ public class Monster
 
     public Image getImage() { return this.image; }
 
-    public int getLvl() { return random_int(this.minLvl, this.maxLvl); } /** should only be called once **/
+    public int generateLvl() { return random_int(this.minLvl, this.maxLvl); } /** should only be called once **/
 
-    private int getXp() { return random_int(this.minXp, this.maxXp); } /** should only be called once **/
+    private int generateXp() { return random_int(this.minXp, this.maxXp); } /** should only be called once **/
+
+    public int getLevel()
+    {
+        return this.level;
+    }
+
+    public int getXp()
+    {
+        return this.xp;
+    }
 
 
     /**
@@ -112,7 +128,7 @@ public class Monster
      */
     public String toString()
     {
-        return "Monster: " + mobName + " | " + "Lvl: " + getLvl() + " | " + "XP: " + getXp() + " | " + "HP: " + health + " | " + "Damage: " + damage + " | " + "Loot: " + loot + "\n";
+        return "Monster: " + mobName + " | " + "Lvl: " + getLevel() + " | " + "XP: " + getXp() + " | " + "HP: " + health + " | " + "Damage: " + damage + " | " + "Loot: " + loot + "\n";
     }
 
 
