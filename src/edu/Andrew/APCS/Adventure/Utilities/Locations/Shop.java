@@ -38,15 +38,22 @@ public class Shop
      */
     public ArrayList<Item> initializeShopInventory() {
 
-        Item wep1 = new Weapon("Boomstick", 300, 100);
+        Item wep1 = new Weapon("Boomstick", 430, 1000);
         Item wep2 = new Weapon("Bow and Arrow", 50, 18);
-        Item wep3 = new Weapon("Iron Sword", 70 , 20);
-        Item key = new KeyItem("Grave Key", 20, "Opens a strange grave");
+        Item wep3 = new Weapon("Iron Sword", 70 , 40);
+        Item wep4 = new Weapon("Crystal Sword", 350, 600);
+        Item wep5 = new Weapon("Crossbow", 200, 500);
+        Item wep6 = new Weapon("Handcannon", 570, 1300);
+        Item wep7 = new Weapon("Dark Sword", 600, 2000);
+
+        Item key1 = new KeyItem("Grave Key", 100, "Opens a strange grave");
         Item arm1 = new Armor("Iron Armor", 100, 4);
         this.shopInventory.add(wep1);
         this.shopInventory.add(wep2);
         this.shopInventory.add(wep3);
-        this.shopInventory.add(key);
+        this.shopInventory.add(wep4);
+
+        this.shopInventory.add(key1);
 
         return shopInventory;
     }
