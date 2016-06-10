@@ -20,14 +20,15 @@ public class Player
 {
 
     private double health;
+    private double armorValue;
     private double damage;
     private int level;
     private int insight;
     private int xp;
     private String playerName;
     private String jobSkill;
-    private Item weapon; //Expecting an Weapon here
-    private Item armor; //expecting a Armor here
+    private Weapon weapon; //Expecting an Weapon here
+    private Armor armor; //expecting a Armor here
     private double wallet;
     public boolean alive;
     public Location currentLoc;
@@ -40,16 +41,17 @@ public class Player
     public Player() {
         this.health = 100.0; //sets players default health to 100
         this.playerName = "NotSet"; //sets players default name as not set
-        this.damage = 10.0; //sets players default damage as 10
         this.level = 1;
         this.xp = 0;
         this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
         this.jobSkill = "NotSet"; //sets players default skill as not set
-        Weapon stick = new Weapon("wooden stick", 25.0, 100.0); //sets players default weapon as no weapon
-        this.weapon = stick;
-        Armor shirt = new Armor("T-Shirt", 10, 2);
-        this.armor = shirt;
+        Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
+        equipWeapon(stick);
+        this.damage = weapon.getDamage(); //sets players default damage as 10
+        Armor shirt = new Armor("T-Shirt", 10, 1);
+        equipArmor(shirt);
+        this.armorValue = armor.getArmorValue();
         this.alive = true; //sets players default status to alive
         this.inventory = new ArrayList<>();
         inventory.add(stick);
@@ -143,9 +145,9 @@ public class Player
      * Equips an item from the player's inventory
      * @param w the wepon to equip
      */
-    public void equipWeapon(Item w) { this.weapon = w; }
+    public void equipWeapon(Weapon w) { this.weapon = w; }
 
-    public void equipArmor(Item a) { this.armor = a; }
+    public void equipArmor(Armor a) { this.armor = a; }
 
 
     /**
@@ -188,6 +190,11 @@ public class Player
     public Item getWeapon() { return this.weapon; }
 
     public Item getArmor() { return this.armor; }
+
+    public double getPlayerArmorValue()
+    {
+        return this.armorValue;
+    }
 
     public Location getCurrentLoc() { return this.currentLoc; }
 

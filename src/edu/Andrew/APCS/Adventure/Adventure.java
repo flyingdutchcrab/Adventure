@@ -544,7 +544,6 @@ public class Adventure
             String theInputText = inputText.getText();
             inputText.deleteText(0, theInputText.length());
 
-
             if (theInputText.equalsIgnoreCase("y") && enemy.isAlive()) //if they want to fight
             {
 
@@ -553,7 +552,7 @@ public class Adventure
                 text.appendText("You attack " + enemy.getName() + " for " + p.getDamage() + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
 
                 //Monster turn
-                //enemy.setDamage(enemy.getDamage() / p.getArmor().getArmorValue());
+                enemy.setDamage(enemy.getDamage() / p.getPlayerArmorValue());
                 p.setHealth(p.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
                 text.appendText("The " + enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + p.getHealth() + "\n"); //prints how much damage the monster does to the player
                 playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
@@ -725,7 +724,7 @@ public class Adventure
                         text.appendText("You bought the " + i.getItemName() + " for " + i.getCost() + "\n");
                         p.inventory.add(i);
                         p.addWallet(-i.getCost());
-                        playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: " + p.getWallet() + "\n");
+                        playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
                         break;
 
                     } else {
@@ -822,9 +821,27 @@ public class Adventure
 
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
-            p.setHealth(100.0);
-            playerInfo.setText(p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n");
-            text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
+            text.appendText("\n" + "Would you like to rest? (Y/N)" + "\n");
+            inputText.setOnAction(e ->
+            {
+                String choice = inputText.getText();
+                inputText.deleteText(0, inputText.getLength());
+                if (choice.equalsIgnoreCase("y") && p.getHealth() < 100) {
+                    p.setHealth(100.0);
+                    playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName()  + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
+                    text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
+                }
+                else if(choice.equalsIgnoreCase("n"))
+                {
+                    text.appendText("You chose not to rest" + "\n");
+                }
+                else
+                {
+                    text.appendText("Unrecognized command" + "\n");
+                }
+
+            });
+
 
         } else if(p.currentLoc.getID().equals("STORE")) { //doStore
 
@@ -1061,12 +1078,12 @@ public class Adventure
                     if (choice.equalsIgnoreCase(p.inventory.get(i).getItemName())) {
                         if (p.inventory.get(i) instanceof Weapon) {
                             invInputText.deleteText(0, invInputText.getLength());
-                            p.equipWeapon(p.inventory.get(i));
+                            p.equipWeapon((Weapon) p.inventory.get(i));
                             inputText.deleteText(0, inputText.getLength());
                             playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
                         } else if (p.inventory.get(i) instanceof Armor) {
                             invInputText.deleteText(0, invInputText.getLength());
-                            p.equipArmor(p.inventory.get(i));
+                            p.equipArmor((Armor) p.inventory.get(i));
                         }
                         else if (p.inventory.get(i) instanceof KeyItem && p.inventory.get(i).getItemName().equalsIgnoreCase("Eye Rune"))
                         {

@@ -21,7 +21,7 @@ public class Armor extends Item
 
 
     /**
-     * Get the armor's valuse
+     * Get the armor's value
      * @return double of armor's value
      */
     public double getArmorValue() { return this.armorValue; }

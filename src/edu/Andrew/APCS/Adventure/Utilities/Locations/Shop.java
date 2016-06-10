@@ -46,14 +46,23 @@ public class Shop
         Item wep6 = new Weapon("Handcannon", 570, 1300);
         Item wep7 = new Weapon("Dark Sword", 600, 2000);
 
+        Item arm1 = new Armor("Iron Armor", 100, 2);
+
         Item key1 = new KeyItem("Grave Key", 100, "Opens a strange grave");
-        Item arm1 = new Armor("Iron Armor", 100, 4);
+
         this.shopInventory.add(wep1);
         this.shopInventory.add(wep2);
         this.shopInventory.add(wep3);
         this.shopInventory.add(wep4);
+        this.shopInventory.add(wep5);
+        this.shopInventory.add(wep6);
+        this.shopInventory.add(wep7);
+
+        this.shopInventory.add(arm1);
+
 
         this.shopInventory.add(key1);
+
 
         return shopInventory;
     }
