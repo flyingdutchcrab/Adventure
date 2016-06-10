@@ -187,7 +187,7 @@ public class Adventure
      */
     public void initialize()
     {
-        imagePane.setImage(new Image("yetanotherforest.jpg"));  //need to force this.
+        imagePane.setImage(new Image("locations/welcomeimage.gif"));  //need to force this.
         imagePane.setVisible(true);
 
 
@@ -250,7 +250,7 @@ public class Adventure
 
         Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg, "Forest Key");
         grotto.addExit("E", "FOREST");
-        Monster forestSpirit = new Boss("Forest Spirit", 300, 1, 50, 50, 1000, 35, 500, true, forestSpiritImg, 300, 1000);
+        Monster forestSpirit = new Boss("Forest Spirit", 300, 1, 50, 50, 1000, 35, 500, true, forestSpiritImg, 300, 1000, null);
         grotto.addMonster(forestSpirit);
 
 
@@ -279,7 +279,7 @@ public class Adventure
 
         Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg, "Reef Key");
         reef.addExit("W", "COVE");
-        Monster dagon = new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 600, true, dagonImg, 400, 2000);
+        Monster dagon = new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 600, true, dagonImg, 400, 2000, null);
         reef.addMonster(dagon);
 
 
@@ -305,7 +305,8 @@ public class Adventure
 
         Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg, "Grave Key");
         tree.addExit("W", "GRAVEYARD");
-        Monster ghostGirl = new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 400, true, ghostGirlImg, 250, 1500);
+        Item forestKey = new KeyItem("Forest Key", 600, "Opens the grotto");
+        Monster ghostGirl = new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 400, true, ghostGirlImg, 250, 1500, forestKey);
         tree.addMonster(ghostGirl);
 
 
@@ -328,7 +329,7 @@ public class Adventure
 
         Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg, "Twin Peak Key");
         twinpeak.addExit("E", "PASS");
-        Monster wyvern = new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 700, true, wyvernImg, 500, 5000);
+        Monster wyvern = new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 700, true, wyvernImg, 500, 5000, null);
         twinpeak.addMonster(wyvern);
 
 
@@ -359,7 +360,7 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
         etower.addExit("W", "HALL");
-        Monster alrothia = new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000);
+        Monster alrothia = new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, null);
         etower.addMonster(alrothia);
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
@@ -368,7 +369,7 @@ public class Adventure
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null, "Twin Knight Key");
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
-        Monster prince = new Boss("Prince Jerry", 400, 1, 75, 800, 1500, 45, 1000, true, princeImg, 500, 8000);
+        Monster prince = new Boss("Prince Jerry", 400, 1, 75, 800, 1500, 45, 1000, true, princeImg, 500, 8000, null);
         sanctum.addMonster(prince);
 
         Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null, "Throne Key");
@@ -383,7 +384,7 @@ public class Adventure
 
 
         Location end = new Location("end", "END", "awkfnawlfnalwkfnalkwf", true, endImg);
-        Monster god = new Boss("GOD", 300, 9998, 9999, 4999, 5000, 35, 1000000, true, godImg, 1000, 100000000);
+        Monster god = new Boss("GOD", 300, 9998, 9999, 4999, 5000, 35, 1000000, true, godImg, 1000, 100000000, null);
         end.addMonster(god);
 
 
@@ -603,6 +604,89 @@ public class Adventure
 
     } //end doBattle
 
+    private void doBossBattle(Boss boss) {
+        System.out.print("doBossBattle");
+        //first time run
+        text.appendText("\n" + boss.getName() + " has appeared!" + "\n" );
+        mobImagePane.setImage(boss.getImage());
+        centerMobImage();
+
+
+        //Prompts user to attack or run
+        text.appendText("Attack " + boss.getName() + "? (Y/N) " + "\n");
+
+
+        Platform.runLater(() -> inputText.requestFocus());
+        inputText.setOnAction(event ->
+        {
+            String theInputText = inputText.getText();
+            inputText.deleteText(0, theInputText.length());
+
+
+            if (theInputText.equalsIgnoreCase("y") && boss.isAlive()) //if they want to fight
+            {
+
+                //Player turn
+                boss.setHealth(boss.getHealth() - p.getDamage()); //Sets the monsters health as their current health minus the players damage
+                text.appendText("You attack " + boss.getName() + " for " + p.getDamage() + " damage!" + "\n" + "boss health is " + boss.getHealth() + "\n");
+
+                //Monster turn
+                //boss.setDamage(boss.getDamage() / p.getArmor().getArmorValue());
+                p.setHealth(p.getHealth() - boss.getDamage()); //Sets the players health as their current health minus the monsters damage
+                text.appendText("The " + boss.getName() + " hit you for " + boss.getDamage() + " damage!" + "\n" + "Your health is " + p.getHealth() + "\n"); //prints how much damage the monster does to the player
+                playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
+
+                if (p.getHealth() < 20.0)
+                    text.appendText("Your health is low, you should return home and restore health!" + "\n");
+
+
+                //checks if the player or monster is dead
+                p.checkLife(); //calculate if dead
+                boss.checkLife(); //calculate if dead
+
+
+                //when someone dies
+                if (p.alive && !boss.isAlive()) // if you are still standing
+                {
+                    //print results (money earned, health remaining)
+                    mobImagePane.setImage(null);
+                    p.addWallet(boss.getLoot());
+                    p.setXp(p.getXp() + boss.getXp());
+                    playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
+                    text.setText("You shrekt the " + boss.getName() + "\n" + "You got $" + boss.getLoot() + " for winning!" + "\n");
+                    if (boss.getBossLoot() != null)
+                    {
+                        text.appendText("\n" + "Picked up an item!" + "\n");
+                        p.inventory.add(boss.getBossLoot());
+                    }
+
+
+
+                } else if (!p.alive) { //if you died
+
+                    mobImagePane.setImage(null);
+                    text.setText("You have been shrekt by the " + boss.getName());
+                    setNewLoc(null);
+
+
+                } else {
+                    text.appendText("Attack again? (Y/N) \n");
+                }
+
+            } else if (theInputText.equalsIgnoreCase("n")) { // if they don't want to fight
+                mobImagePane.setImage(null);
+                text.appendText("You fled from the fight!" + "\n");
+                setNewLoc("MEADOW"); // brings you back to town
+                //System.out.print("Will i run?"); //DEBUG
+
+            } else // they don't make any sense
+                text.appendText("Unrecognized command" + theInputText + "\n");
+
+        });
+
+
+    } //end doBattle
+
 
     /**
      * Multibattle takes in an array of monsters and does battle with each of them if the player is in the forest
@@ -699,7 +783,12 @@ public class Adventure
             imagePane.setImage(p.getCurrentLoc().getImage());
             ArrayList<Monster> monsters = p.getCurrentLoc().getMonsters();
             Monster randomMob = monsters.get(random_int(0, monsters.size()));
-            doBattle(randomMob); //does multibattle if there are monsters
+            if (randomMob instanceof Boss)
+                doBossBattle((Boss) randomMob); //does multibattle if there are monsters
+
+            else
+                doBattle(randomMob);
+
 
         } else if (p.getCurrentLoc().getStrayItems().size() > 0) {
             text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");

@@ -14,9 +14,9 @@ public class BossTester
 {
 
     public static void main(String args[]) {
-        Monster skrub = new Boss("skrub", 20, 10, 1, 10, 25, 5, 25, true, null, 500, 5000);
-        Monster skrublord = new Boss("skrublord", 25, 20, 10, 50, 35, 10, 45, true, null, 500, 5000);
-        Monster wyvern = new Boss("Wyvern", 400, 1, 50, 50, 1000, 45, 2000, true, null, 500, 5000);
+        Monster skrub = new Monster("skrub", 20, 10, 1, 10, 25, 5, 25, true, null);
+        Monster skrublord = new Monster("skrublord", 25, 20, 10, 50, 35, 10, 45, true, null);
+        Monster wyvern = new Boss("Wyvern", 400, 1, 50, 50, 1000, 45, 2000, true, null, 500, 5000, null);
 
 
         System.out.println(skrub.toString());

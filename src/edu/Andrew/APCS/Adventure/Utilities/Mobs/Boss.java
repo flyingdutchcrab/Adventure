@@ -1,6 +1,10 @@
 package edu.Andrew.APCS.Adventure.Utilities.Mobs;
 
 import javafx.scene.image.Image;
+import edu.Andrew.APCS.Adventure.Adventure;
+import edu.Andrew.APCS.Adventure.Player;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
+import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
 
 /**
  * Adventure
@@ -13,13 +17,15 @@ public class Boss extends Monster
 {
     private int bossLevel;
     private int bossXP;
+    private Item bossLoot;
 
 
-    public Boss(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img, int bossLevel, int bossXP)
+    public Boss(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img, int bossLevel, int bossXP, Item bLoot)
     {
         super(mobName, health, mxLvl, mnLvl, mxXp, mnXp, damage, loot, isAlive, img);
         this.bossLevel = bossLevel;
         this.bossXP = bossXP;
+        this.bossLoot = bLoot;
     }
 
 
@@ -30,6 +36,11 @@ public class Boss extends Monster
     private int getBossLevel() { return this.bossLevel; }
 
     public int getBossXP() { return this.bossXP; }
+
+    public Item getBossLoot()
+    {
+        return this.bossLoot;
+    }
 
 
     /**

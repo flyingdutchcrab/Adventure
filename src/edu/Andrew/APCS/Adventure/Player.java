@@ -38,7 +38,7 @@ public class Player
 
 
     public Player() {
-        this.health = 150.0; //sets players default health to 100
+        this.health = 100.0; //sets players default health to 100
         this.playerName = "NotSet"; //sets players default name as not set
         this.damage = 10.0; //sets players default damage as 10
         this.level = 1;
@@ -46,7 +46,7 @@ public class Player
         this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
         this.jobSkill = "NotSet"; //sets players default skill as not set
-        Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
+        Weapon stick = new Weapon("wooden stick", 25.0, 100.0); //sets players default weapon as no weapon
         this.weapon = stick;
         Armor shirt = new Armor("T-Shirt", 10, 2);
         this.armor = shirt;
