@@ -306,6 +306,7 @@ public class Adventure
 
         Location cabin = new Location("abandoned cabin", "CABIN", "You are in an abandoned cabin, the walls are rotting and the floor is overgrown", false, cabinImg);
         cabin.addExit("W", "SWAMP");
+        //cabin.addExit("E", "END");
         cabin.addStrayItem(new KeyItem("Eye Rune", 1000, "Reveals secrets, if you are smart enough to find them"));
 
         Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, pathImg);
