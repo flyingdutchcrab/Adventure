@@ -100,6 +100,7 @@ public class Adventure
     private Image cabinImg;
     private Image hallImg;
     private Image wTowerImg;
+    private Image eTowerImg;
     private Image chamberImg;
     private Image gameOverImg;
 
@@ -115,6 +116,7 @@ public class Adventure
     private Image ghostGirlImg;
     private Image princeImg;
     private Image alrothiaImg;
+    private Image argothImg;
     private Image forestSpiritImg;
 
 
@@ -161,6 +163,7 @@ public class Adventure
         this.cabinImg = new Image("locations/cabin.gif");
         this.hallImg = new Image("locations/interiorcastle.gif");
         this.wTowerImg = new Image("locations/westtower.gif");
+        this.eTowerImg = new Image("locations/bigheadroom.gif");
         this.chamberImg = new Image("locations/kingschamber.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
 
@@ -176,6 +179,7 @@ public class Adventure
         this.wyvernImg = new Image("monsters/rathian.gif");
         this.princeImg = new Image("monsters/fireprince.gif");
         this.alrothiaImg = new Image("monsters/alrothia.gif");
+        this.argothImg = new Image("monsters/undeadknight.gif");
         this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
 
@@ -364,8 +368,10 @@ public class Adventure
         hall.addExit("S", "CASTLE");
         hall.addExit("W", "WESTTOWER");
 
-        Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
+        Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, eTowerImg);
         etower.addExit("W", "HALL");
+        Monster argoth = new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, null);
+        etower.addMonster(argoth);
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, wTowerImg);
         wtower.addExit("E", "HALL");
@@ -692,7 +698,7 @@ public class Adventure
                     item_found = true;
                     if (player.getWallet() >= i.getCost()) {
 
-                        text.appendText("You bought the " + i.getItemName() + " for " + i.getCost() + "\n");
+                        text.appendText("You bought the " + i.getItemName() + " for $" + i.getCost() + "\n");
                         player.getInventory().add(i);
                         player.addWallet(-i.getCost());
                         playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
