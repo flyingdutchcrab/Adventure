@@ -26,7 +26,7 @@ import javafx.application.Platform;
  *
  * Adventure
  *
- * The Adventure class, there'shop a lot of methods here.
+ * The Adventure class, there's a lot of methods here.
  */
 public class Adventure
 {
