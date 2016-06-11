@@ -80,7 +80,7 @@ public class Player
         Adventure adv = new Adventure();
         Location singleLoc = null;
 
-        for(Location aLoc : adv.getAllLocs())
+        for(Location aLoc : adv.getAllLocations())
         {
             if(aLoc.getID().equals(ID))
             {
@@ -193,6 +193,6 @@ public class Player
         return "Player Name: " + playerName + "\n" + "Health: " + health + "\n" + "Weapon: " + weapon.getItemName() + "\n" + "Armor: " + armor.getItemName() + "\n" + "Wallet: " + "$" + wallet + "\n" + "Location: " + currentLoc.getName() + "\n";
     } //end toString
 
-    
+
 
 } //end class
