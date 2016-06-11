@@ -22,10 +22,10 @@ public class PlayerTester
         Item medkit = new Item("Med-Kit", 25.0);
         Item sword = new Weapon("Iron Sword", 100.0, 50.0);
         Item key = new KeyItem("Gate Key", 20, "Opens the castle gate");
-        p.inventory.add(p.getWeapon());
-        p.inventory.add(medkit);
-        p.inventory.add(sword);
-        p.inventory.add(key);
+        p.getInventory().add(p.getWeapon());
+        p.getInventory().add(medkit);
+        p.getInventory().add(sword);
+        p.getInventory().add(key);
 
         if (p.containsItem("Gate Key"))
             System.out.println("Player has key");
@@ -33,15 +33,15 @@ public class PlayerTester
 
         p.setHealth(50);
         p.checkLife();
-        System.out.println(p.alive);
+        System.out.println(p.isAlive());
 
-        if ( p.alive )
+        if ( p.isAlive() )
             System.out.println("Barley alive");
 
         p.setHealth(0);
         p.checkLife();
 
-        if (!p.alive)
+        if (!p.isAlive())
             System.out.println("Im Dead");
 
         System.out.println(p.printInventory());

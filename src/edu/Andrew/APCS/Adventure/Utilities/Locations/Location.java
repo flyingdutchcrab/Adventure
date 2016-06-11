@@ -1,5 +1,10 @@
 package edu.Andrew.APCS.Adventure.Utilities.Locations;
 
+import java.util.*;
+import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
+import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
+import javafx.scene.image.Image;
+
 /**
  * Adventure
  *
@@ -7,16 +12,6 @@ package edu.Andrew.APCS.Adventure.Utilities.Locations;
  *
  * This is a location, stores data for that location.
  */
-
-import java.util.*;
-
-import edu.Andrew.APCS.Adventure.Adventure;
-import edu.Andrew.APCS.Adventure.Player;
-import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
-import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
-import javafx.scene.image.Image;
-
-
 public class Location
 {
 

@@ -1,15 +1,10 @@
 package edu.Andrew.APCS.Adventure.Utilities.Locations;
 
-
 import java.util.*;
-
 import edu.Andrew.APCS.Adventure.Utilities.Items.Armor;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
 import edu.Andrew.APCS.Adventure.Utilities.Items.KeyItem;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Weapon;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 /**
  * Adventure
@@ -23,48 +18,25 @@ public class Shop
 {
 
     private ArrayList<Item> shopInventory;
-    @FXML private TextArea text;
-    @FXML private TextField inputText;
 
 
     public Shop() {
         this.shopInventory = new ArrayList<>();
-    }
+
+        /**
+         * populate the Shop's inventory
+         */
+        this.shopInventory.add(new Weapon("Boomstick", 430, 1000));    //wep 1
+        this.shopInventory.add(new Weapon("Bow and Arrow", 50, 18));   //wep 2
+        this.shopInventory.add(new Weapon("Iron Sword", 70 , 40));     //wep 3
+        this.shopInventory.add(new Weapon("Crystal Sword", 350, 600)); //wep 4
+        this.shopInventory.add(new Weapon("Crossbow", 200, 500));      //wep 5
+        this.shopInventory.add(new Weapon("Handcannon", 570, 1300));   //wep 6
+        this.shopInventory.add(new Weapon("Dark Sword", 600, 2000));   //wep 7
+        this.shopInventory.add(new Armor("Iron Armor", 100, 2));       //arm 1
+        this.shopInventory.add(new KeyItem("Grave Key", 100, "Opens a strange grave")); //key1
 
 
-    /**
-     * Init. shop inv
-     * @return ArrayList of the init. shop inv
-     */
-    public ArrayList<Item> initializeShopInventory() {
-
-        Item wep1 = new Weapon("Boomstick", 430, 1000);
-        Item wep2 = new Weapon("Bow and Arrow", 50, 18);
-        Item wep3 = new Weapon("Iron Sword", 70 , 40);
-        Item wep4 = new Weapon("Crystal Sword", 350, 600);
-        Item wep5 = new Weapon("Crossbow", 200, 500);
-        Item wep6 = new Weapon("Handcannon", 570, 1300);
-        Item wep7 = new Weapon("Dark Sword", 600, 2000);
-
-        Item arm1 = new Armor("Iron Armor", 100, 2);
-
-        Item key1 = new KeyItem("Grave Key", 100, "Opens a strange grave");
-
-        this.shopInventory.add(wep1);
-        this.shopInventory.add(wep2);
-        this.shopInventory.add(wep3);
-        this.shopInventory.add(wep4);
-        this.shopInventory.add(wep5);
-        this.shopInventory.add(wep6);
-        this.shopInventory.add(wep7);
-
-        this.shopInventory.add(arm1);
-
-
-        this.shopInventory.add(key1);
-
-
-        return shopInventory;
     }
 
 
@@ -75,6 +47,7 @@ public class Shop
     public ArrayList<Item> getShopInventory() {
         return shopInventory;
     }
+
 
     /**
      * toString for shop

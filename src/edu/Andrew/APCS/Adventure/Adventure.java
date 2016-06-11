@@ -1,13 +1,5 @@
 package edu.Andrew.APCS.Adventure;
 
-/**
- * Adventure
- *
- * Adventure
- *
- * The Adventure class, there's a lot of methods here.
- */
-
 import java.util.*;
 import java.lang.*;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Armor;
@@ -29,7 +21,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.application.Platform;
 
-
+/**
+ * Adventure
+ *
+ * Adventure
+ *
+ * The Adventure class, there's a lot of methods here.
+ */
 public class Adventure
 {
 
@@ -216,7 +214,7 @@ public class Adventure
         });
 
         //rest to restore health at home
-        if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
+        if (p.getCurrentLoc().getID().equals("START") && p.getHealth() < 100) {
 
             p.setHealth(100.0);
             text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
@@ -480,7 +478,7 @@ public class Adventure
         //sets start location
         this.setNewLoc("START");
 
-        while(p.alive) {
+        while(p.isAlive()) {
 
             if(p.getCurrentLoc().getMonsters().size() > 0) {
 
@@ -488,7 +486,7 @@ public class Adventure
                 Monster randomMob = monsters.get(random_int(0, monsters.size()));
                 doBattle(randomMob); //does multibattle if there are monsters
 
-                if(p.alive && randomMob.getName().equals("GOD")) {
+                if(p.isAlive() && randomMob.getName().equals("GOD")) {
 
                     this.win();
                     text.setText("You have beaten the steam sales, you have won life!" + "\n");
@@ -509,7 +507,7 @@ public class Adventure
 
 
             //rest to restore health at home
-            if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) {
+            if (p.getCurrentLoc().getID().equals("START") && p.getHealth() < 100) {
 
                 p.setHealth(100.0);
                 text.appendText("You have rested! Your health is now " + p.getHealth() + "\n");
@@ -569,7 +567,7 @@ public class Adventure
 
 
                 //when someone dies
-                if (p.alive && !enemy.isAlive()) // if you are still standing
+                if (p.isAlive() && !enemy.isAlive()) // if you are still standing
                 {
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
@@ -580,7 +578,7 @@ public class Adventure
 
 
 
-                } else if (!p.alive) { //if you died
+                } else if (!p.isAlive()) { //if you died
 
                     mobImagePane.setImage(null);
                     text.setText("You have been shrekt by the " + enemy.getName());
@@ -598,7 +596,7 @@ public class Adventure
                     //System.out.print("Will i run?"); //DEBUG
 
             } else // they don't make any sense
-                text.appendText("Unrecognized command" + theInputText + "\n");
+                text.appendText("Unrecognized command_" + theInputText + "_" +enemy.isAlive() +"\n");
 
         });
 
@@ -647,7 +645,7 @@ public class Adventure
 
 
                 //when someone dies
-                if (p.alive && !boss.isAlive()) // if you are still standing
+                if (p.isAlive() && !boss.isAlive()) // if you are still standing
                 {
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
@@ -658,12 +656,12 @@ public class Adventure
                     if (boss.getBossLoot() != null)
                     {
                         text.appendText("\n" + "Picked up an item!" + "\n");
-                        p.inventory.add(boss.getBossLoot());
+                        p.getInventory().add(boss.getBossLoot());
                     }
 
 
 
-                } else if (!p.alive) { //if you died
+                } else if (!p.isAlive()) { //if you died
 
                     mobImagePane.setImage(null);
                     text.setText("You have been shrekt by the " + boss.getName());
@@ -686,7 +684,7 @@ public class Adventure
         });
 
 
-    } //end doBattle
+    } //end boss battle
 
 
     /**
@@ -704,8 +702,6 @@ public class Adventure
      */
     private void doShop()
     {
-        if (s.getShopInventory().isEmpty())
-            s.initializeShopInventory(); //THIS SHOULD ONLY BE CALLED ONCE!
 
         text.appendText(s.printShopInventory() + "\n");
         text.appendText("Type the item name to buy a weapon here. Go back west to leave shop." + "\n");
@@ -724,7 +720,7 @@ public class Adventure
                     if (p.getWallet() >= i.getCost()) {
 
                         text.appendText("You bought the " + i.getItemName() + " for " + i.getCost() + "\n");
-                        p.inventory.add(i);
+                        p.getInventory().add(i);
                         p.addWallet(-i.getCost());
                         playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
                         break;
@@ -770,17 +766,17 @@ public class Adventure
         });
 
 
-        p.currentLoc = this.getSingleLoc(ID);
+        p.setCurrentLoc(this.getSingleLoc(ID));
 
-        if(p.currentLoc == null) {  //killed/lost
+        if(p.getCurrentLoc() == null) {  //killed/lost
 
             text.appendText("\n\nYou have been killed!\n");
             imagePane.setImage(gameOverImg);
-            p.alive = false;
+            p.setAlive(false);
 
         } else if (p.getCurrentLoc().getMonsters().size() > 0) { //doBattle
 
-            text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
+            text.setText("You are now in " + p.getCurrentLoc().getName() + "\n" + p.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             ArrayList<Monster> monsters = p.getCurrentLoc().getMonsters();
             Monster randomMob = monsters.get(random_int(0, monsters.size()));
@@ -792,18 +788,18 @@ public class Adventure
 
 
         } else if (p.getCurrentLoc().getStrayItems().size() > 0) {
-            text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
+            text.setText("You are now in " + p.getCurrentLoc().getName() + "\n" + p.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             text.appendText("There is an item here! Pick it up? (Y/N)" + "\n" );
-            Item strayItemFound = p.currentLoc.getStrayItems().get(random_int(0, p.currentLoc.getStrayItems().size())); //Item
+            Item strayItemFound = p.getCurrentLoc().getStrayItems().get(random_int(0, p.getCurrentLoc().getStrayItems().size())); //Item
             inputText.setOnAction(event ->
             {
                 String theInputText = inputText.getText();
                 inputText.deleteText(0, theInputText.length());
                 if (theInputText.equalsIgnoreCase("y"))
                 {
-                    p.inventory.add(strayItemFound);
-                    p.currentLoc.removeStrayItem(strayItemFound);
+                    p.getInventory().add(strayItemFound);
+                    p.getCurrentLoc().removeStrayItem(strayItemFound);
                     text.appendText("You picked up the " + strayItemFound.getItemName() + "\n");
 
                 }
@@ -819,9 +815,9 @@ public class Adventure
 
             });
 
-        } else if (p.currentLoc.getID().equals("START") && p.getHealth() < 100) { //home
+        } else if (p.getCurrentLoc().getID().equals("START") && p.getHealth() < 100) { //home
 
-            text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
+            text.setText("You are now in " + p.getCurrentLoc().getName() + "\n" + p.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             text.appendText("\n" + "Would you like to rest? (Y/N)" + "\n");
             inputText.setOnAction(e ->
@@ -845,15 +841,15 @@ public class Adventure
             });
 
 
-        } else if(p.currentLoc.getID().equals("STORE")) { //doStore
+        } else if( p.getCurrentLoc().getID().equals("STORE") ) { //doStore
 
-            text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
+            text.setText("You are now in " + p.getCurrentLoc().getName() + "\n" + p.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
             doShop();
 
         } else { //spacer location
 
-            text.setText("You are now in " + p.currentLoc.getName() + "\n" + p.currentLoc.getDescription() + "\n");
+            text.setText("You are now in " + p.getCurrentLoc().getName() + "\n" + p.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(p.getCurrentLoc().getImage());
 
         }
@@ -888,22 +884,22 @@ public class Adventure
         }
 
 
-        if (p.currentLoc.getExits().contains(move)) { //valid move
+        if (p.getCurrentLoc().getExits().contains(move)) { //valid move
             for (int i = 0; i < allLocs.size(); i++)
-                if (allLocs.get(i).getID().equalsIgnoreCase(p.currentLoc.getConnectedLoc(move))) //find move Location
+                if (allLocs.get(i).getID().equalsIgnoreCase(p.getCurrentLoc().getConnectedLoc(move))) //find move Location
                     if (!allLocs.get(i).isLocked()) { //is Location locked?
-                        this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //there is no problem, move to location
+                        this.setNewLoc(p.getCurrentLoc().getConnectedLoc(move)); //there is no problem, move to location
                         break;
                     } else { //location is locked
                         boolean found = false;
-                        for (int j = 0; j < p.inventory.size(); j++) { //check for key
-                            if (p.inventory.get(j).getItemName().equalsIgnoreCase(allLocs.get(i).getKeyItemUnlock())) { //had Key?
+                        for (int j = 0; j < p.getInventory().size(); j++) { //check for key
+                            if (p.getInventory().get(j).getItemName().equalsIgnoreCase(allLocs.get(i).getKeyItemUnlock())) { //had Key?
                                 System.out.println("found"); //DEBUG
-                                p.inventory.remove(p.inventory.get(j)); //remove the key item
+                                p.getInventory().remove(p.getInventory().get(j)); //remove the key item
                                 allLocs.get(i).unlock(); //unlock the location.
                                 text.appendText("\nThey key item to unlock this area has been removed. You have unlocked this location. \n");
                                 found = true;
-                                this.setNewLoc(p.currentLoc.getConnectedLoc(move)); //user has key to unlock area.
+                                this.setNewLoc(p.getCurrentLoc().getConnectedLoc(move)); //user has key to unlock area.
                                 break;
                             }
                         }
@@ -928,7 +924,7 @@ public class Adventure
      * Get the current LocID
      * @return String of current location ID
      */
-    public String checkLocID() { return p.currentLoc.getID(); }
+    public String checkLocID() { return p.getCurrentLoc().getID(); }
 
 
     /**
@@ -957,7 +953,7 @@ public class Adventure
      */
     private void reset() {
         this.gameWon = false;
-        p.alive = true;
+        p.setAlive(true);
         this.setNewLoc("START");
 
     }
@@ -1056,6 +1052,7 @@ public class Adventure
 
     @FXML protected void handleWestButtonPressed(ActionEvent event)
     {
+        System.out.print(event.toString());
         this.makeMove("W");
     }
 
@@ -1076,18 +1073,18 @@ public class Adventure
             invInputText.setOnAction(event2 ->
             {
                 String choice = invInputText.getText();
-                for (int i = 0; i < p.inventory.size(); i++) {
-                    if (choice.equalsIgnoreCase(p.inventory.get(i).getItemName())) {
-                        if (p.inventory.get(i) instanceof Weapon) {
+                for (int i = 0; i < p.getInventory().size(); i++) {
+                    if (choice.equalsIgnoreCase(p.getInventory().get(i).getItemName())) {
+                        if (p.getInventory().get(i) instanceof Weapon) {
                             invInputText.deleteText(0, invInputText.getLength());
-                            p.equipWeapon((Weapon) p.inventory.get(i));
+                            p.equipWeapon((Weapon) p.getInventory().get(i));
                             inputText.deleteText(0, inputText.getLength());
                             playerInfo.setText("Lv. " + p.getLevel() + " " + p.getPlayerName() + "\n" + "Health: " + p.getHealth() + "\n" + "Wallet: $" + p.getWallet() + "\n" + "Weapon: " + p.getWeapon().getItemName() + "\n" + "XP: " + p.getXp() + "\n");
-                        } else if (p.inventory.get(i) instanceof Armor) {
+                        } else if (p.getInventory().get(i) instanceof Armor) {
                             invInputText.deleteText(0, invInputText.getLength());
-                            p.equipArmor((Armor) p.inventory.get(i));
+                            p.equipArmor((Armor) p.getInventory().get(i));
                         }
-                        else if (p.inventory.get(i) instanceof KeyItem && p.inventory.get(i).getItemName().equalsIgnoreCase("Eye Rune"))
+                        else if (p.getInventory().get(i) instanceof KeyItem && p.getInventory().get(i).getItemName().equalsIgnoreCase("Eye Rune"))
                         {
                             invInputText.deleteText(0, invInputText.getLength());
                             invText.appendText("\nYour insight level: " + p.getInsight() + "\n");
