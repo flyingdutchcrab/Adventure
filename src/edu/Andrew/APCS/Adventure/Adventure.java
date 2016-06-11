@@ -97,7 +97,12 @@ public class Adventure
     private Image castleImg;
     private Image swampImg;
     private Image cabinImg;
+    private Image hallImg;
+    private Image wTowerImg;
+    private Image chamberImg;
     private Image gameOverImg;
+
+
     private Image skeletonImg;
     private Image skeletonImg2;
     private Image spritieImg;
@@ -125,7 +130,7 @@ public class Adventure
         this.s = new Shop();
         this.allLocs = new ArrayList<>();
 
-        this.homeImg = new Image("locations/rsz_bedroom2.jpg");
+        this.homeImg = new Image("locations/bedroom.gif");
         this.townImg = new Image("locations/rsz_nighttown.jpg");
         this.pathImg = new Image("locations/forgottenpath.gif");
         this.graveyardImg = new Image("locations/graveyard.gif");
@@ -138,8 +143,8 @@ public class Adventure
         this.coveImg = new Image("locations/covefinal.gif");
         this.reefImg = new Image("locations/reef.jpg");
         this.caveImg = new Image("locations/crystalcave.gif");
-        this.altarImg = new Image("locations/chamber.gif");
-        this.shopImg = new Image("shop3.gif");
+        this.altarImg = new Image("locations/anotheraltar.gif");
+        this.shopImg = new Image("locations/shop3.gif");
         this.mountainImg = new Image("locations/mountain.gif");
         this.icyPassImg = new Image("locations/icypass.gif");
         this.twinPeakImg = new Image("locations/mountainanim.gif");
@@ -150,6 +155,9 @@ public class Adventure
         this.castleImg = new Image("locations/wintercastle.jpg");
         this.swampImg = new Image("locations/8bitswamp.gif");
         this.cabinImg = new Image("locations/cabin.gif");
+        this.hallImg = new Image("locations/interiorcastle.gif");
+        this.wTowerImg = new Image("locations/westtower.gif");
+        this.chamberImg = new Image("locations/kingschamber.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
 
 
@@ -340,19 +348,19 @@ public class Adventure
 
         Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, castleImg, "Gate Key");
         castle.addExit("N", "HALL");
-        castle.addExit("E", "BARRACKS");
+        castle.addExit("E", "DUNGEON");
         castle.addExit("S", "GATE");
         castle.addExit("W", "ARMORY");
 
 
 
-        Location barracks = new Location("barracks", "BARRACKS", "You are at the barracks, a lot of faithful servants to the land were properly here", false, null);
-        barracks.addExit("W", "CASTLE");
+        Location dungeon = new Location("dungeon", "DUNGEON", "You are at the dungeon, a lot of people were imprisoned here", false, null);
+        dungeon.addExit("W", "CASTLE");
 
         Location armory = new Location("armory", "ARMORY", "You are at the armory, I'm sure you could find something useful here", false, null);
         armory.addExit("E", "CASTLE");
 
-        Location hall = new Location("Hall of Chosen", "HALL", "You are at the Hall of the Chosen, nearly every direction here will challenge your destiny", false, null);
+        Location hall = new Location("Hall of Chosen", "HALL", "You are at the Hall of the Chosen, nearly every direction here will challenge your destiny", false, hallImg);
         hall.addExit("N", "SANCTUM");
         hall.addExit("E", "EASTTOWER");
         hall.addExit("S", "CASTLE");
@@ -360,11 +368,12 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, null);
         etower.addExit("W", "HALL");
-        Monster alrothia = new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, null);
-        etower.addMonster(alrothia);
 
-        Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, null);
+
+        Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, wTowerImg);
         wtower.addExit("E", "HALL");
+        Monster alrothia = new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, null);
+        wtower.addMonster(alrothia);
 
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null, "Twin Knight Key");
         sanctum.addExit("N", "THRONE");
@@ -376,7 +385,7 @@ public class Adventure
         throne.addExit("N", "CHAMBER");
         throne.addExit("S", "SANCTUM");
 
-        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, null, "King's Key");
+        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there's a weird feeling coming from an object in this room", true, chamberImg, "King's Key");
         chamber.addExit("S", "THRONE");
 
 
@@ -404,7 +413,7 @@ public class Adventure
         this.allLocs.add(twinpeak);
         this.allLocs.add(gate);
         this.allLocs.add(castle);
-        this.allLocs.add(barracks);
+        this.allLocs.add(dungeon);
         this.allLocs.add(armory);
         this.allLocs.add(hall);
         this.allLocs.add(etower);
