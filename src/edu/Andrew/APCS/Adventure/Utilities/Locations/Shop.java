@@ -49,6 +49,7 @@ public class Shop
         Item arm1 = new Armor("Iron Armor", 100, 2);
 
         Item key1 = new KeyItem("Grave Key", 100, "Opens a strange grave");
+        Item key2 = new KeyItem("Gate Key", 100, "Opens the castle gate");
 
         this.shopInventory.add(wep1);
         this.shopInventory.add(wep2);
@@ -62,6 +63,7 @@ public class Shop
 
 
         this.shopInventory.add(key1);
+        this.shopInventory.add(key2);
 
 
         return shopInventory;
