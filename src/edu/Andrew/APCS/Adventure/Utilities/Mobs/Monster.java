@@ -123,6 +123,9 @@ public class Monster
 
     public int getXp() { return this.xp; }
 
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
 
     /**
      * toString

@@ -504,6 +504,8 @@ public class Adventure
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
+        enemy.setAlive(true);
+
 
         //Prompts user to attack or run
         text.appendText("Attack " + enemy.getName() + "? (Y/N) " + "\n");
