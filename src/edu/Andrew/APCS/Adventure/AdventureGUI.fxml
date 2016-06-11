@@ -61,7 +61,7 @@
       <Pane fx:id="inventoryPane" layoutY="173.0" prefHeight="228.0" prefWidth="418.0">
          <children>
             <TextArea fx:id="invText" editable="false" prefHeight="182.0" prefWidth="418.0" />
-            <TextField fx:id="invInputText" layoutX="-1.0" layoutY="181.0" prefHeight="44.0" prefWidth="418.0" promptText="Type equip &lt;item name&gt;" />
+            <TextField fx:id="invInputText" layoutX="-1.0" layoutY="181.0" prefHeight="44.0" prefWidth="418.0" promptText="Type &lt;item name&gt;" />
          </children>
       </Pane>
    </children>

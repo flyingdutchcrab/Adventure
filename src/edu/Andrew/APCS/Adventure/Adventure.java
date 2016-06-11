@@ -259,6 +259,8 @@ public class Adventure
         town.addExit("E", "PATH");
         town.addExit("S", "START");
         town.addExit("W", "STORE");
+        Item map = new KeyItem("Region Map", 50.0, "Displays the map of the region");
+        town.addStrayItem(map);
 
         Location cave = new Location("cave", "CAVE", "You are in a crystal cave, a lot of crystals here", false, caveImg);
         cave.addExit("N", "MEADOW");
