@@ -7,7 +7,6 @@ package edu.Andrew.APCS.Adventure.Utilities.Items;
  *
  * A weapon that can be used to attack monsters
  */
-
 public class Weapon extends Item
 {
 

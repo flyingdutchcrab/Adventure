@@ -1,5 +1,7 @@
 package edu.Andrew.APCS.Adventure.Utilities.Mobs;
 
+import javafx.scene.image.Image;
+
 /**
  * Adventure
  *
@@ -7,18 +9,12 @@ package edu.Andrew.APCS.Adventure.Utilities.Mobs;
  *
  * This is mob that the player can attack, has health among other things that the Player and Adventure classes might need.
  */
-import javafx.scene.image.Image;
-
 public class Monster
 {
 
     private String mobName;
-    private int minLvl;
-    private int maxLvl;
     private int level;
     private int xp;
-    private int minXp;
-    private int maxXp;
     private double health;
     private double damage;
     private boolean alive;
@@ -30,12 +26,8 @@ public class Monster
     {
         this.mobName = "";
         this.health = -1.0;
-        this.level = -1;
-        this.minLvl = -1;
-        this.maxLvl = 0;
-        this.minXp = -1;
-        this.maxXp = 0;
-        this.xp = -1;
+        this.level = -1; //was never generated
+        this.xp = -1;    //was never generated
         this.damage = -1.0;
         this.alive = false;
         this.loot = -1.0;
@@ -47,17 +39,13 @@ public class Monster
     public Monster(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img) {
 
         this.mobName = mobName;
-        this.maxLvl = mxLvl;
-        this.minLvl = mnLvl;
-        this.maxXp = mxXp;
-        this.minXp = mnXp;
         this.health = health;
         this.damage = damage;
         this.loot = loot;
         this.alive = isAlive;
         this.image = img;
-        this.level = generateLvl();
-        this.xp = generateXp();
+        this.level = generateLvl(mnLvl, mxLvl);
+        this.xp = generateXp(mnXp, mxXp);
 
     }
 
@@ -84,6 +72,30 @@ public class Monster
 
 
     /**
+     * Randomly generate the level
+     *
+     * This should only be called once, in the constructor
+     *
+     * @param minLvl Minimum level
+     * @param maxLvl Maximum level
+     * @return the random level
+     */
+    private int generateLvl(int minLvl, int maxLvl) { return random_int(minLvl, maxLvl); } /** should only be called once **/
+
+
+    /**
+     * Randomly generate XP
+     *
+     * This should only be called once, in the constructor
+     *
+     * @param minXp Minimum XP
+     * @param maxXp Maximum XP
+     * @return the random XP
+     */
+    private int generateXp(int minXp, int maxXp) { return random_int(minXp, maxXp); } /** should only be called once **/
+
+
+    /**
      * getters
      */
 
@@ -99,7 +111,7 @@ public class Monster
         return this.damage;
     }
 
-    public boolean isAlive() { return this.alive; }
+    public boolean isAlive() { checkLife(); return this.alive; }
 
     public String getName() { return this.mobName; }
 
@@ -107,19 +119,9 @@ public class Monster
 
     public Image getImage() { return this.image; }
 
-    public int generateLvl() { return random_int(this.minLvl, this.maxLvl); } /** should only be called once **/
+    public int getLevel() { return this.level; }
 
-    private int generateXp() { return random_int(this.minXp, this.maxXp); } /** should only be called once **/
-
-    public int getLevel()
-    {
-        return this.level;
-    }
-
-    public int getXp()
-    {
-        return this.xp;
-    }
+    public int getXp() { return this.xp; }
 
 
     /**

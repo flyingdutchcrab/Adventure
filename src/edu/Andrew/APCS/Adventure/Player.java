@@ -6,8 +6,6 @@ import edu.Andrew.APCS.Adventure.Utilities.Items.Armor;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Item;
 import edu.Andrew.APCS.Adventure.Utilities.Locations.Location;
 import edu.Andrew.APCS.Adventure.Utilities.Items.Weapon;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 
 /**
  * Adventure
@@ -26,16 +24,12 @@ public class Player
     private int insight;
     private int xp;
     private String playerName;
-    private String jobSkill;
     private Weapon weapon; //Expecting an Weapon here
     private Armor armor; //expecting a Armor here
     private double wallet;
-    public boolean alive;
-    public Location currentLoc;
-    public ArrayList<Item> inventory;
-    private Scanner scan;
-    @FXML public TextArea text;
-    @FXML public TextArea inputText;
+    private boolean alive;
+    private Location currentLoc;
+    private ArrayList<Item> inventory;
 
 
     public Player() {
@@ -45,7 +39,6 @@ public class Player
         this.xp = 0;
         this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
-        this.jobSkill = "NotSet"; //sets players default skill as not set
         Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
         equipWeapon(stick);
         this.damage = weapon.getDamage(); //sets players default damage as 10
@@ -56,9 +49,7 @@ public class Player
         this.inventory = new ArrayList<>();
         inventory.add(stick);
         inventory.add(shirt);
-        Location start = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, null);
-        this.scan = new Scanner(System.in);
-        this.currentLoc = start;
+        this.currentLoc = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, null);
 
     }
 
@@ -71,7 +62,7 @@ public class Player
     {
         String itemList = "These are the items in your inventory:\n";
 
-        for(Item i : inventory)
+        for(Item i : getInventory())
             itemList += i.toString();
 
         return itemList;
@@ -89,7 +80,7 @@ public class Player
         Adventure adv = new Adventure();
         Location singleLoc = null;
 
-        for(Location aLoc : adv.getAllLocs())
+        for(Location aLoc : adv.getAllLocations())
         {
             if(aLoc.getID().equals(ID))
             {
@@ -132,8 +123,8 @@ public class Player
      */
     public boolean containsItem(String item) {
 
-        for (int i = 0; i < this.inventory.size(); i++)
-            if (this.inventory.get(i).getItemName().equalsIgnoreCase(item))
+        for (int i = 0; i < this.getInventory().size(); i++)
+            if (this.getInventory().get(i).getItemName().equalsIgnoreCase(item))
                 return true;
 
         return false;
@@ -161,25 +152,13 @@ public class Player
 
     public void setHealth(double newhealth) { this.health = newhealth; }
 
-    public int getLevel()
-    {
-        return this.level;
-    }
+    public int getLevel() { return this.level; }
 
-    public int getXp()
-    {
-        return this.xp;
-    }
+    public int getXp() { return this.xp; }
 
-    public void setXp(int xp)
-    {
-        this.xp = xp;
-    }
+    public void setXp(int xp) { this.xp = xp; }
 
-    public int getInsight()
-    {
-        return this.insight;
-    }
+    public int getInsight() { return this.insight; }
 
     public double getDamage() { return this.damage; }
 
@@ -191,13 +170,19 @@ public class Player
 
     public Item getArmor() { return this.armor; }
 
-    public double getPlayerArmorValue()
-    {
-        return this.armorValue;
-    }
+    public double getPlayerArmorValue() { return this.armorValue; }
 
     public Location getCurrentLoc() { return this.currentLoc; }
 
+    public void setCurrentLoc(Location currentLoc) { this.currentLoc = currentLoc; }
+
+    public double getArmorValue() { return armorValue; }
+
+    public ArrayList<Item> getInventory() { return inventory; }
+
+    public boolean isAlive() { return alive; }
+
+    public void setAlive(boolean alive) { this.alive = alive; }
 
     /**
      * toString
@@ -207,8 +192,6 @@ public class Player
     {
         return "Player Name: " + playerName + "\n" + "Health: " + health + "\n" + "Weapon: " + weapon.getItemName() + "\n" + "Armor: " + armor.getItemName() + "\n" + "Wallet: " + "$" + wallet + "\n" + "Location: " + currentLoc.getName() + "\n";
     } //end toString
-
-
 
 
 
