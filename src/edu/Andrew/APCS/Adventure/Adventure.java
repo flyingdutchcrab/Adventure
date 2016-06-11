@@ -696,7 +696,7 @@ public class Adventure
                     item_found = true;
                     if (player.getWallet() >= i.getCost()) {
 
-                        text.appendText("You bought the " + i.getItemName() + " for " + i.getCost() + "\n");
+                        text.appendText("You bought the " + i.getItemName() + " for $" + i.getCost() + "\n");
                         player.getInventory().add(i);
                         player.addWallet(-i.getCost());
                         playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
