@@ -103,6 +103,7 @@ public class Adventure
     private Image hallImg;
     private Image wTowerImg;
     private Image eTowerImg;
+    private Image throneImg;
     private Image chamberImg;
     private Image gameOverImg;
 
@@ -111,6 +112,7 @@ public class Adventure
     private Image zombieImg;
     private Image mummyImg;
     private Image curupiraImg;
+    private Image wolfImg;
     private Image spritieImg;
     private Image lizardImg;
     private Image landSharkImg;
@@ -122,7 +124,8 @@ public class Adventure
     private Image wyvernImg;
     private Image dagonImg;
     private Image ghostGirlImg;
-    private Image princeImg;
+    private Image princessImg;
+    private Image kingImg;
     private Image alrothiaImg;
     private Image argothImg;
     private Image forestSpiritImg;
@@ -226,7 +229,7 @@ public class Adventure
         this.endImg = new Image("locations/scarybackground.gif");
         this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
         this.gateImg = new Image("locations/castlegate2.gif");
-        this.castleImg = new Image("locations/castle.jpg");
+        this.castleImg = new Image("locations/wintercastle.jpg");
         this.swampImg = new Image("locations/8bitswamp.gif");
         this.cabinImg = new Image("locations/cabin.gif");
         this.dungeonImg = new Image("locations/dungeon.gif");
@@ -234,6 +237,7 @@ public class Adventure
         this.hallImg = new Image("locations/interiorcastle.gif");
         this.wTowerImg = new Image("locations/westtower.gif");
         this.eTowerImg = new Image("locations/bigheadroom.gif");
+        this.throneImg = new Image("locations/throneroom.gif");
         this.chamberImg = new Image("locations/kingschamber.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
 
@@ -243,6 +247,7 @@ public class Adventure
         this.mummyImg = new Image("monsters/mummy.gif");
         this.spritieImg = new Image("monsters/spritie.gif");
         this.curupiraImg = new Image("monsters/curupira.gif");
+        this.wolfImg = new Image("monsters/cutewolf.gif");
         this.lizardImg = new Image("monsters/lizardman.gif");
         this.landSharkImg = new Image("monsters/landshark.gif");
         this.crabImg = new Image("monsters/crabmonster.gif");
@@ -253,10 +258,12 @@ public class Adventure
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
         this.wyvernImg = new Image("monsters/rathian.gif");
-        this.princeImg = new Image("monsters/fireprince.gif");
+        this.princessImg = new Image("monsters/crystalmage.gif");
+        this.kingImg = new Image("monsters/mage.gif");
         this.alrothiaImg = new Image("monsters/alrothia.gif");
-        this.argothImg = new Image("monsters/undeadknight.gif");
+        this.argothImg = new Image("monsters/daitya.gif");
         this.forestSpiritImg = new Image("monsters/forestspirit.gif");
+
 
         allLocations = new ArrayList<>();
 
@@ -274,9 +281,10 @@ public class Adventure
         Location forest = new Location("forest", "FOREST", "You are in a spooky forest. Many spooky monsters can be found here. There is a cave to the east", false, forestImg);
         forest.addExit("E", "MEADOW");
         forest.addExit("W", "GROTTO");
-        //forest.addMonster(new Monster("shroom", 20, 5, 1, 15, 10, 30, 20,  true, shroomImg));
-        forest.addMonster(new Monster("smurf", 25, 5, 1, 15, 10, 15, 50, true, spritieImg));
+        forest.addMonster(new Monster("wolf", 20, 5, 1, 15, 10, 30, 20,  true, wolfImg));
+        forest.addMonster(new Monster("skrub", 25, 5, 1, 15, 10, 15, 50, true, spritieImg));
         forest.addMonster(new Monster("curupira", 25, 10, 1, 20, 10, 15, 50, true, curupiraImg));
+
         forest.addMonster(new Monster("lizardman", 25, 15, 8, 35, 20,  15, 100, true, lizardImg));
 
         Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg, "Forest Key");
@@ -403,13 +411,14 @@ public class Adventure
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null, "Twin Knight Key");
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
-        sanctum.addMonster(new Boss("Prince Jerry", 400, 1, 75, 800, 1500, 45, 1000, true, princeImg, 500, 8000, null));
+        sanctum.addMonster(new Boss("Princess Amelia", 400, 1, 75, 800, 1500, 45, 1000, true, princessImg, 500, 8000, null));
 
-        Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, null, "Throne Key");
+        Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, throneImg, "Throne Key");
         throne.addExit("N", "CHAMBER");
         throne.addExit("S", "SANCTUM");
+        throne.addMonster(new Boss("King Arthur", 400, 1, 75, 800, 1500, 45, 1000, true, kingImg, 500, 8000, null));
 
-        Location chamber = new Location("king'shop chamber", "CHAMBER", "You are at the king'shop chamber, there'shop a weird feeling coming from an object in this room", true, chamberImg, "King'shop Key");
+        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king'shop chamber, there is a weird feeling coming from an object in this room", true, chamberImg, "King'shop Key");
         chamber.addExit("S", "THRONE");
 
         Location hell = new Location("hell", "HELL", "Welcome to hell, you must have screwed something up to end here", false, hellImg);

@@ -35,8 +35,11 @@ public class Shop
         this.shopInventory.add(new Weapon("Dark Sword", 600, 2000));   //wep 7
         this.shopInventory.add(new Armor("Iron Armor", 100, 2));       //arm 1
         this.shopInventory.add(new KeyItem("Grave Key", 100, "Opens a strange grave")); //key1
-        this.shopInventory.add(new KeyItem("Gate Key", 100, "Opens the castle gate")); //key2
+        /* These were just for tests, you're not supposed to buy them
+        this.shopInventory.add(new KeyItem("Gate Key", 100, "Opens the castle gate"));
         this.shopInventory.add(new KeyItem("Twin Peak Key", 100, "Opens twin peak"));
+        this.shopInventory.add(new KeyItem("Reef Key", 100, "Opens the reef"));
+        */
 
 
     }
