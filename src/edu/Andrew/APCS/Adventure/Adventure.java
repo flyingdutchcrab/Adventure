@@ -136,51 +136,7 @@ public class Adventure
         initLocations();
 
         /** images **/
-        this.homeImg = new Image("locations/bedroom.gif");
-        this.townImg = new Image("locations/rsz_nighttown.jpg");
-        this.pathImg = new Image("locations/forgottenpath.gif");
-        this.graveyardImg = new Image("locations/graveyard.gif");
-        this.catacombsImg = new Image("locations/catacombs.gif");
-        this.treeImg = new Image("locations/hangingtree.gif");
-        this.forestImg = new Image("locations/bestforest.gif");
-        this.meadowImg = new Image("locations/bettermeadow.gif");
-        this.grottoImg = new Image("locations/bettergrotto.png");
-        this.lakeImg = new Image("locations/finallake.gif");
-        this.coveImg = new Image("locations/covefinal.gif");
-        this.reefImg = new Image("locations/reef.jpg");
-        this.caveImg = new Image("locations/crystalcave.gif");
-        this.altarImg = new Image("locations/anotheraltar.gif");
-        this.shopImg = new Image("locations/shop3.gif");
-        this.mountainImg = new Image("locations/mountain.gif");
-        this.icyPassImg = new Image("locations/icypass.gif");
-        this.twinPeakImg = new Image("locations/mountainanim.gif");
-        this.hellImg = new Image("locations/hellsurface2.gif");
-        this.endImg = new Image("locations/scarybackground.gif");
-        this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
-        this.gateImg = new Image("locations/castlegate2.gif");
-        this.castleImg = new Image("locations/wintercastle.jpg");
-        this.swampImg = new Image("locations/8bitswamp.gif");
-        this.cabinImg = new Image("locations/cabin.gif");
-        this.hallImg = new Image("locations/interiorcastle.gif");
-        this.wTowerImg = new Image("locations/westtower.gif");
-        this.eTowerImg = new Image("locations/bigheadroom.gif");
-        this.chamberImg = new Image("locations/kingschamber.gif");
-        this.gameOverImg = new Image("locations/gameover.jpg");
 
-        this.skeletonImg = new Image("monsters/skeletonwarrior.gif");
-        this.skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
-        this.spritieImg = new Image("monsters/spritie.gif");
-        this.lizardImg = new Image("monsters/lizardman.gif");
-        this.landSharkImg = new Image("monsters/landshark.gif");
-        this.llamaImg = new Image("monsters/llama.gif");
-        this.godImg = new Image("monsters/specimen9.gif");
-        this.dagonImg = new Image("monsters/dagon.gif");
-        this.ghostGirlImg = new Image("monsters/spookyghost.gif");
-        this.wyvernImg = new Image("monsters/rathian.gif");
-        this.princeImg = new Image("monsters/fireprince.gif");
-        this.alrothiaImg = new Image("monsters/alrothia.gif");
-        this.argothImg = new Image("monsters/undeadknight.gif");
-        this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
 
     }
@@ -240,6 +196,51 @@ public class Adventure
      */
     private void initLocations()
     {
+        this.homeImg = new Image("locations/bedroom.gif");
+        this.townImg = new Image("locations/rsz_nighttown.jpg");
+        this.pathImg = new Image("locations/forgottenpath.gif");
+        this.graveyardImg = new Image("locations/graveyard.gif");
+        this.catacombsImg = new Image("locations/catacombs.gif");
+        this.treeImg = new Image("locations/hangingtree.gif");
+        this.forestImg = new Image("locations/bestforest.gif");
+        this.meadowImg = new Image("locations/bettermeadow.gif");
+        this.grottoImg = new Image("locations/bettergrotto.png");
+        this.lakeImg = new Image("locations/finallake.gif");
+        this.coveImg = new Image("locations/covefinal.gif");
+        this.reefImg = new Image("locations/reef.jpg");
+        this.caveImg = new Image("locations/crystalcave.gif");
+        this.altarImg = new Image("locations/anotheraltar.gif");
+        this.shopImg = new Image("locations/shop3.gif");
+        this.mountainImg = new Image("locations/mountain.gif");
+        this.icyPassImg = new Image("locations/icypass.gif");
+        this.twinPeakImg = new Image("locations/mountainanim.gif");
+        this.hellImg = new Image("locations/hellsurface2.gif");
+        this.endImg = new Image("locations/scarybackground.gif");
+        this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
+        this.gateImg = new Image("locations/castlegate2.gif");
+        this.castleImg = new Image("locations/wintercastle.jpg");
+        this.swampImg = new Image("locations/8bitswamp.gif");
+        this.cabinImg = new Image("locations/cabin.gif");
+        this.hallImg = new Image("locations/interiorcastle.gif");
+        this.wTowerImg = new Image("locations/westtower.gif");
+        this.eTowerImg = new Image("locations/bigheadroom.gif");
+        this.chamberImg = new Image("locations/kingschamber.gif");
+        this.gameOverImg = new Image("locations/gameover.jpg");
+
+        this.skeletonImg = new Image("monsters/skeletonwarrior.gif");
+        this.skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
+        this.spritieImg = new Image("monsters/spritie.gif");
+        this.lizardImg = new Image("monsters/lizardman.gif");
+        this.landSharkImg = new Image("monsters/landshark.gif");
+        this.llamaImg = new Image("monsters/llama.gif");
+        this.godImg = new Image("monsters/specimen9.gif");
+        this.dagonImg = new Image("monsters/dagon.gif");
+        this.ghostGirlImg = new Image("monsters/spookyghost.gif");
+        this.wyvernImg = new Image("monsters/rathian.gif");
+        this.princeImg = new Image("monsters/fireprince.gif");
+        this.alrothiaImg = new Image("monsters/alrothia.gif");
+        this.argothImg = new Image("monsters/undeadknight.gif");
+        this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
         allLocations = new ArrayList<>();
 
@@ -392,7 +393,7 @@ public class Adventure
 
         Location hell = new Location("hell", "HELL", "Welcome to hell, you must have screwed something up to end here", false, hellImg);
 
-        Location end = new Location("end", "END", "awkfnawlfnalwkfnalkwf", true, endImg);
+        Location end = new Location("end", "END", "awkfnawlfnalwkfnalkwf", false, endImg);
         end.addMonster(new Boss("GOD", 300, 9998, 9999, 4999, 5000, 35, 1000000, true, godImg, 1000, 100000000, null));
 
 
