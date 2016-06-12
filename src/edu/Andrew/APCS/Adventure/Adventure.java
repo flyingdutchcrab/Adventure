@@ -98,6 +98,8 @@ public class Adventure
     private Image castleImg;
     private Image swampImg;
     private Image cabinImg;
+    private Image dungeonImg;
+    private Image armoryImg;
     private Image hallImg;
     private Image wTowerImg;
     private Image eTowerImg;
@@ -213,7 +215,7 @@ public class Adventure
         this.grottoImg = new Image("locations/bettergrotto.png");
         this.lakeImg = new Image("locations/finallake.gif");
         this.coveImg = new Image("locations/covefinal.gif");
-        this.reefImg = new Image("locations/reef.jpg");
+        this.reefImg = new Image("locations/reef.gif");
         this.caveImg = new Image("locations/crystalcave.gif");
         this.altarImg = new Image("locations/anotheraltar.gif");
         this.shopImg = new Image("locations/shop3.gif");
@@ -224,9 +226,11 @@ public class Adventure
         this.endImg = new Image("locations/scarybackground.gif");
         this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
         this.gateImg = new Image("locations/castlegate2.gif");
-        this.castleImg = new Image("locations/wintercastle.jpg");
+        this.castleImg = new Image("locations/castle.jpg");
         this.swampImg = new Image("locations/8bitswamp.gif");
         this.cabinImg = new Image("locations/cabin.gif");
+        this.dungeonImg = new Image("locations/dungeon.gif");
+        this.armoryImg = new Image("locations/castleinside.jpg");
         this.hallImg = new Image("locations/interiorcastle.gif");
         this.wTowerImg = new Image("locations/westtower.gif");
         this.eTowerImg = new Image("locations/bigheadroom.gif");
@@ -300,7 +304,7 @@ public class Adventure
         lake.addExit("W", "MEADOW");
 
 
-        Location cove = new Location("cove", "COVE", "You are in a cove, it'shop got a cool ancient vibe to it", false, coveImg);
+        Location cove = new Location("cove", "COVE", "You are in a cove, it's got a cool ancient vibe to it", false, coveImg);
         cove.addExit("E", "REEF");
         cove.addExit("W", "LAKE");
         cove.addMonster(new Monster("sea slug", 20, 10, 1, 10, 25, 5, 25, true, slugImg));
@@ -315,13 +319,13 @@ public class Adventure
 
         Location swamp = new Location("swamp", "SWAMP", "You are in a spooky swamp", false,  swampImg);
         swamp.addExit("N", "PATH");
-        swamp.addExit("E", "CABIN");
+        swamp.addExit("E", "HUT");
         swamp.addExit("S", "LAKE");
 
-        Location cabin = new Location("abandoned cabin", "CABIN", "You are in an abandoned cabin, the walls are rotting and the floor is overgrown", false, cabinImg);
-        cabin.addExit("W", "SWAMP");
+        Location hut = new Location("abandoned hut", "HUT", "You are in an abandoned hut, the walls are rotting and the floor is overgrown", false, cabinImg);
+        hut.addExit("W", "SWAMP");
         //cabin.addExit("E", "END");
-        cabin.addStrayItem(new KeyItem("Eye Rune", 1000, "Reveals secrets, if you are smart enough to find them"));
+        hut.addStrayItem(new KeyItem("Eye Rune", 1000, "Reveals secrets, if you are smart enough to find them"));
 
         Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, pathImg);
         path.addExit("N", "TUNDRA");
@@ -355,7 +359,7 @@ public class Adventure
         Location store = new Location("store", "STORE", "You are in a store. A wide variety of weapons and items can be bought here", false, shopImg);
         store.addExit("E", "TOWN");
 
-        Location pass = new Location("icy pass", "PASS", "You are in an icy pass, it'shop very high up, and there'shop not much visibility", false, icyPassImg);
+        Location pass = new Location("icy pass", "PASS", "You are in an icy pass, it's very high up, and there'shop not much visibility", false, icyPassImg);
         pass.addExit("E", "MOUNTAIN");
         pass.addExit("W", "TWINPEAK");
 
@@ -375,10 +379,10 @@ public class Adventure
         castle.addExit("S", "GATE");
         castle.addExit("W", "ARMORY");
 
-        Location dungeon = new Location("dungeon", "DUNGEON", "You are at the dungeon, a lot of people were imprisoned here", false, null);
+        Location dungeon = new Location("dungeon", "DUNGEON", "You are at the dungeon, a lot of people were imprisoned here", false, dungeonImg);
         dungeon.addExit("W", "CASTLE");
 
-        Location armory = new Location("armory", "ARMORY", "You are at the armory, I'm sure you could find something useful here", false, null);
+        Location armory = new Location("armory", "ARMORY", "You are at the armory, I'm sure you could find something useful here", false, armoryImg);
         armory.addExit("E", "CASTLE");
 
         Location hall = new Location("Hall of Chosen", "HALL", "You are at the Hall of the Chosen, nearly every direction here will challenge your destiny", false, hallImg);
@@ -425,7 +429,7 @@ public class Adventure
         this.allLocations.add(reef);
         this.allLocations.add(graveyard);
         this.allLocations.add(tree);
-        this.allLocations.add(cabin);
+        this.allLocations.add(hut);
         this.allLocations.add(pass);
         this.allLocations.add(twinpeak);
         this.allLocations.add(gate);
@@ -630,7 +634,7 @@ public class Adventure
                 //Monster turn
                 //boss.setDamage(boss.getDamage() / player.getArmor().getArmorValue());
                 player.setHealth(player.getHealth() - boss.getDamage()); //Sets the players health as their current health minus the monsters damage
-                text.appendText("The " + boss.getName() + " hit you for " + boss.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
+                text.appendText(boss.getName() + " hit you for " + boss.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
                 playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
 
                 if (player.getHealth() < 20.0)
@@ -884,29 +888,39 @@ public class Adventure
 
         if (player.getCurrentLoc().getExits().contains(move)) { //valid move
             for (int i = 0; i < allLocations.size(); i++)
-                if (allLocations.get(i).getID().equalsIgnoreCase(player.getCurrentLoc().getConnectedLoc(move))) //find move Location
-                    if (!allLocations.get(i).isLocked()) { //is Location locked?
-                        this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //there is no problem, move to location
-                        break;
-                    } else { //location is locked
-                        boolean found = false;
-                        for (int j = 0; j < player.getInventory().size(); j++) { //check for key
-                            if (player.getInventory().get(j).getItemName().equalsIgnoreCase(allLocations.get(i).getKeyItemUnlock())) { //had Key?
-                                System.out.println("found"); //DEBUG
-                                player.getInventory().remove(player.getInventory().get(j)); //remove the key item
-                                allLocations.get(i).unlock(); //unlock the location.
-                                text.appendText("\nThey key item to unlock this area has been removed. You have unlocked this location. \n");
-                                found = true;
-                                this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //user has key to unlock area.
-                                break;
+                try {
+                    if (allLocations.get(i).getID().equalsIgnoreCase(player.getCurrentLoc().getConnectedLoc(move))) //find move Location
+                        if (!allLocations.get(i).isLocked()) { //is Location locked?
+
+                            this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //there is no problem, move to location}
+
+
+                            break;
+                        } else { //location is locked
+                            boolean found = false;
+                            for (int j = 0; j < player.getInventory().size(); j++) { //check for key
+                                if (player.getInventory().get(j).getItemName().equalsIgnoreCase(allLocations.get(i).getKeyItemUnlock())) { //had Key?
+                                    System.out.println("found"); //DEBUG
+                                    player.getInventory().remove(player.getInventory().get(j)); //remove the key item
+                                    allLocations.get(i).unlock(); //unlock the location.
+                                    text.appendText("\nThey key item to unlock this area has been removed. You have unlocked this location. \n");
+                                    found = true;
+                                    this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //user has key to unlock area.
+                                    break;
+                                }
                             }
+
+
+                            if (!found) //valid move but does not have key.
+                                text.appendText("\nThat direction, " + moveName + ", is locked. Try again when you have the key. \n");
+
                         }
-
-
-                        if (!found) //valid move but does not have key.
-                            text.appendText("\nThat direction, " + moveName + ", is locked. Try again when you have the key. \n");
-
-                    }
+                }
+                catch(ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println("\n" + "ArrayIndexOutOfBoundsException!\n" + e);
+                    break;
+                }
         } else //not valid move (nothing is there in that direction
             text.appendText("\n" + "Cannot go in that direction. \n");
 
