@@ -106,10 +106,16 @@ public class Adventure
 
     private Image skeletonImg;
     private Image skeletonImg2;
+    private Image zombieImg;
+    private Image mummyImg;
+    private Image curupiraImg;
     private Image spritieImg;
     private Image lizardImg;
     private Image landSharkImg;
-    private Image llamaImg;
+    private Image squidImg;
+    private Image slugImg;
+    private Image crabImg;
+    private Image shroomImg;
     private Image godImg;
     private Image wyvernImg;
     private Image dagonImg;
@@ -158,7 +164,7 @@ public class Adventure
 
         inventoryPane.setVisible(false);
         text.appendText("Welcome to the land of euphoria!\n");
-        text.appendText("What'shop your name?\n");
+        text.appendText("What's your name?\n");
 
         Platform.runLater(() -> inputText.requestFocus());
         inputText.setOnAction(event ->
@@ -229,10 +235,16 @@ public class Adventure
 
         this.skeletonImg = new Image("monsters/skeletonwarrior.gif");
         this.skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
+        this.zombieImg = new Image("monsters/zombiechaingirl.gif");
+        this.mummyImg = new Image("monsters/mummy.gif");
         this.spritieImg = new Image("monsters/spritie.gif");
+        this.curupiraImg = new Image("monsters/curupira.gif");
         this.lizardImg = new Image("monsters/lizardman.gif");
         this.landSharkImg = new Image("monsters/landshark.gif");
-        this.llamaImg = new Image("monsters/llama.gif");
+        this.crabImg = new Image("monsters/crabmonster.gif");
+        this.squidImg = new Image("monsters/squid.gif");
+        this.slugImg = new Image("monsters/seaslug.gif");
+        this.shroomImg = new Image("monsters/mushroom.gif");
         this.godImg = new Image("monsters/specimen9.gif");
         this.dagonImg = new Image("monsters/dagon.gif");
         this.ghostGirlImg = new Image("monsters/spookyghost.gif");
@@ -258,13 +270,10 @@ public class Adventure
         Location forest = new Location("forest", "FOREST", "You are in a spooky forest. Many spooky monsters can be found here. There is a cave to the east", false, forestImg);
         forest.addExit("E", "MEADOW");
         forest.addExit("W", "GROTTO");
-        forest.addMonster(new Monster("skrub", 20, 10, 1, 10, 25, 5, 25, true, skeletonImg));
-        forest.addMonster(new Monster("skrublord", 25, 20, 10, 50, 35, 10, 45, true, skeletonImg2));
-        forest.addMonster(new Monster("land shark", 20, 15, 8, 35, 20, 20, 60, true, landSharkImg));
-        forest.addMonster(new Monster("llama", 20, 5, 1, 15, 10, 30, 20,  true, llamaImg));
+        //forest.addMonster(new Monster("shroom", 20, 5, 1, 15, 10, 30, 20,  true, shroomImg));
         forest.addMonster(new Monster("smurf", 25, 5, 1, 15, 10, 15, 50, true, spritieImg));
-        forest.addMonster(new Monster("Lizardman", 25, 15, 8, 35, 20,  15, 100, true, lizardImg));
-        forest.addMonster(new Monster("Noob", 40, 5, 1, 15, 10,  8, 10, true, null));
+        forest.addMonster(new Monster("curupira", 25, 10, 1, 20, 10, 15, 50, true, curupiraImg));
+        forest.addMonster(new Monster("lizardman", 25, 15, 8, 35, 20,  15, 100, true, lizardImg));
 
         Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg, "Forest Key");
         grotto.addExit("E", "FOREST");
@@ -294,6 +303,10 @@ public class Adventure
         Location cove = new Location("cove", "COVE", "You are in a cove, it'shop got a cool ancient vibe to it", false, coveImg);
         cove.addExit("E", "REEF");
         cove.addExit("W", "LAKE");
+        cove.addMonster(new Monster("sea slug", 20, 10, 1, 10, 25, 5, 25, true, slugImg));
+        cove.addMonster(new Monster("squid", 25, 5, 1, 15, 10, 15, 50, true, squidImg));
+        cove.addMonster(new Monster("land shark", 20, 15, 8, 35, 20, 20, 60, true, landSharkImg));
+        cove.addMonster(new Monster("crab monster", 15, 12, 8, 30, 15, 10, 60, true, crabImg));
 
         Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg, "Reef Key");
         reef.addExit("W", "COVE");
@@ -319,6 +332,10 @@ public class Adventure
         Location graveyard = new Location("graveyard", "GRAVEYARD", "You are in a graveyard, where the dead come to life, and the living come to die", false, graveyardImg);
         graveyard.addExit("E", "TREE");
         graveyard.addExit("W", "PATH");
+        graveyard.addMonster(new Monster("zombie", 20, 10, 1, 10, 25, 5, 25, true, zombieImg));
+        graveyard.addMonster(new Monster("mummy", 20, 15, 8, 35, 20, 20, 60, true, mummyImg));
+        graveyard.addMonster(new Monster("skeleton", 20, 10, 1, 10, 25, 5, 25, true, skeletonImg));
+        graveyard.addMonster(new Monster("skeleton warrior", 25, 20, 10, 50, 35, 10, 45, true, skeletonImg2));
 
         Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg, "Grave Key");
         tree.addExit("W", "GRAVEYARD");
@@ -506,7 +523,7 @@ public class Adventure
      * Takes a monster and simulates a battle until the monster or player dies
      */
     private void doBattle(Monster enemy) {
-        System.out.print("doBattle");
+        System.out.print("doBattle\n");
         //first time run
         text.appendText("\n" + "A wild Lvl. " + enemy.getLevel() + " " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
@@ -585,7 +602,7 @@ public class Adventure
     } //end doBattle
 
     private void doBossBattle(Boss boss) {
-        System.out.print("doBossBattle");
+        System.out.print("doBossBattle\n");
         //first time run
         text.appendText("\n" + boss.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(boss.getImage());
@@ -1030,7 +1047,7 @@ public class Adventure
 
     @FXML protected void handleWestButtonPressed(ActionEvent event)
     {
-        System.out.print(event.toString());
+        System.out.print(event.toString() + "\n");
         this.makeMove("W");
     }
 

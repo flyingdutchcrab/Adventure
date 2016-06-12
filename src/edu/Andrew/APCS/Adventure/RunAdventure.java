@@ -29,7 +29,7 @@ public class RunAdventure extends Application
         scene.getStylesheets().add("/edu/Andrew/APCS/Adventure/AdventureStyleSheet.css");
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Adventure");
+        primaryStage.setTitle("JavaVenture");
         primaryStage.show();
 
     }

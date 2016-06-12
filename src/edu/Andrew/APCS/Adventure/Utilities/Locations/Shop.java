@@ -36,6 +36,7 @@ public class Shop
         this.shopInventory.add(new Armor("Iron Armor", 100, 2));       //arm 1
         this.shopInventory.add(new KeyItem("Grave Key", 100, "Opens a strange grave")); //key1
         this.shopInventory.add(new KeyItem("Gate Key", 100, "Opens the castle gate")); //key2
+        this.shopInventory.add(new KeyItem("Twin Peak Key", 100, "Opens twin peak"));
 
 
     }
