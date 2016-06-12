@@ -80,6 +80,7 @@ public class Adventure
     private Image forestImg;
     private Image grottoImg;
     private Image caveImg;
+    private Image tombImg;
     private Image altarImg;
     private Image shopImg;
     private Image meadowImg;
@@ -223,7 +224,8 @@ public class Adventure
         this.coveImg = new Image("locations/covefinal.gif");
         this.reefImg = new Image("locations/reef.gif");
         this.caveImg = new Image("locations/crystalcave.gif");
-        this.altarImg = new Image("locations/anotheraltar.gif");
+        this.tombImg = new Image("locations/anotheraltar.gif");
+        this.altarImg = new Image("locations/corruptedaltar.gif");
         this.shopImg = new Image("locations/shop3.gif");
         this.mountainImg = new Image("locations/mountain.gif");
         this.icyPassImg = new Image("locations/icypass.gif");
@@ -304,10 +306,15 @@ public class Adventure
 
         Location cave = new Location("cave", "CAVE", "You are in a crystal cave, a lot of crystals here", false, caveImg);
         cave.addExit("N", "MEADOW");
-        cave.addExit("S", "ALTAR");
+        cave.addExit("S", "TOMB");
 
-        Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, null, "Mysterious Rune");
-        altar.addExit("N", "CAVE");
+        Location tomb = new Location("tomb", "TOMB", "You are in an ancient tomb, the King often visits here", false, tombImg);
+        tomb.addExit("N", "CAVE");
+        tomb.addExit("S", "ALTAR");
+
+
+        Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, altarImg, "King's Key");
+        altar.addExit("N", "TOMB");
 
         Location lake = new Location("lake", "LAKE", "You are at a lake, go do some fishin", false, lakeImg);
         lake.addExit("N", "SWAMP");
@@ -421,7 +428,7 @@ public class Adventure
         throne.addExit("S", "SANCTUM");
         throne.addMonster(new Boss("King Arthur", 400, 1, 75, 800, 1500, 45, 1000, true, kingImg, 500, 8000, null));
 
-        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king'shop chamber, there is a weird feeling coming from an object in this room", true, chamberImg, "King'shop Key");
+        Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there is a weird feeling coming from an object in this room", true, chamberImg, "King's Key");
         chamber.addExit("S", "THRONE");
 
         Location hell = new Location("hell", "HELL", "Welcome to hell, you must have screwed something up to end here", false, hellImg);
@@ -435,6 +442,7 @@ public class Adventure
         this.allLocations.add(meadow);
         this.allLocations.add(grotto);
         this.allLocations.add(lake);
+        this.allLocations.add(tomb);
         this.allLocations.add(altar);
         this.allLocations.add(path);
         this.allLocations.add(cove);
@@ -619,10 +627,7 @@ public class Adventure
     } //end doBattle
 
     private void doBossBattle(Boss boss) {
-        if (boss.getName().equalsIgnoreCase("GOD"))
-        {
-            playMedia("/god.mp3");
-        }
+
         System.out.print("doBossBattle\n");
         //first time run
         text.appendText("\n" + boss.getName() + " has appeared!" + "\n" );
@@ -643,6 +648,7 @@ public class Adventure
 
             if (theInputText.equalsIgnoreCase("y") && boss.isAlive()) //if they want to fight
             {
+
 
                 //Player turn
                 boss.setHealth(boss.getHealth() - player.getDamage()); //Sets the monsters health as their current health minus the players damage
@@ -701,6 +707,11 @@ public class Adventure
                 text.appendText("Unrecognized command" + theInputText + "\n");
 
         });
+
+        if (boss.getName().equalsIgnoreCase("GOD"))
+        {
+            playMedia("/god.mp3");
+        }
 
 
     } //end boss battle
@@ -788,7 +799,7 @@ public class Adventure
         player.setCurrentLoc(this.getSingleLocation(ID));
 
         if(player.getCurrentLoc() == null) {  //killed/lost
-
+            playMedia("/sadviolin.mp3");
             text.appendText("\n\nYou have been killed!\n");
             imagePane.setImage(gameOverImg);
             player.setAlive(false);
@@ -879,6 +890,33 @@ public class Adventure
             doBossBattle((Boss) randomMob);
 
 
+        } else if(player.getCurrentLoc().getID().equals("ALTAR"))
+        {
+            text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
+            imagePane.setImage(player.getCurrentLoc().getImage());
+            if (player.containsItem("Mysterious Rune"))
+            {
+                text.appendText("The Mysterious Rune is resonating, something is drawing it toward the altar!" + "\n");
+                text.appendText("\nPlace the Mysterious Rune on the altar? (Y/N)" + "\n");
+                inputText.setOnAction(e ->
+                {
+                    String choice = inputText.getText();
+                    inputText.deleteText(0, inputText.getLength());
+                    if (choice.equalsIgnoreCase("y")) {
+                        this.setNewLocation("END");
+                    }
+                    else if(choice.equalsIgnoreCase("n"))
+                    {
+                        text.appendText("You chose not to place the Mysterious Rune on the altar" + "\n");
+                    }
+                    else
+                    {
+                        text.appendText("Unrecognized command" + "\n");
+                    }
+
+                });
+            }
+
         } else { //spacer location
 
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
@@ -931,9 +969,13 @@ public class Adventure
                             for (int j = 0; j < player.getInventory().size(); j++) { //check for key
                                 if (player.getInventory().get(j).getItemName().equalsIgnoreCase(allLocations.get(i).getKeyItemUnlock())) { //had Key?
                                     System.out.println("found"); //DEBUG
-                                    player.getInventory().remove(player.getInventory().get(j)); //remove the key item
+                                    if (!player.getInventory().get(j).getItemName().equals("King's Key"))
+                                    {
+                                        player.getInventory().remove(player.getInventory().get(j)); //remove the key item
+
+                                        text.appendText("\nThe key item to unlock this area has been removed. You have unlocked this location. \n");
+                                    }
                                     allLocations.get(i).unlock(); //unlock the location.
-                                    text.appendText("\nThey key item to unlock this area has been removed. You have unlocked this location. \n");
                                     found = true;
                                     this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //user has key to unlock area.
                                     break;
