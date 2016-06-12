@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 /**
@@ -25,12 +27,14 @@ public class RunAdventure extends Application
                 )
         );
         Parent root = loader.load();
+
         Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("/edu/Andrew/APCS/Adventure/AdventureStyleSheet.css");
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaVenture");
         primaryStage.show();
+
 
     }
 

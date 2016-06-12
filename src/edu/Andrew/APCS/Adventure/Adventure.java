@@ -17,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.application.Platform;
@@ -182,6 +184,7 @@ public class Adventure
                 this.setNewLocation("START");
                 inputText.deleteText(0, inputText.getLength());
 
+
             } else {
 
                 inputText.deleteText(0, inputText.getLength());
@@ -332,7 +335,7 @@ public class Adventure
 
         Location hut = new Location("abandoned hut", "HUT", "You are in an abandoned hut, the walls are rotting and the floor is overgrown", false, cabinImg);
         hut.addExit("W", "SWAMP");
-        //cabin.addExit("E", "END");
+        hut.addExit("E", "END");
         hut.addStrayItem(new KeyItem("Eye Rune", 1000, "Reveals secrets, if you are smart enough to find them"));
 
         Location path = new Location("forgotten path", "PATH", "You are in a forgotten path, few of the living have tread upon it recently", false, pathImg);
@@ -536,6 +539,7 @@ public class Adventure
      * Takes a monster and simulates a battle until the monster or player dies
      */
     private void doBattle(Monster enemy) {
+
         System.out.print("doBattle\n");
         //first time run
         text.appendText("\n" + "A wild Lvl. " + enemy.getLevel() + " " + enemy.getName() + " has appeared!" + "\n" );
@@ -615,6 +619,10 @@ public class Adventure
     } //end doBattle
 
     private void doBossBattle(Boss boss) {
+        if (boss.getName().equalsIgnoreCase("GOD"))
+        {
+            playMedia("/god.mp3");
+        }
         System.out.print("doBossBattle\n");
         //first time run
         text.appendText("\n" + boss.getName() + " has appeared!" + "\n" );
@@ -858,6 +866,19 @@ public class Adventure
             imagePane.setImage(player.getCurrentLoc().getImage());
             doShop();
 
+        }
+        else if(player.getCurrentLoc().getID().equals("END"))
+        {
+
+            text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
+            imagePane.setImage(player.getCurrentLoc().getImage());
+            ArrayList<Monster> monsters = player.getCurrentLoc().getMonsters();
+
+            Monster randomMob = monsters.get(random_int(0, monsters.size()));
+
+            doBossBattle((Boss) randomMob);
+
+
         } else { //spacer location
 
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
@@ -1030,6 +1051,14 @@ public class Adventure
 
         }
 
+    }
+
+    private void playMedia(String url)
+    {
+        String path = getClass().getResource(url).toString();
+        Media music = new Media(path);
+        MediaPlayer player = new MediaPlayer(music);
+        player.play();
     }
 
 
