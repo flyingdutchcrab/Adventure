@@ -56,6 +56,8 @@ public class Adventure
     private boolean invBtnActive;
     private boolean mapActive;
     public static final int INDEFINITE = -1;
+    private MediaPlayer mPlayer;
+    private MediaPlayer sPlayer;
 
 
     @FXML
@@ -175,6 +177,7 @@ public class Adventure
     {
         imagePane.setImage(new Image("locations/welcomeimage.gif"));  //need to force this.
         imagePane.setVisible(true);
+        //musicIsPlaying = true;
         playMedia("/hello.mp3");
 
         inventoryPane.setVisible(false);
@@ -634,7 +637,9 @@ public class Adventure
 
     } //end doBattle
 
-    private void doBossBattle(Boss boss) {
+    private void doBossBattle(Boss boss)
+    {
+        mPlayer.stop();
 
         System.out.print("doBossBattle\n");
         //first time run
@@ -718,15 +723,7 @@ public class Adventure
 
 
 
-            if (boss.getName().equalsIgnoreCase("GOD")) {
-                playMedia("/god.mp3");
-            } else if (boss.getName().equalsIgnoreCase("Argoth") && player.getCurrentLoc().getID().equalsIgnoreCase("EASTTOWER")) {
-                playMedia("/xgongiveittoya.mp3");
-            }else if (boss.getName().equalsIgnoreCase("Vengeful Spirit") && player.getCurrentLoc().getID().equalsIgnoreCase("TREE")) {
-                playMedia("/ghostgirlfight.mp3");
-            }else if (boss.getName().equalsIgnoreCase("Dagon") && player.getCurrentLoc().getID().equalsIgnoreCase("REEF")) {
-                playMedia("/riseofthelord.mp3");
-            }
+          this.playBossMusic(boss);
 
 
 
@@ -748,6 +745,7 @@ public class Adventure
      */
     private void doShop()
     {
+        playMedia("/shop.mp3");
 
         text.appendText(shop.printShopInventory() + "\n");
         text.appendText("Type the item name to buy a weapon here. Go back west to leave shop." + "\n");
@@ -1115,17 +1113,61 @@ public class Adventure
     {
         String path = getClass().getResource(url).toString();
         Media music = new Media(path);
-        MediaPlayer mPlayer = new MediaPlayer(music);
+        this.mPlayer = new MediaPlayer(music);
         mPlayer.isAutoPlay();
         mPlayer.play();
-        /*
-        if (player.getCurrentLoc().getID().equalsIgnoreCase("GRAVEYARD"));
-        {
-            mPlayer.stop();
-        }
-        */
         mPlayer.setCycleCount(INDEFINITE);
+    }
 
+    private void stopMedia()
+    {
+        mPlayer.stop();
+    }
+
+    private void playBossMusic(Boss boss)
+    {
+        //musicIsPlaying = true;
+        if (boss.getName().equalsIgnoreCase("GOD")) {
+            if(player.getCurrentLoc().getID().equalsIgnoreCase("END"))
+            {
+                playSound("/laugh.mp3");
+                playMedia("/god.mp3");
+            }
+
+        } else if (boss.getName().equalsIgnoreCase("Argoth")) {
+            if (player.getCurrentLoc().getID().equalsIgnoreCase("EASTTOWER"))
+            {
+                playMedia("/xgongiveittoya.mp3");
+            }
+
+
+        }else if (boss.getName().equalsIgnoreCase("Vengeful Spirit")) {
+            if (player.getCurrentLoc().getID().equalsIgnoreCase("TREE"))
+            {
+                playMedia("/ghostgirlfight.mp3");
+            }
+
+
+        }else if (boss.getName().equalsIgnoreCase("Dagon")) {
+            if(player.getCurrentLoc().getID().equalsIgnoreCase("REEF")) {
+                playMedia("/riseofthelord.mp3");
+            }
+        }
+    }
+
+    private void playSound(String url)
+    {
+        String path = getClass().getResource(url).toString();
+        Media music = new Media(path);
+        this.sPlayer = new MediaPlayer(music);
+        sPlayer.isAutoPlay();
+        sPlayer.play();
+        sPlayer.setCycleCount(1);
+    }
+
+    private void stopSound()
+    {
+        sPlayer.stop();
     }
 
 
@@ -1151,21 +1193,25 @@ public class Adventure
 
     @FXML protected void handleNorthButtonPressed(ActionEvent event)
     {
+        stopMedia();
         this.makeMove("N");
     }
 
     @FXML protected void handleEastButtonPressed(ActionEvent event)
     {
+        stopMedia();
         this.makeMove("E");
     }
 
     @FXML protected void handleSouthButtonPressed(ActionEvent event)
     {
+        stopMedia();
         this.makeMove("S");
     }
 
     @FXML protected void handleWestButtonPressed(ActionEvent event)
     {
+        stopMedia();
         System.out.print(event.toString() + "\n");
         this.makeMove("W");
     }
