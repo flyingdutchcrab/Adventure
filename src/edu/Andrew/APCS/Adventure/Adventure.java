@@ -168,11 +168,12 @@ public class Adventure
     {
         imagePane.setImage(new Image("locations/welcomeimage.gif"));  //need to force this.
         imagePane.setVisible(true);
-
+        playMedia("/hello.mp3");
 
         inventoryPane.setVisible(false);
         text.appendText("Welcome to the land of euphoria!\n");
         text.appendText("What's your name?\n");
+
 
         Platform.runLater(() -> inputText.requestFocus());
         inputText.setOnAction(event ->
