@@ -1152,6 +1152,12 @@ public class Adventure
             if(player.getCurrentLoc().getID().equalsIgnoreCase("REEF")) {
                 playMedia("/riseofthelord.mp3");
             }
+        }else if (boss.getName().equalsIgnoreCase("Forest Spirit"))
+        {
+            if (player.getCurrentLoc().getID().equalsIgnoreCase("GROTTO"))
+            {
+                playMedia("/greenforest.mp3");
+            }
         }
     }
 
