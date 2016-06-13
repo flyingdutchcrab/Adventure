@@ -13,7 +13,6 @@ import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextArea;
@@ -23,8 +22,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.application.Platform;
-
-import javafx.animation.Animation;
 
 /**
  * Adventure
@@ -281,7 +278,7 @@ public class Adventure
         this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
 
-        allLocations = new ArrayList<>();
+        this.allLocations = new ArrayList<>();
 
 
         Location start = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, homeImg);
@@ -323,7 +320,6 @@ public class Adventure
         tomb.addExit("N", "CAVE");
         tomb.addExit("S", "ALTAR");
 
-
         Location altar = new Location("altar", "ALTAR", "You are at an altar, there is an ominous feeling in the air here, almost like you really shouldn't be here", true, altarImg, "King's Key");
         altar.addExit("N", "TOMB");
 
@@ -331,7 +327,6 @@ public class Adventure
         lake.addExit("N", "SWAMP");
         lake.addExit("E", "COVE");
         lake.addExit("W", "MEADOW");
-
 
         Location cove = new Location("cove", "COVE", "You are in a cove, it's got a cool ancient vibe to it", false, coveImg);
         cove.addExit("E", "REEF");
@@ -344,7 +339,6 @@ public class Adventure
         Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg, "Reef Key");
         reef.addExit("W", "COVE");
         reef.addMonster(new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 600, true, dagonImg, 400, 2000, null));
-
 
         Location swamp = new Location("swamp", "SWAMP", "You are in a spooky swamp", false,  swampImg);
         swamp.addExit("N", "PATH");
@@ -374,7 +368,6 @@ public class Adventure
         tree.addExit("W", "GRAVEYARD");
         tree.addMonster(new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 400, true, ghostGirlImg, 250, 1500, new KeyItem("Forest Key", 600, "Opens the grotto")));
 
-
         Location tundra = new Location("tundra", "TUNDRA", "You are in a freezing tundra, not much is happening here...", false, tundraImg);
         tundra.addExit("S", "PATH");
         tundra.addExit("W", "MOUNTAIN");
@@ -396,11 +389,9 @@ public class Adventure
         twinpeak.addExit("E", "PASS");
         twinpeak.addMonster(new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 700, true, wyvernImg, 500, 5000, null));
 
-
         Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, gateImg);
         gate.addExit("N", "CASTLE");
         gate.addExit("S", "MOUNTAIN");
-
 
         Location castle = new Location("castle", "CASTLE", "You are the castle, you will face some very challenging foes here", true, castleImg, "Gate Key");
         castle.addExit("N", "HALL");
@@ -422,8 +413,7 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, eTowerImg);
         etower.addExit("W", "HALL");
-        Monster argoth = new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, null);
-        etower.addMonster(argoth);
+        etower.addMonster(new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, null));
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, wTowerImg);
         wtower.addExit("E", "HALL");
@@ -565,7 +555,9 @@ public class Adventure
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
+        /** have to make sure the enemy is alive **/
         enemy.setAlive(true);
+        enemy.setHealth(enemy.getStartHealth());
 
 
         //Prompts user to attack or run
@@ -804,6 +796,7 @@ public class Adventure
          * reset all things that need to be, yeah
          */
         mobImagePane.setImage(null); //always remove mob when location chances
+        Platform.runLater(() -> inputText.requestFocus());
         inputText.setOnAction(event -> {
             text.appendText("\nNo input at this time. ");
             inputText.deleteText(0, inputText.getText().length());
@@ -836,6 +829,8 @@ public class Adventure
             imagePane.setImage(player.getCurrentLoc().getImage());
             text.appendText("There is an item here! Pick it up? (Y/N)" + "\n" );
             Item strayItemFound = player.getCurrentLoc().getStrayItems().get(random_int(0, player.getCurrentLoc().getStrayItems().size())); //Item
+
+            Platform.runLater(() -> inputText.requestFocus());
             inputText.setOnAction(event ->
             {
                 String theInputText = inputText.getText();
@@ -864,6 +859,8 @@ public class Adventure
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(player.getCurrentLoc().getImage());
             text.appendText("\n" + "Would you like to rest? (Y/N)" + "\n");
+
+            Platform.runLater(() -> inputText.requestFocus());
             inputText.setOnAction(e ->
             {
                 String choice = inputText.getText();
@@ -1236,6 +1233,7 @@ public class Adventure
             inventoryPane.setVisible(invBtnActive);
             invText.setText(player.printInventory());
 
+            Platform.runLater(() -> inputText.requestFocus());
             invInputText.setOnAction(event2 ->
             {
                 String choice = invInputText.getText();

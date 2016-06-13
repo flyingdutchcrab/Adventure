@@ -16,6 +16,7 @@ public class Monster
     private int level;
     private int xp;
     private double health;
+    private double startHealth;
     private double damage;
     private boolean alive;
     private double loot;
@@ -25,7 +26,7 @@ public class Monster
     public Monster()
     {
         this.mobName = "";
-        this.health = -1.0;
+        this.health = this.startHealth = -1.0;
         this.level = -1; //was never generated
         this.xp = -1;    //was never generated
         this.damage = -1.0;
@@ -39,7 +40,7 @@ public class Monster
     public Monster(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img) {
 
         this.mobName = mobName;
-        this.health = health;
+        this.health = this.startHealth = health;
         this.damage = damage;
         this.loot = loot;
         this.alive = isAlive;
@@ -125,6 +126,10 @@ public class Monster
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public double getStartHealth() {
+        return startHealth;
     }
 
     /**
