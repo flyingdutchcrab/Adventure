@@ -708,10 +708,18 @@ public class Adventure
 
         });
 
-        if (boss.getName().equalsIgnoreCase("GOD"))
-        {
-            playMedia("/god.mp3");
-        }
+
+
+            if (boss.getName().equalsIgnoreCase("GOD")) {
+                playMedia("/god.mp3");
+            } else if (boss.getName().equalsIgnoreCase("Argoth") && player.getCurrentLoc().getID().equalsIgnoreCase("EASTTOWER")) {
+                playMedia("/xgongiveittoya.mp3");
+            }else if (boss.getName().equalsIgnoreCase("Vengeful Spirit") && player.getCurrentLoc().getID().equalsIgnoreCase("TREE")) {
+                playMedia("/ghostgirlfight.mp3");
+            }else if (boss.getName().equalsIgnoreCase("Dagon") && player.getCurrentLoc().getID().equalsIgnoreCase("REEF")) {
+                playMedia("/riseofthelord.mp3");
+            }
+
 
 
     } //end boss battle
@@ -1178,10 +1186,15 @@ public class Adventure
                             invInputText.deleteText(0, invInputText.getLength());
                             invText.appendText("\nYour insight level: " + player.getInsight() + "\n");
                         }
+                        else if(player.getInventory().get(i).getItemName().equalsIgnoreCase("Region Map"))
+                        {
+
+                        }
                     } else {
                         invInputText.deleteText(0, invInputText.getLength());
                         invText.appendText("\nItem not recognized" + "\n");
                     }
+
                 }
 
 
