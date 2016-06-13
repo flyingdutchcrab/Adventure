@@ -13,6 +13,7 @@ import edu.Andrew.APCS.Adventure.Utilities.Mobs.Monster;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextArea;
@@ -22,6 +23,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.application.Platform;
+
+import javafx.animation.Animation;
 
 /**
  * Adventure
@@ -44,7 +47,6 @@ public class Adventure
     private Button south;
     private Button west;
     private ToggleButton inventory;
-    private Button map;
 
 
     private boolean gameWon;
@@ -52,6 +54,8 @@ public class Adventure
     private Shop shop;
     private ArrayList<Location> allLocations;
     private boolean invBtnActive;
+    private boolean mapActive;
+    public static final int INDEFINITE = -1;
 
 
     @FXML
@@ -70,6 +74,8 @@ public class Adventure
     private TextArea invText;
     @FXML
     private TextField invInputText;
+    @FXML
+    //private GridPane mapPane;
 
 
     /**
@@ -145,6 +151,7 @@ public class Adventure
         this.player = new Player();
         this.shop = new Shop();
         invBtnActive = false;
+        mapActive = false;
 
         /** init. locations **/
         initLocations();
@@ -1108,8 +1115,17 @@ public class Adventure
     {
         String path = getClass().getResource(url).toString();
         Media music = new Media(path);
-        MediaPlayer player = new MediaPlayer(music);
-        player.play();
+        MediaPlayer mPlayer = new MediaPlayer(music);
+        mPlayer.isAutoPlay();
+        mPlayer.play();
+        /*
+        if (player.getCurrentLoc().getID().equalsIgnoreCase("GRAVEYARD"));
+        {
+            mPlayer.stop();
+        }
+        */
+        mPlayer.setCycleCount(INDEFINITE);
+
     }
 
 
@@ -1189,7 +1205,17 @@ public class Adventure
                         }
                         else if(player.getInventory().get(i).getItemName().equalsIgnoreCase("Region Map"))
                         {
+                            /*
+                            if (mapActive) {
+                                mapActive = true;
+                                mapPane.setVisible(true);
 
+                            } else {
+
+                                mapActive = false;
+                                mapPane.setVisible(false);
+                            }
+                            */
                         }
                     } else {
                         invInputText.deleteText(0, invInputText.getLength());
