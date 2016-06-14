@@ -459,7 +459,7 @@ public class Adventure
 
                 player.setPlayerName(inputText.getText());
                 text.appendText("Welcome, " + player.getPlayerName() + "\n");
-                playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                updatePlayerInfo();
                 this.setNewLocation("START");
                 inputText.deleteText(0, inputText.getLength());
 
@@ -553,6 +553,7 @@ public class Adventure
 
     /**
      * Takes a monster and simulates a battle until the monster or player dies
+     * @param enemy the Monster
      */
     private void doBattle(Monster enemy) {
 
@@ -581,14 +582,14 @@ public class Adventure
             {
 
                 //Player turn
-                enemy.setHealth(enemy.getHealth() - player.getDamage()); //Sets the monsters health as their current health minus the players damage
-                text.appendText("You attack " + enemy.getName() + " for " + player.getDamage() + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
+                enemy.setHealth(enemy.getHealth() - (player.getDamage() + (player.getXp() * 1.001))); //Sets the monsters health as their current health minus the players damage
+                text.appendText("You attack " + enemy.getName() + " for " + (player.getDamage() + (player.getXp() * 1.001)) + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
 
                 //Monster turn
                 enemy.setDamage(enemy.getDamage() / player.getPlayerArmorValue());
                 player.setHealth(player.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
                 text.appendText("The " + enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
-                playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                updatePlayerInfo();
 
                 if (player.getHealth() < 20.0)
                     text.appendText("Your health is low, you should return home and restore health!" + "\n");
@@ -605,16 +606,15 @@ public class Adventure
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
                     player.addWallet(enemy.getLoot());
-                    player.setXp(player.getXp() + enemy.getXp());
-                    playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
-                    text.setText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
-
+                    player.addXP(enemy.getLevel() * 1.7);
+                    updatePlayerInfo();
+                    text.appendText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
 
 
                 } else if (!player.isAlive()) { //if you died
 
                     mobImagePane.setImage(null);
-                    text.setText("You have been shrekt by the " + enemy.getName());
+                    text.appendText("You have been shrekt by the " + enemy.getName());
                     setNewLocation(null);
 
 
@@ -623,10 +623,11 @@ public class Adventure
                 }
 
             } else if (theInputText.equalsIgnoreCase("n")) { // if they don't want to fight
-                    mobImagePane.setImage(null);
-                    text.appendText("You fled from the fight!" + "\n");
-                    setNewLocation("MEADOW"); // brings you back to town
-                    //System.out.print("Will i run?"); //DEBUG
+                mobImagePane.setImage(null);
+                text.setText("You fled from the fight!" + "\n");
+                player.addXP(-10); //pussy
+                setNewLocation("MEADOW"); // brings you back to town
+                //System.out.print("Will i run?"); //DEBUG
 
             } else // they don't make any sense
                 text.appendText("Unrecognized command_" + theInputText + "_" +enemy.isAlive() +"\n");
@@ -636,6 +637,11 @@ public class Adventure
 
     } //end doBattle
 
+
+    /**
+     * Do Boss Abble
+     * @param boss the BOSS!
+     */
     private void doBossBattle(Boss boss)
     {
         mPlayer.stop();
@@ -663,14 +669,14 @@ public class Adventure
 
 
                 //Player turn
-                boss.setHealth(boss.getHealth() - player.getDamage()); //Sets the monsters health as their current health minus the players damage
-                text.appendText("You attack " + boss.getName() + " for " + player.getDamage() + " damage!" + "\n" + "boss health is " + boss.getHealth() + "\n");
+                boss.setHealth(boss.getHealth() - (player.getDamage() + (player.getXp() * 1.01))); //Sets the monsters health as their current health minus the players damage
+                text.appendText("You attack " + boss.getName() + " for " + (player.getDamage() + (player.getXp() * 1.01)) + " damage!" + "\n" + "boss health is " + boss.getHealth() + "\n");
 
                 //Monster turn
                 //boss.setDamage(boss.getDamage() / player.getArmor().getArmorValue());
                 player.setHealth(player.getHealth() - boss.getDamage()); //Sets the players health as their current health minus the monsters damage
                 text.appendText(boss.getName() + " hit you for " + boss.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
-                playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                updatePlayerInfo();
 
                 if (player.getHealth() < 20.0)
                     text.appendText("Your health is low, you should return home and restore health!" + "\n");
@@ -687,8 +693,8 @@ public class Adventure
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
                     player.addWallet(boss.getLoot());
-                    player.setXp(player.getXp() + boss.getXp());
-                    playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                    player.addXP(boss.getXp());
+                    updatePlayerInfo();
                     text.setText("You shrekt the " + boss.getName() + "\n" + "You got $" + boss.getLoot() + " for winning!" + "\n");
                     if (boss.getBossLoot() != null)
                     {
@@ -728,9 +734,9 @@ public class Adventure
 
     /**
      * Multibattle takes in an array of monsters and does battle with each of them if the player is in the forest
+     * @param arrayOfMonsters The Monsters to battle
      */
-    public void domultiBattle(ArrayList<Monster> arrayOfMonsters)
-    {
+    public void domultiBattle(ArrayList<Monster> arrayOfMonsters) {
         for(Monster mob : arrayOfMonsters)
             this.doBattle(mob);
     }
@@ -739,8 +745,8 @@ public class Adventure
     /**
      * doShop function to run the shop
      */
-    private void doShop()
-    {
+    private void doShop() {
+
         playMedia("/shop.mp3");
 
         text.appendText(shop.printShopInventory() + "\n");
@@ -762,7 +768,7 @@ public class Adventure
                         text.appendText("You bought the " + i.getItemName() + " for $" + i.getCost() + "\n");
                         player.getInventory().add(i);
                         player.addWallet(-i.getCost());
-                        playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                        updatePlayerInfo();
                         break;
 
                     } else {
@@ -799,6 +805,7 @@ public class Adventure
         /**
          * reset all things that need to be, yeah
          */
+
         mobImagePane.setImage(null); //always remove mob when location chances
         Platform.runLater(() -> inputText.requestFocus());
         inputText.setOnAction(event -> {
@@ -808,8 +815,18 @@ public class Adventure
 
 
         player.setCurrentLoc(this.getSingleLocation(ID));
+        player.addXP(.5); //add XP for move change.
+        updatePlayerInfo();
 
-        if(player.getCurrentLoc() == null) {  //killed/lost
+
+
+        /**
+         * Heres what to do based off location.
+         */
+
+
+
+        if (player.getCurrentLoc() == null) {  //killed/lost
             playMedia("/sadviolin.mp3");
             text.appendText("\n\nYou have been killed!\n");
             imagePane.setImage(gameOverImg);
@@ -821,6 +838,7 @@ public class Adventure
             imagePane.setImage(player.getCurrentLoc().getImage());
             ArrayList<Monster> monsters = player.getCurrentLoc().getMonsters();
             Monster randomMob = monsters.get(random_int(0, monsters.size()));
+
             if (randomMob instanceof Boss)
                 doBossBattle((Boss) randomMob); //does multibattle if there are monsters
 
@@ -828,7 +846,8 @@ public class Adventure
                 doBattle(randomMob);
 
 
-        } else if (player.getCurrentLoc().getStrayItems().size() > 0) {
+        } else if (player.getCurrentLoc().getStrayItems().size() > 0) { //there's a stray item
+
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(player.getCurrentLoc().getImage());
             text.appendText("There is an item here! Pick it up? (Y/N)" + "\n" );
@@ -839,21 +858,18 @@ public class Adventure
             {
                 String theInputText = inputText.getText();
                 inputText.deleteText(0, theInputText.length());
-                if (theInputText.equalsIgnoreCase("y"))
-                {
+                if (theInputText.equalsIgnoreCase("y")) {
                     player.getInventory().add(strayItemFound);
                     player.getCurrentLoc().removeStrayItem(strayItemFound);
+                    player.addXP(10); //pick up XP
                     text.appendText("You picked up the " + strayItemFound.getItemName() + "\n");
 
                 }
                 else if(theInputText.equalsIgnoreCase("n"))
-                {
                     text.appendText("You chose to leave the " + strayItemFound.getItemName() + "\n");
-                }
+
                 else
-                {
                     text.appendText("Unrecognized command" + "\n");
-                }
 
 
             });
@@ -871,7 +887,7 @@ public class Adventure
                 inputText.deleteText(0, inputText.getLength());
                 if (choice.equalsIgnoreCase("y") && player.getHealth() < 100) {
                     player.setHealth(100.0);
-                    playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName()  + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                    updatePlayerInfo();
                     text.appendText("You have rested! Your health is now " + player.getHealth() + "\n");
                 }
                 else if(choice.equalsIgnoreCase("n"))
@@ -886,15 +902,13 @@ public class Adventure
             });
 
 
-        } else if( player.getCurrentLoc().getID().equals("STORE") ) { //doStore
+        } else if (player.getCurrentLoc().getID().equals("STORE") ) { //doStore
 
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(player.getCurrentLoc().getImage());
             doShop();
 
-        }
-        else if(player.getCurrentLoc().getID().equals("END"))
-        {
+        } else if (player.getCurrentLoc().getID().equals("END")) { //end
 
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(player.getCurrentLoc().getImage());
@@ -902,32 +916,36 @@ public class Adventure
 
             Monster randomMob = monsters.get(random_int(0, monsters.size()));
 
+            player.addXP(1000); //extra XP
+
             doBossBattle((Boss) randomMob);
 
 
-        } else if(player.getCurrentLoc().getID().equals("ALTAR"))
-        {
+        } else if (player.getCurrentLoc().getID().equals("ALTAR")) { //SPECIAL Alter
+
+            player.addXP(100);
+
             text.setText("You are now in " + player.getCurrentLoc().getName() + "\n" + player.getCurrentLoc().getDescription() + "\n");
             imagePane.setImage(player.getCurrentLoc().getImage());
-            if (player.containsItem("Mysterious Rune"))
-            {
+            if (player.containsItem("Mysterious Rune")) {
+
                 text.appendText("The Mysterious Rune is resonating, something is drawing it toward the altar!" + "\n");
                 text.appendText("\nPlace the Mysterious Rune on the altar? (Y/N)" + "\n");
+
+                Platform.runLater(() -> inputText.requestFocus());
                 inputText.setOnAction(e ->
                 {
                     String choice = inputText.getText();
                     inputText.deleteText(0, inputText.getLength());
-                    if (choice.equalsIgnoreCase("y")) {
+                    if (choice.equalsIgnoreCase("y"))
                         this.setNewLocation("END");
-                    }
+
                     else if(choice.equalsIgnoreCase("n"))
-                    {
                         text.appendText("You chose not to place the Mysterious Rune on the altar" + "\n");
-                    }
+
                     else
-                    {
                         text.appendText("Unrecognized command" + "\n");
-                    }
+
 
                 });
             }
@@ -1032,6 +1050,14 @@ public class Adventure
 
 
         //region Other Functions
+
+
+
+    public void updatePlayerInfo() {
+        playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName()  + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+
+    }
+
 
     /**
      * Get the current LocID
@@ -1262,7 +1288,7 @@ public class Adventure
                         //System.out.print("here"); //DEBUG
                         if (player.getInventory().get(i) instanceof Weapon) {
                             player.equipWeapon((Weapon) player.getInventory().get(i));
-                            playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                            updatePlayerInfo();
                             invText.appendText("\n" + player.getInventory().get(i).getItemName() + " has been equipped.");
                             break;
 

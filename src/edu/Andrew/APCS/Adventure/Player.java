@@ -22,7 +22,7 @@ public class Player
     private double damage;
     private int level;
     private int insight;
-    private int xp;
+    private double xp;
     private String playerName;
     private Weapon weapon; //Expecting an Weapon here
     private Armor armor; //expecting a Armor here
@@ -36,7 +36,7 @@ public class Player
         this.health = 100.0; //sets players default health to 100
         this.playerName = "NotSet"; //sets players default name as not set
         this.level = 1;
-        this.xp = 1;
+        this.xp = 1.0;
         this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
         this.alive = true; //sets players default status to alive
@@ -145,6 +145,15 @@ public class Player
 
 
     /**
+     * Checks level based of XP.. yes.
+     */
+    private void checkLevel() {
+        level = (int) (100 * Math.sqrt(xp));
+
+    }
+
+
+    /**
      * Setters and getters
      */
     public void setPlayerName(String name) { this.playerName = name; }
@@ -157,9 +166,11 @@ public class Player
 
     public int getLevel() { return this.level; }
 
-    public int getXp() { return this.xp; }
+    public double getXp() { return this.xp; }
 
-    public void setXp(int xp) { this.xp = xp; }
+    public void setXp(double xp) { this.xp = xp; checkLevel(); }
+
+    public void addXP(double xp) { this.xp += xp; checkLevel(); }
 
     public int getInsight() { return this.insight; }
 
@@ -186,6 +197,8 @@ public class Player
     public boolean isAlive() { return alive; }
 
     public void setAlive(boolean alive) { this.alive = alive; }
+
+
 
 
     /**
