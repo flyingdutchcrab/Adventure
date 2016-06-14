@@ -157,6 +157,7 @@ public class Adventure
 
         /** images **/
 
+        //Locations
         Image homeImg = new Image("locations/bedroom.gif");
         Image townImg = new Image("locations/rsz_nighttown.jpg");
         Image pathImg = new Image("locations/forgottenpath.gif");
@@ -188,9 +189,12 @@ public class Adventure
         Image hallImg = new Image("locations/interiorcastle.gif");
         Image wTowerImg = new Image("locations/westtower.gif");
         Image eTowerImg = new Image("locations/bigheadroom.gif");
+        Image sanctumImg = new Image("locations/innersanctum.png");
         Image throneImg = new Image("locations/throneroom.gif");
         Image chamberImg = new Image("locations/kingschamber.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
+
+        //Monsters
         Image skeletonImg = new Image("monsters/skeletonwarrior.gif");
         Image skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
         Image zombieImg = new Image("monsters/zombiechaingirl.gif");
@@ -241,7 +245,7 @@ public class Adventure
 
         Location grotto = new Location("grotto", "GROTTO", "You are now in a grotto, the feeling of nature is excellent", true, grottoImg, "Forest Key");
         grotto.addExit("E", "FOREST");
-        grotto.addMonster(new Boss("Forest Spirit", 300, 1, 50, 50, 1000, 35, 500, true, forestSpiritImg, 300, 1000, null));
+        grotto.addMonster(new Boss("Forest Spirit", 300, 1, 50, 50, 1000, 35, 500, true, forestSpiritImg, 300, 1000, new KeyItem("Reef Key", 250, "Opens the reef")));
 
 
         Location town = new Location("town", "TOWN", "You are in a small town. There is a massive menacing mountain over the northern horizon, a store to the west, and a forgotten path to the east.", false, townImg);
@@ -277,7 +281,7 @@ public class Adventure
 
         Location reef = new Location("reef", "REEF", "You are in a reef, there is a lot of ruins down here", true, reefImg, "Reef Key");
         reef.addExit("W", "COVE");
-        reef.addMonster(new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 600, true, dagonImg, 400, 2000, null));
+        reef.addMonster(new Boss("Dagon", 300, 90, 200, 900, 3000, 35, 600, true, dagonImg, 400, 2000, new KeyItem("Twin Peak Key", 300, "Opens the Twin Peak")));
 
         Location swamp = new Location("swamp", "SWAMP", "You are in a spooky swamp", false,  swampImg);
         swamp.addExit("N", "PATH");
@@ -305,7 +309,7 @@ public class Adventure
 
         Location tree = new Location("hanging tree", "TREE", "You are at a hanging tree, creepy whispers can be heard all around you", true, treeImg, "Grave Key");
         tree.addExit("W", "GRAVEYARD");
-        tree.addMonster(new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 400, true, ghostGirlImg, 250, 1500, new KeyItem("Forest Key", 600, "Opens the grotto")));
+        tree.addMonster(new Boss("Vengeful Spirit", 300, 0, 100, 100, 2000, 35, 400, true, ghostGirlImg, 250, 1500, new KeyItem("Forest Key", 200, "Opens the grotto")));
 
         Location tundra = new Location("tundra", "TUNDRA", "You are in a freezing tundra, not much is happening here...", false, tundraImg);
         tundra.addExit("S", "PATH");
@@ -326,7 +330,7 @@ public class Adventure
 
         Location twinpeak = new Location("twin peak", "TWINPEAK", "You are at the Twin Peak, a dragon can be found here", true, twinPeakImg, "Twin Peak Key");
         twinpeak.addExit("E", "PASS");
-        twinpeak.addMonster(new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 700, true, wyvernImg, 500, 5000, null));
+        twinpeak.addMonster(new Boss("Wyvern", 400, 1, 75, 90, 1000, 45, 700, true, wyvernImg, 500, 5000, new KeyItem("Gate Key", 400, "Opens the castle gate")));
 
         Location gate = new Location("castle gate", "GATE", "You are at the castle gate, you have to do a lot of stuff till you can open it", false, gateImg);
         gate.addExit("N", "CASTLE");
@@ -352,21 +356,30 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, eTowerImg);
         etower.addExit("W", "HALL");
-        etower.addMonster(new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, null));
+        Item argothKey = new KeyItem("Argoth's Key Shard", 500, "Combines with Alrothia's Key to form the Twin Knight Key");
+        etower.addMonster(new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, argothKey));
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, wTowerImg);
         wtower.addExit("E", "HALL");
-        wtower.addMonster(new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, null));
+        Item alrothiaKey = new KeyItem("Alrothia's Key Shard", 500, "Combines with Argoth's Key to form the Twin Knight Key");
+        wtower.addMonster(new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, alrothiaKey));
 
-        Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, null, "Twin Knight Key");
+        if (player.containsItem("Argoth's Key Shard") && player.containsItem("Alrothia's Key Shard"))
+        {
+            player.getInventory().add(new KeyItem("Twin Knight Key", 1000, "Opens the inner sanctum"));
+            player.getInventory().remove(argothKey);
+            player.getInventory().remove(alrothiaKey);
+        }
+
+        Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, sanctumImg, "Twin Knight Key");
         sanctum.addExit("N", "THRONE");
         sanctum.addExit("S", "HALL");
-        sanctum.addMonster(new Boss("Princess Amelia", 400, 1, 75, 800, 1500, 45, 1000, true, princessImg, 500, 8000, null));
+        sanctum.addMonster(new Boss("Princess Amelia", 400, 1, 75, 800, 1500, 45, 1000, true, princessImg, 500, 8000, new KeyItem("Throne Key", 1500, "Opens the throne room")));
 
         Location throne = new Location("Throne", "THRONE", "You are at the throne, where you will face your destiny and fight the king", true, throneImg, "Throne Key");
         throne.addExit("N", "CHAMBER");
         throne.addExit("S", "SANCTUM");
-        throne.addMonster(new Boss("King Arthur", 400, 1, 75, 800, 1500, 45, 1000, true, kingImg, 500, 8000, null));
+        throne.addMonster(new Boss("King Arthur", 400, 1, 75, 800, 1500, 45, 1000, true, kingImg, 500, 8000, new KeyItem("King's Key", 2000, "Opens the king's chamber and somewhere else")));
 
         Location chamber = new Location("king's chamber", "CHAMBER", "You are at the king's chamber, there is a weird feeling coming from an object in this room", true, chamberImg, "King's Key");
         chamber.addExit("S", "THRONE");
@@ -679,19 +692,16 @@ public class Adventure
                     text.setText("You shrekt the " + boss.getName() + "\n" + "You got $" + boss.getLoot() + " for winning!" + "\n");
                     if (boss.getBossLoot() != null)
                     {
-                        text.appendText("\n" + "Picked up an item!" + "\n");
+                        text.appendText("\n" + "Obtained the " + boss.getBossLoot().getItemName() + "!" + "\n");
                         player.getInventory().add(boss.getBossLoot());
                     }
 
 
 
                 } else if (!player.isAlive()) { //if you died
-
-                    mobImagePane.setImage(null);
-                    text.setText("You have been shrekt by the " + boss.getName());
-                    setNewLocation(null);
-
-
+                        mobImagePane.setImage(null);
+                        text.setText("You have been shrekt by the " + boss.getName());
+                        setNewLocation(null);
                 } else {
                     text.appendText("Attack again? (Y/N) \n");
                 }
