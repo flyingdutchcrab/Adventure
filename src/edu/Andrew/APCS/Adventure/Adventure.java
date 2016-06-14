@@ -154,7 +154,6 @@ public class Adventure
         invBtnActive = false;
         mapActive = false;
 
-
         /** images **/
 
         //Locations
@@ -356,20 +355,15 @@ public class Adventure
 
         Location etower = new Location("east tower", "EASTTOWER", "You are at the East Tower, prepare for a fight", false, eTowerImg);
         etower.addExit("W", "HALL");
-        Item argothKey = new KeyItem("Argoth's Key Shard", 500, "Combines with Alrothia's Key to form the Twin Knight Key");
-        etower.addMonster(new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, argothKey));
+
+        etower.addMonster(new Boss("Argoth", 400, 150, 300, 400, 1000, 45, 800, true, argothImg, 450, 6000, new KeyItem("Argoth's Key Shard", 500, "Combines with Alrothia's Key to form the Twin Knight Key")));
 
         Location wtower = new Location("west tower", "WESTTOWER", "You are at the West Tower, prepare for a fight", false, wTowerImg);
         wtower.addExit("E", "HALL");
-        Item alrothiaKey = new KeyItem("Alrothia's Key Shard", 500, "Combines with Argoth's Key to form the Twin Knight Key");
-        wtower.addMonster(new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, alrothiaKey));
 
-        if (player.containsItem("Argoth's Key Shard") && player.containsItem("Alrothia's Key Shard"))
-        {
-            player.getInventory().add(new KeyItem("Twin Knight Key", 1000, "Opens the inner sanctum"));
-            player.getInventory().remove(argothKey);
-            player.getInventory().remove(alrothiaKey);
-        }
+        wtower.addMonster(new Boss("Alrothia", 400, 150, 300, 400, 1000, 45, 800, true, alrothiaImg, 450, 6000, new KeyItem("Alrothia's Key Shard", 500, "Combines with Argoth's Key to form the Twin Knight Key")));
+
+
 
         Location sanctum = new Location("Inner Sanctum", "SANCTUM", "You are in the Inner Sanctum, home of the prince", true, sanctumImg, "Twin Knight Key");
         sanctum.addExit("N", "THRONE");
@@ -445,7 +439,7 @@ public class Adventure
         imagePane.setImage(new Image("locations/welcomeimage.gif"));  //need to force this.
         imagePane.setVisible(true);
         //musicIsPlaying = true;
-        playMedia("/hello.mp3");
+        playMedia("/music/hello.mp3");
 
         inventoryPane.setVisible(false);
         text.appendText("Welcome to the land of euphoria!\n");
@@ -702,6 +696,13 @@ public class Adventure
                         player.getInventory().add(boss.getBossLoot());
                     }
 
+                    if (player.containsItem("Argoth's Key Shard") && player.containsItem("Alrothia's Key Shard"))
+                    {
+                        player.getInventory().add(new KeyItem("Twin Knight Key", 1000, "Opens the inner sanctum"));
+                        player.getInventory().remove(new KeyItem("Argoth's Key Shard", 500, "Combines with Alrothia's Key to form the Twin Knight Key"));
+                        player.getInventory().remove(new KeyItem("Alrothia's Key Shard", 500, "Combines with Argoth's Key to form the Twin Knight Key"));
+                    }
+
 
 
                 } else if (!player.isAlive()) { //if you died
@@ -748,6 +749,9 @@ public class Adventure
     private void doShop() {
 
         playMedia("/shop.mp3");
+    private void doShop()
+    {
+        playMedia("/music/shop.mp3");
 
         text.appendText(shop.printShopInventory() + "\n");
         text.appendText("Type the item name to buy a weapon here. Go back west to leave shop." + "\n");
@@ -826,8 +830,8 @@ public class Adventure
 
 
 
-        if (player.getCurrentLoc() == null) {  //killed/lost
-            playMedia("/sadviolin.mp3");
+        if(player.getCurrentLoc() == null) {  //killed/lost
+            playMedia("/music/sadviolin.mp3");
             text.appendText("\n\nYou have been killed!\n");
             imagePane.setImage(gameOverImg);
             player.setAlive(false);
@@ -1178,21 +1182,32 @@ public class Adventure
     private void playBossMusic(Boss boss) {
 
         if (boss.getName().equalsIgnoreCase("GOD") && player.getCurrentLoc().getID().equalsIgnoreCase("END")) {
-            playSound("/laugh.mp3");
-            playMedia("/god.mp3");
+            playSound("/sound/laugh.mp3");
+            playMedia("/music/god.mp3");
 
         } else if (boss.getName().equalsIgnoreCase("Argoth") && player.getCurrentLoc().getID().equalsIgnoreCase("EASTTOWER"))
-                playMedia("/xgongiveittoya.mp3");
+                playMedia("/music/xgongiveittoya.mp3");
 
         else if (boss.getName().equalsIgnoreCase("Vengeful Spirit") && player.getCurrentLoc().getID().equalsIgnoreCase("TREE"))
-                playMedia("/ghostgirlfight.mp3");
+                playMedia("/music/ghostgirlfight.mp3");
 
         else if (boss.getName().equalsIgnoreCase("Dagon") && player.getCurrentLoc().getID().equalsIgnoreCase("REEF"))
-                playMedia("/riseofthelord.mp3");
+                playMedia("/music/riseofthelord.mp3");
+
+        else if (boss.getName().equalsIgnoreCase("Wyvern") && player.getCurrentLoc().getID().equalsIgnoreCase("TWINPEAK"))
+            playMedia("/music/goldensun.mp3");
 
         else if (boss.getName().equalsIgnoreCase("Forest Spirit") && player.getCurrentLoc().getID().equalsIgnoreCase("GROTTO"))
-                playMedia("/greenforest.mp3");
+                playMedia("/music/greenforest.mp3");
 
+        else if (boss.getName().equalsIgnoreCase("Alrothia") && player.getCurrentLoc().getID().equalsIgnoreCase("WESTTOWER"))
+            playMedia("/music/alrothiabattle.mp3");
+
+        else if (boss.getName().equalsIgnoreCase("Princess Amelia") && player.getCurrentLoc().getID().equalsIgnoreCase("SANCTUM"))
+            playMedia("/music/bossbattle4.mp3");
+
+        else if (boss.getName().equalsIgnoreCase("King Arthur") && player.getCurrentLoc().getID().equalsIgnoreCase("THRONE"))
+            playMedia("/music/epicdrama.mp3");
 
     }
 
