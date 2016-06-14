@@ -36,4 +36,5 @@ public class Armor extends Item
     {
         return "Armor: " + super.getItemName() + " | " + "$" + super.getCost() + " | " + armorValue + "\n";
     }
+
 }

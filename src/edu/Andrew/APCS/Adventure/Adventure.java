@@ -33,7 +33,7 @@ import javafx.application.Platform;
 public class Adventure
 {
 
-        //region Varables
+        //region Variables
 
     /**
      * Buttons and other things
@@ -52,7 +52,7 @@ public class Adventure
     private ArrayList<Location> allLocations;
     private boolean invBtnActive;
     private boolean mapActive;
-    public static final int INDEFINITE = -1;
+    private static final int INDEFINITE = -1;
     private MediaPlayer mPlayer;
     private MediaPlayer sPlayer;
 
@@ -73,13 +73,12 @@ public class Adventure
     private TextArea invText;
     @FXML
     private TextField invInputText;
-    @FXML
+    //@FXML
     //private GridPane mapPane;
 
 
     /**
      * Images
-     */
     private Image homeImg;
     private Image townImg;
     private Image forestImg;
@@ -137,6 +136,9 @@ public class Adventure
     private Image alrothiaImg;
     private Image argothImg;
     private Image forestSpiritImg;
+    */
+
+    private Image gameOverImg;
 
 
         //endregion
@@ -152,131 +154,68 @@ public class Adventure
         invBtnActive = false;
         mapActive = false;
 
-        /** init. locations **/
-        initLocations();
 
         /** images **/
 
-
-
-    }
-
-        //endregion
-
-
-        //region Initialize
-
-
-    /**
-     * Init. Things. This should be only called once.
-     */
-    public void initialize()
-    {
-        imagePane.setImage(new Image("locations/welcomeimage.gif"));  //need to force this.
-        imagePane.setVisible(true);
-        //musicIsPlaying = true;
-        playMedia("/hello.mp3");
-
-        inventoryPane.setVisible(false);
-        text.appendText("Welcome to the land of euphoria!\n");
-        text.appendText("What's your name?\n");
-
-
-        Platform.runLater(() -> inputText.requestFocus());
-        inputText.setOnAction(event ->
-        {
-            if (player.getPlayerName().equals("NotSet")) {
-
-                player.setPlayerName(inputText.getText());
-                text.appendText("Welcome, " + player.getPlayerName() + "\n");
-                playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
-                this.setNewLocation("START");
-                inputText.deleteText(0, inputText.getLength());
-
-
-            } else {
-
-                inputText.deleteText(0, inputText.getLength());
-                text.appendText("\nThere is nothing to input at this time. ");
-
-            }
-
-        });
-
-        //rest to restore health at home
-        if (player.getCurrentLoc().getID().equals("START") && player.getHealth() < 100) {
-
-            player.setHealth(100.0);
-            text.appendText("You have rested! Your health is now " + player.getHealth() + "\n");
-        }
-
-
-    }
-
-
-    /**
-     * Creates all locations for the game and puts them in allLocations. Should only be called once
-     */
-    private void initLocations()
-    {
-        this.homeImg = new Image("locations/bedroom.gif");
-        this.townImg = new Image("locations/rsz_nighttown.jpg");
-        this.pathImg = new Image("locations/forgottenpath.gif");
-        this.graveyardImg = new Image("locations/graveyard.gif");
-        this.catacombsImg = new Image("locations/catacombs.gif");
-        this.treeImg = new Image("locations/hangingtree.gif");
-        this.forestImg = new Image("locations/bestforest.gif");
-        this.meadowImg = new Image("locations/bettermeadow.gif");
-        this.grottoImg = new Image("locations/bettergrotto.png");
-        this.lakeImg = new Image("locations/finallake.gif");
-        this.coveImg = new Image("locations/covefinal.gif");
-        this.reefImg = new Image("locations/reef.gif");
-        this.caveImg = new Image("locations/crystalcave.gif");
-        this.tombImg = new Image("locations/anotheraltar.gif");
-        this.altarImg = new Image("locations/corruptedaltar.gif");
-        this.shopImg = new Image("locations/shop3.gif");
-        this.mountainImg = new Image("locations/mountain.gif");
-        this.icyPassImg = new Image("locations/icypass.gif");
-        this.twinPeakImg = new Image("locations/mountainanim.gif");
-        this.hellImg = new Image("locations/hellsurface2.gif");
-        this.endImg = new Image("locations/scarybackground.gif");
-        this.tundraImg = new Image("locations/rsz_anothertundra.jpg");
-        this.gateImg = new Image("locations/castlegate2.gif");
-        this.castleImg = new Image("locations/wintercastle.jpg");
-        this.swampImg = new Image("locations/8bitswamp.gif");
-        this.cabinImg = new Image("locations/cabin.gif");
-        this.dungeonImg = new Image("locations/dungeon.gif");
-        this.armoryImg = new Image("locations/castleinside.jpg");
-        this.hallImg = new Image("locations/interiorcastle.gif");
-        this.wTowerImg = new Image("locations/westtower.gif");
-        this.eTowerImg = new Image("locations/bigheadroom.gif");
-        this.throneImg = new Image("locations/throneroom.gif");
-        this.chamberImg = new Image("locations/kingschamber.gif");
+        Image homeImg = new Image("locations/bedroom.gif");
+        Image townImg = new Image("locations/rsz_nighttown.jpg");
+        Image pathImg = new Image("locations/forgottenpath.gif");
+        Image graveyardImg = new Image("locations/graveyard.gif");
+        Image catacombsImg = new Image("locations/catacombs.gif");
+        Image treeImg = new Image("locations/hangingtree.gif");
+        Image forestImg = new Image("locations/bestforest.gif");
+        Image meadowImg = new Image("locations/bettermeadow.gif");
+        Image grottoImg = new Image("locations/bettergrotto.png");
+        Image lakeImg = new Image("locations/finallake.gif");
+        Image coveImg = new Image("locations/covefinal.gif");
+        Image reefImg = new Image("locations/reef.gif");
+        Image caveImg = new Image("locations/crystalcave.gif");
+        Image tombImg = new Image("locations/anotheraltar.gif");
+        Image altarImg = new Image("locations/corruptedaltar.gif");
+        Image shopImg = new Image("locations/shop3.gif");
+        Image mountainImg = new Image("locations/mountain.gif");
+        Image icyPassImg = new Image("locations/icypass.gif");
+        Image twinPeakImg = new Image("locations/mountainanim.gif");
+        Image hellImg = new Image("locations/hellsurface2.gif");
+        Image endImg = new Image("locations/scarybackground.gif");
+        Image tundraImg = new Image("locations/rsz_anothertundra.jpg");
+        Image gateImg = new Image("locations/castlegate2.gif");
+        Image castleImg = new Image("locations/wintercastle.jpg");
+        Image swampImg = new Image("locations/8bitswamp.gif");
+        Image cabinImg = new Image("locations/cabin.gif");
+        Image dungeonImg = new Image("locations/dungeon.gif");
+        Image armoryImg = new Image("locations/castleinside.jpg");
+        Image hallImg = new Image("locations/interiorcastle.gif");
+        Image wTowerImg = new Image("locations/westtower.gif");
+        Image eTowerImg = new Image("locations/bigheadroom.gif");
+        Image throneImg = new Image("locations/throneroom.gif");
+        Image chamberImg = new Image("locations/kingschamber.gif");
         this.gameOverImg = new Image("locations/gameover.jpg");
+        Image skeletonImg = new Image("monsters/skeletonwarrior.gif");
+        Image skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
+        Image zombieImg = new Image("monsters/zombiechaingirl.gif");
+        Image mummyImg = new Image("monsters/mummy.gif");
+        Image spritieImg = new Image("monsters/spritie.gif");
+        Image curupiraImg = new Image("monsters/curupira.gif");
+        Image wolfImg = new Image("monsters/cutewolf.gif");
+        Image lizardImg = new Image("monsters/lizardman.gif");
+        Image landSharkImg = new Image("monsters/landshark.gif");
+        Image crabImg = new Image("monsters/crabmonster.gif");
+        Image squidImg = new Image("monsters/squid.gif");
+        Image slugImg = new Image("monsters/seaslug.gif");
+        Image shroomImg = new Image("monsters/mushroom.gif");
+        Image godImg = new Image("monsters/specimen9.gif");
+        Image dagonImg = new Image("monsters/dagon.gif");
+        Image ghostGirlImg = new Image("monsters/spookyghost.gif");
+        Image wyvernImg = new Image("monsters/rathian.gif");
+        Image princessImg = new Image("monsters/crystalmage.gif");
+        Image kingImg = new Image("monsters/mage.gif");
+        Image alrothiaImg = new Image("monsters/alrothia.gif");
+        Image argothImg = new Image("monsters/daitya.gif");
+        Image forestSpiritImg = new Image("monsters/forestspirit.gif");
 
-        this.skeletonImg = new Image("monsters/skeletonwarrior.gif");
-        this.skeletonImg2 = new Image("monsters/skeletonwarrior2.gif");
-        this.zombieImg = new Image("monsters/zombiechaingirl.gif");
-        this.mummyImg = new Image("monsters/mummy.gif");
-        this.spritieImg = new Image("monsters/spritie.gif");
-        this.curupiraImg = new Image("monsters/curupira.gif");
-        this.wolfImg = new Image("monsters/cutewolf.gif");
-        this.lizardImg = new Image("monsters/lizardman.gif");
-        this.landSharkImg = new Image("monsters/landshark.gif");
-        this.crabImg = new Image("monsters/crabmonster.gif");
-        this.squidImg = new Image("monsters/squid.gif");
-        this.slugImg = new Image("monsters/seaslug.gif");
-        this.shroomImg = new Image("monsters/mushroom.gif");
-        this.godImg = new Image("monsters/specimen9.gif");
-        this.dagonImg = new Image("monsters/dagon.gif");
-        this.ghostGirlImg = new Image("monsters/spookyghost.gif");
-        this.wyvernImg = new Image("monsters/rathian.gif");
-        this.princessImg = new Image("monsters/crystalmage.gif");
-        this.kingImg = new Image("monsters/mage.gif");
-        this.alrothiaImg = new Image("monsters/alrothia.gif");
-        this.argothImg = new Image("monsters/daitya.gif");
-        this.forestSpiritImg = new Image("monsters/forestspirit.gif");
 
+        /** init. locations **/
 
         this.allLocations = new ArrayList<>();
 
@@ -473,8 +412,63 @@ public class Adventure
         this.allLocations.add(hell);
         this.allLocations.add(end);
 
+
+
+
+
     }
 
+        //endregion
+
+
+        //region Initialize
+
+
+    /**
+     * Init. Things. This should be only called once.
+     */
+    public void initialize()
+    {
+        imagePane.setImage(new Image("locations/welcomeimage.gif"));  //need to force this.
+        imagePane.setVisible(true);
+        //musicIsPlaying = true;
+        playMedia("/hello.mp3");
+
+        inventoryPane.setVisible(false);
+        text.appendText("Welcome to the land of euphoria!\n");
+        text.appendText("What's your name?\n");
+
+
+        Platform.runLater(() -> inputText.requestFocus());
+        inputText.setOnAction(event ->
+        {
+            if (player.getPlayerName().equals("NotSet")) {
+
+                player.setPlayerName(inputText.getText());
+                text.appendText("Welcome, " + player.getPlayerName() + "\n");
+                playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                this.setNewLocation("START");
+                inputText.deleteText(0, inputText.getLength());
+
+
+            } else {
+
+                inputText.deleteText(0, inputText.getLength());
+                text.appendText("\nThere is nothing to input at this time. ");
+
+            }
+
+        });
+
+        //rest to restore health at home
+        if (player.getCurrentLoc().getID().equals("START") && player.getHealth() < 100) {
+
+            player.setHealth(100.0);
+            text.appendText("You have rested! Your health is now " + player.getHealth() + "\n");
+        }
+
+
+    }
 
         //endregion
 
@@ -1080,8 +1074,8 @@ public class Adventure
      * Center Mob Image Function
      */
     private void centerMobImage() {
-
         Image img = mobImagePane.getImage();
+
         if (img != null) {
             double width;
             double height;
@@ -1106,81 +1100,78 @@ public class Adventure
 
     }
 
-    private void playMedia(String url)
-    {
-        String path = getClass().getResource(url).toString();
-        Media music = new Media(path);
-        this.mPlayer = new MediaPlayer(music);
+
+    /**
+     * Starts playing the url media
+     * @param url the media to be played
+     */
+    private void playMedia(String url) {
+        mPlayer = new MediaPlayer(new Media(getClass().getResource(url).toString()));
+
         mPlayer.isAutoPlay();
         mPlayer.play();
         mPlayer.setCycleCount(INDEFINITE);
+
     }
 
-    private void stopMedia()
-    {
-        mPlayer.stop();
-    }
 
-    private void playBossMusic(Boss boss)
-    {
-        //musicIsPlaying = true;
-        if (boss.getName().equalsIgnoreCase("GOD")) {
-            if(player.getCurrentLoc().getID().equalsIgnoreCase("END"))
-            {
-                playSound("/laugh.mp3");
-                playMedia("/god.mp3");
-            }
+    /**
+     * Stops the current media
+     */
+    private void stopMedia() { mPlayer.stop(); }
 
-        } else if (boss.getName().equalsIgnoreCase("Argoth")) {
-            if (player.getCurrentLoc().getID().equalsIgnoreCase("EASTTOWER"))
-            {
+
+    /**
+     * Plays the boss's music choice
+     * @param boss Boss's music to be played
+     */
+    private void playBossMusic(Boss boss) {
+
+        if (boss.getName().equalsIgnoreCase("GOD") && player.getCurrentLoc().getID().equalsIgnoreCase("END")) {
+            playSound("/laugh.mp3");
+            playMedia("/god.mp3");
+
+        } else if (boss.getName().equalsIgnoreCase("Argoth") && player.getCurrentLoc().getID().equalsIgnoreCase("EASTTOWER"))
                 playMedia("/xgongiveittoya.mp3");
-            }
 
-
-        }else if (boss.getName().equalsIgnoreCase("Vengeful Spirit")) {
-            if (player.getCurrentLoc().getID().equalsIgnoreCase("TREE"))
-            {
+        else if (boss.getName().equalsIgnoreCase("Vengeful Spirit") && player.getCurrentLoc().getID().equalsIgnoreCase("TREE"))
                 playMedia("/ghostgirlfight.mp3");
-            }
 
-
-        }else if (boss.getName().equalsIgnoreCase("Dagon")) {
-            if(player.getCurrentLoc().getID().equalsIgnoreCase("REEF")) {
+        else if (boss.getName().equalsIgnoreCase("Dagon") && player.getCurrentLoc().getID().equalsIgnoreCase("REEF"))
                 playMedia("/riseofthelord.mp3");
-            }
-        }else if (boss.getName().equalsIgnoreCase("Forest Spirit"))
-        {
-            if (player.getCurrentLoc().getID().equalsIgnoreCase("GROTTO"))
-            {
+
+        else if (boss.getName().equalsIgnoreCase("Forest Spirit") && player.getCurrentLoc().getID().equalsIgnoreCase("GROTTO"))
                 playMedia("/greenforest.mp3");
-            }
-        }
+
+
     }
 
-    private void playSound(String url)
-    {
-        String path = getClass().getResource(url).toString();
-        Media music = new Media(path);
-        this.sPlayer = new MediaPlayer(music);
+
+    /**
+     * Plays the sound at the url
+     * @param url sound to be played
+     */
+    private void playSound(String url) {
+        sPlayer = new MediaPlayer(new Media(getClass().getResource(url).toString()));
+
         sPlayer.isAutoPlay();
         sPlayer.play();
         sPlayer.setCycleCount(1);
+
     }
 
-    private void stopSound()
-    {
-        sPlayer.stop();
-    }
+
+    /**
+     * Stops all playing sounds
+     */
+    private void stopSound() { sPlayer.stop(); }
 
 
     /**
      * Get array AllLocs
      * @return AllLocs
      */
-    public ArrayList<Location> getAllLocations() {
-        return allLocations;
-    }
+    public ArrayList<Location> getAllLocations() { return allLocations; }
 
 
         //endregion
@@ -1190,7 +1181,7 @@ public class Adventure
 
 
     /**
-     * @FXML
+     * FXML
      * Buttons
      */
 
@@ -1236,25 +1227,31 @@ public class Adventure
             Platform.runLater(() -> inputText.requestFocus());
             invInputText.setOnAction(event2 ->
             {
-                String choice = invInputText.getText();
+                String command = invInputText.getText();
+                invInputText.deleteText(0, invInputText.getLength());
+                boolean found = false;
+
                 for (int i = 0; i < player.getInventory().size(); i++) {
-                    if (choice.equalsIgnoreCase(player.getInventory().get(i).getItemName())) {
+                    //System.out.println(player.getInventory().get(i).getItemName()); //DEBUG
+                    if (command.equalsIgnoreCase(player.getInventory().get(i).getItemName())) {
+                        found = true;
+                        //System.out.print("here"); //DEBUG
                         if (player.getInventory().get(i) instanceof Weapon) {
-                            invInputText.deleteText(0, invInputText.getLength());
                             player.equipWeapon((Weapon) player.getInventory().get(i));
-                            inputText.deleteText(0, inputText.getLength());
                             playerInfo.setText("Lv. " + player.getLevel() + " " + player.getPlayerName() + "\n" + "Health: " + player.getHealth() + "\n" + "Wallet: $" + player.getWallet() + "\n" + "Weapon: " + player.getWeapon().getItemName() + "\n" + "XP: " + player.getXp() + "\n");
+                            invText.appendText("\n" + player.getInventory().get(i).getItemName() + " has been equipped.");
+                            break;
+
                         } else if (player.getInventory().get(i) instanceof Armor) {
-                            invInputText.deleteText(0, invInputText.getLength());
                             player.equipArmor((Armor) player.getInventory().get(i));
-                        }
-                        else if (player.getInventory().get(i) instanceof KeyItem && player.getInventory().get(i).getItemName().equalsIgnoreCase("Eye Rune"))
-                        {
-                            invInputText.deleteText(0, invInputText.getLength());
+                            invText.appendText("\n" + player.getInventory().get(i).getItemName() + " has been equipped.");
+                            break;
+
+                        } else if (player.getInventory().get(i) instanceof KeyItem && player.getInventory().get(i).getItemName().equalsIgnoreCase("Eye Rune")) { //Eye Rune special case
                             invText.appendText("\nYour insight level: " + player.getInsight() + "\n");
-                        }
-                        else if(player.getInventory().get(i).getItemName().equalsIgnoreCase("Region Map"))
-                        {
+                            break;
+
+                        } else if(player.getInventory().get(i).getItemName().equalsIgnoreCase("Region Map")) { //Region Map special case
                             /*
                             if (mapActive) {
                                 mapActive = true;
@@ -1266,17 +1263,21 @@ public class Adventure
                                 mapPane.setVisible(false);
                             }
                             */
+                            break;
+
+                        } else {
+                            invText.appendText("\n" + player.getInventory().get(i).toString());
+                            break;
+
                         }
-                    } else {
-                        invInputText.deleteText(0, invInputText.getLength());
-                        invText.appendText("\nItem not recognized" + "\n");
-                    }
+                    } //end large if
 
-                }
-
+                } //end for
+                if (!found)
+                    invText.appendText("\nItem not recognized" + "\n");
 
 
-            });
+            }); //end inputText loop
 
         }
 

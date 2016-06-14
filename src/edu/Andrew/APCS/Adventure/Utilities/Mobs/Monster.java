@@ -37,7 +37,7 @@ public class Monster
     }
 
 
-    public Monster(String mobName, double health, int mxLvl, int mnLvl, int mxXp, int mnXp, double damage, double loot, boolean isAlive, Image img) {
+    public Monster(String mobName, double health, int maxLvl, int minLvl, int maxXp, int minXp, double damage, double loot, boolean isAlive, Image img) {
 
         this.mobName = mobName;
         this.health = this.startHealth = health;
@@ -45,8 +45,8 @@ public class Monster
         this.loot = loot;
         this.alive = isAlive;
         this.image = img;
-        this.level = generateLvl(mnLvl, mxLvl);
-        this.xp = generateXp(mnXp, mxXp);
+        this.level = random_int(minLvl, maxLvl);
+        this.xp = random_int(minXp, maxXp);
 
     }
 
@@ -70,30 +70,6 @@ public class Monster
             this.alive = false;
         }
     }
-
-
-    /**
-     * Randomly generate the level
-     *
-     * This should only be called once, in the constructor
-     *
-     * @param minLvl Minimum level
-     * @param maxLvl Maximum level
-     * @return the random level
-     */
-    private int generateLvl(int minLvl, int maxLvl) { return random_int(minLvl, maxLvl); } /** should only be called once **/
-
-
-    /**
-     * Randomly generate XP
-     *
-     * This should only be called once, in the constructor
-     *
-     * @param minXp Minimum XP
-     * @param maxXp Maximum XP
-     * @return the random XP
-     */
-    private int generateXp(int minXp, int maxXp) { return random_int(minXp, maxXp); } /** should only be called once **/
 
 
     /**
@@ -131,6 +107,7 @@ public class Monster
     public double getStartHealth() {
         return startHealth;
     }
+
 
     /**
      * toString

@@ -45,4 +45,5 @@ public class Boss extends Monster
     {
         return "Boss: " + super.getName() + " | " + "Lvl: " + getBossLevel() + " | " + "HP: " + super.getHealth() + " | " + "Damage: " + super.getDamage() + " | " + "Loot: " + super.getLoot() + "\n";
     }
+
 }

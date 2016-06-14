@@ -39,17 +39,20 @@ public class Player
         this.xp = 0;
         this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
-        Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
-        equipWeapon(stick);
-        this.damage = weapon.getDamage(); //sets players default damage as 10
-        Armor shirt = new Armor("T-Shirt", 10, 1);
-        equipArmor(shirt);
-        this.armorValue = armor.getArmorValue();
         this.alive = true; //sets players default status to alive
         this.inventory = new ArrayList<>();
-        inventory.add(stick);
-        inventory.add(shirt);
         this.currentLoc = new Location("home", "START", "You are in your home. You can rest here to restore health. You can see a town to the North", false, null);
+
+        Weapon stick = new Weapon("wooden stick", 25.0, 10.0); //sets players default weapon as no weapon
+        equipWeapon(stick);
+        inventory.add(stick);
+        this.damage = weapon.getDamage(); //sets players default damage as 10
+
+        Armor shirt = new Armor("T-Shirt", 10, 1);
+        equipArmor(shirt);
+        inventory.add(shirt);
+        this.armorValue = armor.getArmorValue();
+
 
     }
 
@@ -184,6 +187,7 @@ public class Player
 
     public void setAlive(boolean alive) { this.alive = alive; }
 
+
     /**
      * toString
      * @return toString
@@ -191,8 +195,8 @@ public class Player
     public String toString()
     {
         return "Player Name: " + playerName + "\n" + "Health: " + health + "\n" + "Weapon: " + weapon.getItemName() + "\n" + "Armor: " + armor.getItemName() + "\n" + "Wallet: " + "$" + wallet + "\n" + "Location: " + currentLoc.getName() + "\n";
-    } //end toString
+    }
 
 
 
-} //end class
+}

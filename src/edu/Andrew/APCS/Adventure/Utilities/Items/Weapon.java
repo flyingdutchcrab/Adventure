@@ -19,6 +19,7 @@ public class Weapon extends Item
         this.damage = dmg;
     }
 
+
     /**
      * Get weapon's damage
      * @return double of damage
@@ -34,4 +35,5 @@ public class Weapon extends Item
     {
         return "Weapon: " + super.getItemName() + " | " + "$" + super.getCost() + " | " + damage + "\n";
     }
+
 }

@@ -57,6 +57,7 @@ public class Location
 
     }
 
+
     public Location (String name, String ID, String desc, boolean isLocked, Image img, String keyItemUnlock) {
         this.Name = name;
         this.ID = ID;
@@ -93,10 +94,10 @@ public class Location
      */
     public void removeExit(String exit) {
         if (this.exits.contains(exit)) {
-
             this.connectedLocs.remove(exits.indexOf(exit));
             this.exits.remove(exit);
         }
+
     }
 
 
@@ -118,13 +119,9 @@ public class Location
      * Lock/Unlock functions
      */
 
-    public void unlock() {
-        locked = false;
-    }
+    public void unlock() { locked = false; }
 
-    public void lock() {
-        locked = true;
-    }
+    public void lock() { locked = true; }
 
 
     /**
@@ -164,5 +161,6 @@ public class Location
     public ArrayList<String> getConnectedLocs() { return connectedLocs; }
 
     public boolean isKeyItem(String key) { return keyItemUnlock.equalsIgnoreCase(key); }
+
 
 } //end class

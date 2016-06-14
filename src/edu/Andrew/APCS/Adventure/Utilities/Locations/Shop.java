@@ -35,13 +35,7 @@ public class Shop
         this.shopInventory.add(new Weapon("Dark Sword", 2000, 600));   //wep 7
         this.shopInventory.add(new Armor("Iron Armor", 100, 2));       //arm 1
         this.shopInventory.add(new KeyItem("Grave Key", 100, "Opens a strange grave")); //key1
-        //this.shopInventory.add(new KeyItem("King's Key", 50, "Opens the king's chamber, and something else"));
-        //this.shopInventory.add(new KeyItem("Mysterious Rune", 50, "An ominous face-like rune whose purpose is completely unknown"));
-        /*These were just for tests, you're not supposed to buy them
-        this.shopInventory.add(new KeyItem("Gate Key", 100, "Opens the castle gate"));
-        this.shopInventory.add(new KeyItem("Twin Peak Key", 100, "Opens twin peak"));
-        this.shopInventory.add(new KeyItem("Reef Key", 100, "Opens the reef"));
-        */
+
 
     }
 

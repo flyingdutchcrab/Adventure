@@ -35,4 +35,5 @@ public class KeyItem extends Item
     {
         return "KeyItem: " + super.getItemName() + " | " + "$" + super.getCost() + " | " + use + "\n";
     }
-} //end class
+
+}
