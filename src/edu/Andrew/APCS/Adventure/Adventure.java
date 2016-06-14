@@ -964,27 +964,41 @@ public class Adventure
                 try {
                     if (allLocations.get(i).getID().equalsIgnoreCase(player.getCurrentLoc().getConnectedLoc(move))) //find move Location
                         if (!allLocations.get(i).isLocked()) { //is Location locked?
-
-                            this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //there is no problem, move to location}
-
-
+                            setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //there is no problem, move to location}
                             break;
+
                         } else { //location is locked
                             boolean found = false;
                             for (int j = 0; j < player.getInventory().size(); j++) { //check for key
-                                if (player.getInventory().get(j).getItemName().equalsIgnoreCase(allLocations.get(i).getKeyItemUnlock())) { //had Key?
-                                    System.out.println("found"); //DEBUG
-                                    if (!player.getInventory().get(j).getItemName().equals("King's Key"))
-                                    {
-                                        player.getInventory().remove(player.getInventory().get(j)); //remove the key item
+                                if (player.getInventory().get(j).getItemName().equalsIgnoreCase(allLocations.get(i).getKeyItemUnlock())) { //has Key?
+                                    //System.out.println("found"); //DEBUG
 
-                                        text.appendText("\nThe key item to unlock this area has been removed. You have unlocked this location. \n");
+                                    if (player.getInventory().get(j).getItemName().equalsIgnoreCase("King's Key")) {
+                                        player.getInventory().remove(player.getInventory().get(j)); //remove the key item
+                                        text.appendText("\nThe key item to unlock this area has been removed. You have unlocked new locations. \n");
+
+                                        for (int k = 0; k < allLocations.size();  i++) {
+                                            found = true;
+
+                                            if (allLocations.get(k).getID().equalsIgnoreCase("CHAMBER"))
+                                                allLocations.get(k).unlock();
+
+                                            if (allLocations.get(k).getID().equalsIgnoreCase("ALTAR"))
+                                                allLocations.get(k).unlock();
+
+                                        }
+
+                                        break;
+
+                                    } else {
+                                        allLocations.get(i).unlock(); //unlock the location.
+                                        found = true;
+                                        this.setNewLocation(allLocations.get(i).getID()); //user has key to unlock area.
+                                        break;
+
                                     }
-                                    allLocations.get(i).unlock(); //unlock the location.
-                                    found = true;
-                                    this.setNewLocation(player.getCurrentLoc().getConnectedLoc(move)); //user has key to unlock area.
-                                    break;
                                 }
+
                             }
 
 

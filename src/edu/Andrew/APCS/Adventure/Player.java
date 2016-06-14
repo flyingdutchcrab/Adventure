@@ -36,7 +36,7 @@ public class Player
         this.health = 100.0; //sets players default health to 100
         this.playerName = "NotSet"; //sets players default name as not set
         this.level = 1;
-        this.xp = 0;
+        this.xp = 1;
         this.insight = 1;
         this.wallet = 100.0; //sets players default wallet as $0
         this.alive = true; //sets players default status to alive
