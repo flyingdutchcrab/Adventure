@@ -55,6 +55,7 @@ public class Adventure
     private static final int INDEFINITE = -1;
     private MediaPlayer mPlayer;
     private MediaPlayer sPlayer;
+    private boolean isChoosingWepon;
 
 
     @FXML
@@ -563,33 +564,98 @@ public class Adventure
 
 
         //Prompts user to attack or run
-        text.appendText("Attack " + enemy.getName() + "? (Y/N) " + "\n");
+        text.appendText("Do you want to fight " + enemy.getName() + " or run away? (fight/run) " + "\n");
+        isChoosingWepon = false;
 
 
         Platform.runLater(() -> inputText.requestFocus());
         inputText.setOnAction(event ->
         {
+            boolean isHandled = true; //this just makes it so that "unrecognised command" does not show all the time.
+
+
+
             String theInputText = inputText.getText();
             inputText.deleteText(0, theInputText.length());
 
-            if (theInputText.equalsIgnoreCase("y") && enemy.isAlive()) //if they want to fight
+            /** easter eggs
+             * attack: die bitch
+             * run: fuck this, fuck this shit
+             */
+
+            if(isChoosingWepon) {
+                double damageToDeal = 0;
+                Weapon weaponToUse = null;
+
+                for(int i = 0; i < player.getInventory().size(); i++) {
+                    if (player.getInventory().get(i).getItemName().equalsIgnoreCase(theInputText) && player.getInventory().get(i) instanceof Weapon ) {
+                        weaponToUse = (Weapon) player.getInventory().get(i);
+                        damageToDeal = weaponToUse.getDamage();
+                        break;
+                    }
+
+                }
+
+                if (weaponToUse == null) {
+                    text.appendText("Sorry, didn't find that item. Try again?\n(Type in the weapon you would like to use. Not everything will deal damage)\n");
+                    isHandled = false;
+
+                } else {
+                    isChoosingWepon = false;
+                    isHandled = false;
+
+                    //Player turn
+                    enemy.setHealth(enemy.getHealth() - (damageToDeal * (1+ (player.getLevel() / 100)))); //Sets the monsters health as their current health minus the players damage
+                    text.appendText("You attack " + enemy.getName() + " for " + (damageToDeal * (1 + (player.getLevel() / 100))) + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
+
+
+                    /**still need to check if you and your enemy are alive**/
+
+                    player.checkLife(); //calculate if dead
+                    enemy.checkLife(); //calculate if dead
+
+                    //when someone dies
+                    if (player.isAlive() && !enemy.isAlive()) // if you are still standing
+                    {
+                        //print the results
+
+                        mobImagePane.setImage(null);
+                        player.addWallet(enemy.getLoot());
+                        player.addXP(enemy.getLevel() * 1.7);
+
+                        updatePlayerInfo();
+                        text.appendText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
+
+
+                    } else if (!player.isAlive()) { //if you died
+
+                        mobImagePane.setImage(null);
+                        text.appendText("You have been shrekt by the " + enemy.getName());
+                        setNewLocation(null);
+
+                    } else
+                        text.appendText("Would you like to continue fighting or run? (attack/run)\n");
+
+                }
+            } //end picking weapon
+
+
+
+            if ((theInputText.equalsIgnoreCase("fight") || theInputText.equalsIgnoreCase("attack") || theInputText.equalsIgnoreCase("die bitch")) && enemy.isAlive()) //if they want to fight
             {
-
-                //Player turn
-                enemy.setHealth(enemy.getHealth() - (player.getDamage() + (player.getXp() * 1.001))); //Sets the monsters health as their current health minus the players damage
-                text.appendText("You attack " + enemy.getName() + " for " + (player.getDamage() + (player.getXp() * 1.001)) + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
-
                 //Monster turn
                 enemy.setDamage(enemy.getDamage() / player.getPlayerArmorValue());
                 player.setHealth(player.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
                 text.appendText("The " + enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
+
                 updatePlayerInfo();
 
-                if (player.getHealth() < 20.0)
+                isChoosingWepon = true; //your turn
+
+                if (player.getHealth() < 20.0) //warning
                     text.appendText("Your health is low, you should return home and restore health!" + "\n");
 
 
-                //checks if the player or monster is dead
                 player.checkLife(); //calculate if dead
                 enemy.checkLife(); //calculate if dead
 
@@ -612,19 +678,20 @@ public class Adventure
                     setNewLocation(null);
 
 
-                } else {
-                    text.appendText("Attack again? (Y/N) \n");
-                }
+                } else
+                    text.appendText("What weapon would you like to use? (check your inventory) \n");
 
-            } else if (theInputText.equalsIgnoreCase("n")) { // if they don't want to fight
+
+            } else if (theInputText.equalsIgnoreCase("run") || theInputText.equalsIgnoreCase("run away") || theInputText.equalsIgnoreCase("flee") || theInputText.equalsIgnoreCase("FUCK THIS") || theInputText.equalsIgnoreCase("FUCK THIS SHIT")) { // if they don't want to fight
                 mobImagePane.setImage(null);
                 text.setText("You fled from the fight!" + "\n");
                 player.addXP(-10); //pussy
                 setNewLocation("MEADOW"); // brings you back to town
                 //System.out.print("Will i run?"); //DEBUG
 
-            } else // they don't make any sense
-                text.appendText("Unrecognized command_" + theInputText + "_" +enemy.isAlive() +"\n");
+            } else if (isHandled) // they don't make any sense
+                text.appendText("Unrecognized command. ");
+                //text.appendText("Unrecognized command_" + theInputText + "_" +enemy.isAlive() +"\n");
 
         });
 
@@ -633,14 +700,16 @@ public class Adventure
 
 
     /**
-     * Do Boss Abble
+     * Do Boss Battle
      * @param boss the BOSS!
      */
     private void doBossBattle(Boss boss)
     {
         mPlayer.stop();
+        this.playBossMusic(boss);
 
-        System.out.print("doBossBattle\n");
+        //System.out.print("doBossBattle\n"); //DEBUG
+
         //first time run
         text.appendText("\n" + boss.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(boss.getImage());
@@ -720,15 +789,9 @@ public class Adventure
                 //System.out.print("Will i run?"); //DEBUG
 
             } else // they don't make any sense
-                text.appendText("Unrecognized command" + theInputText + "\n");
+                text.appendText("Unrecognized command. ");
 
         });
-
-
-
-          this.playBossMusic(boss);
-
-
 
     } //end boss battle
 
@@ -746,9 +809,6 @@ public class Adventure
     /**
      * doShop function to run the shop
      */
-    private void doShop() {
-
-        playMedia("/shop.mp3");
     private void doShop()
     {
         playMedia("/music/shop.mp3");
@@ -1271,7 +1331,6 @@ public class Adventure
     @FXML protected void handleWestButtonPressed(ActionEvent event)
     {
         stopMedia();
-        System.out.print(event.toString() + "\n");
         this.makeMove("W");
     }
 

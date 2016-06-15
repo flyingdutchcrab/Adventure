@@ -17,6 +17,8 @@ import edu.Andrew.APCS.Adventure.Utilities.Items.Weapon;
 public class Player
 {
 
+    private final int THRESHOLD = 100;
+
     private double health;
     private double armorValue;
     private double damage;
@@ -148,7 +150,13 @@ public class Player
      * Checks level based of XP.. yes.
      */
     private void checkLevel() {
-        level = (int) (100 * Math.sqrt(xp));
+
+        if (xp <= 0) //check to make sure that XP is not below 0
+            xp = 1;
+
+
+        //Maths: http://gamedev.stackexchange.com/a/110456
+        level = (int) (Math.sqrt((THRESHOLD * THRESHOLD) + (8 * xp * THRESHOLD)) + THRESHOLD) / (2*THRESHOLD);
 
     }
 
