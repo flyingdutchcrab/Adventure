@@ -661,7 +661,7 @@ public class Adventure
         //System.out.print("doBossBattle\n"); //DEBUG
 
         //first time run
-        text.appendText("\n" + enemy.getName() + " boss has appeared!" + "\n" );
+        text.appendText("\n" + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
@@ -715,6 +715,7 @@ public class Adventure
                     //Player turn
                     enemy.setHealth(enemy.getHealth() - (damageToDeal * (1+ (player.getLevel() / 100)))); //Sets the monsters health as their current health minus the players damage
                     text.appendText("You attack " + enemy.getName() + " for " + (damageToDeal * (1 + (player.getLevel() / 100))) + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
+                    playSound("/sound/slash.mp3");
 
 
                     /**still need to check if you and your enemy are alive**/
@@ -726,6 +727,7 @@ public class Adventure
                     if (player.isAlive() && !enemy.isAlive()) // if you are still standing
                     {
                         //print the results
+                        stopMedia();
 
                         mobImagePane.setImage(null);
                         player.addWallet(enemy.getLoot());
@@ -733,6 +735,7 @@ public class Adventure
 
                         updatePlayerInfo();
                         text.appendText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
+                        playSound("/sound/win.mp3");
 
 
                     } else if (!player.isAlive()) { //if you died
@@ -752,8 +755,9 @@ public class Adventure
             if ((theInputText.equalsIgnoreCase("fight") || theInputText.equalsIgnoreCase("attack") || theInputText.equalsIgnoreCase("die bitch")) && enemy.isAlive()) //if they want to fight
             {
                 //Monster turn
-                //boss.setDamage(boss.getDamage() / player.getArmor().getArmorValue());
+                enemy.setDamage(enemy.getDamage() / player.getPlayerArmorValue());
                 player.setHealth(player.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
+                playSound("/sound/mediumexplosion.mp3");
                 text.appendText(enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
                 updatePlayerInfo();
 
@@ -777,6 +781,7 @@ public class Adventure
                     player.addXP(enemy.getXp());
                     updatePlayerInfo();
                     text.setText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
+                    playSound("/sound/win.mp3");
 
                     if (enemy.getBossLoot() != null) {
                         text.appendText("\n" + "Obtained the " + enemy.getBossLoot().getItemName() + "!" + "\n");
@@ -1414,11 +1419,13 @@ public class Adventure
                         if (player.getInventory().get(i) instanceof Weapon) {
                             player.equipWeapon((Weapon) player.getInventory().get(i));
                             updatePlayerInfo();
+                            playSound("/sound/equip.mp3");
                             invText.appendText("\n" + player.getInventory().get(i).getItemName() + " has been equipped.");
                             break;
 
                         } else if (player.getInventory().get(i) instanceof Armor) {
                             player.equipArmor((Armor) player.getInventory().get(i));
+                            playSound("/sound/equip.mp3");
                             invText.appendText("\n" + player.getInventory().get(i).getItemName() + " has been equipped.");
                             break;
 
