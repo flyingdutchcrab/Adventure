@@ -1026,7 +1026,7 @@ public class Adventure
 
 
     /**
-     * Makes a move based on user input - checks locks
+     * Makes a move based on user input - checks locations
      */
     private void makeMove(String move) {
 
