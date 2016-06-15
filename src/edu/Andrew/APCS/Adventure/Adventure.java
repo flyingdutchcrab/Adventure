@@ -1064,6 +1064,7 @@ public class Adventure
                 inputText.deleteText(0, inputText.getLength());
                 if (choice.equalsIgnoreCase("y") && player.getHealth() < 100) {
                     player.setHealth(100.0);
+                    playSound("/sound/heal.mp3");
                     updatePlayerInfo();
                     text.appendText("You have rested! Your health is now " + player.getHealth() + "\n");
                 }
