@@ -80,65 +80,7 @@ public class Adventure
 
     /**
      * Images
-    private Image homeImg;
-    private Image townImg;
-    private Image forestImg;
-    private Image grottoImg;
-    private Image caveImg;
-    private Image tombImg;
-    private Image altarImg;
-    private Image shopImg;
-    private Image meadowImg;
-    private Image coveImg;
-    private Image lakeImg;
-    private Image reefImg;
-    private Image mountainImg;
-    private Image icyPassImg;
-    private Image twinPeakImg;
-    private Image pathImg;
-    private Image graveyardImg;
-    private Image catacombsImg;
-    private Image treeImg;
-    private Image hellImg;
-    private Image endImg;
-    private Image tundraImg;
-    private Image gateImg;
-    private Image castleImg;
-    private Image swampImg;
-    private Image cabinImg;
-    private Image dungeonImg;
-    private Image armoryImg;
-    private Image hallImg;
-    private Image wTowerImg;
-    private Image eTowerImg;
-    private Image throneImg;
-    private Image chamberImg;
-    private Image gameOverImg;
-
-    private Image skeletonImg;
-    private Image skeletonImg2;
-    private Image zombieImg;
-    private Image mummyImg;
-    private Image curupiraImg;
-    private Image wolfImg;
-    private Image spritieImg;
-    private Image lizardImg;
-    private Image landSharkImg;
-    private Image squidImg;
-    private Image slugImg;
-    private Image crabImg;
-    private Image shroomImg;
-    private Image godImg;
-    private Image wyvernImg;
-    private Image dagonImg;
-    private Image ghostGirlImg;
-    private Image princessImg;
-    private Image kingImg;
-    private Image alrothiaImg;
-    private Image argothImg;
-    private Image forestSpiritImg;
-    */
-
+     */
     private Image gameOverImg;
 
 
@@ -552,7 +494,7 @@ public class Adventure
      */
     private void doBattle(Monster enemy) {
 
-        System.out.print("doBattle\n");
+        //System.out.print("doBattle\n"); //DEBUG
         //first time run
         text.appendText("\n" + "A wild Lvl. " + enemy.getLevel() + " " + enemy.getName() + " has appeared!" + "\n" );
         mobImagePane.setImage(enemy.getImage());
@@ -701,45 +643,113 @@ public class Adventure
 
     /**
      * Do Boss Battle
-     * @param boss the BOSS!
+     * @param enemy the BOSS!
      */
-    private void doBossBattle(Boss boss)
+    private void doBossBattle(Boss enemy)
     {
         mPlayer.stop();
-        this.playBossMusic(boss);
+        playBossMusic(enemy);
 
         //System.out.print("doBossBattle\n"); //DEBUG
 
         //first time run
-        text.appendText("\n" + boss.getName() + " has appeared!" + "\n" );
-        mobImagePane.setImage(boss.getImage());
+        text.appendText("\n" + enemy.getName() + " boss has appeared!" + "\n" );
+        mobImagePane.setImage(enemy.getImage());
         centerMobImage();
 
 
+        /** have to make sure the enemy is alive **/
+        enemy.setAlive(true);
+        enemy.setHealth(enemy.getStartHealth());
+
+
         //Prompts user to attack or run
-        text.appendText("Attack " + boss.getName() + "? (Y/N) " + "\n");
+        text.appendText("Do you want to fight " + enemy.getName() + " or run away? (fight/run) " + "\n");
+        isChoosingWepon = false;
 
 
         Platform.runLater(() -> inputText.requestFocus());
         inputText.setOnAction(event ->
         {
+            boolean isHandled = true; //this just makes it so that "unrecognised command" does not show all the time.
+
+
             String theInputText = inputText.getText();
             inputText.deleteText(0, theInputText.length());
 
 
-            if (theInputText.equalsIgnoreCase("y") && boss.isAlive()) //if they want to fight
+            /** easter eggs
+             * attack: die bitch
+             * run: fuck this, fuck this shit
+             */
+
+            if(isChoosingWepon) {
+                double damageToDeal = 0;
+                Weapon weaponToUse = null;
+
+                for(int i = 0; i < player.getInventory().size(); i++) {
+                    if (player.getInventory().get(i).getItemName().equalsIgnoreCase(theInputText) && player.getInventory().get(i) instanceof Weapon ) {
+                        weaponToUse = (Weapon) player.getInventory().get(i);
+                        damageToDeal = weaponToUse.getDamage();
+                        break;
+                    }
+
+                }
+
+                if (weaponToUse == null) {
+                    text.appendText("Sorry, didn't find that item. Try again?\n(Type in the weapon you would like to use. Not everything will deal damage)\n");
+                    isHandled = false;
+
+                } else {
+                    isChoosingWepon = false;
+                    isHandled = false;
+
+                    //Player turn
+                    enemy.setHealth(enemy.getHealth() - (damageToDeal * (1+ (player.getLevel() / 100)))); //Sets the monsters health as their current health minus the players damage
+                    text.appendText("You attack " + enemy.getName() + " for " + (damageToDeal * (1 + (player.getLevel() / 100))) + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
+
+
+                    /**still need to check if you and your enemy are alive**/
+
+                    player.checkLife(); //calculate if dead
+                    enemy.checkLife(); //calculate if dead
+
+                    //when someone dies
+                    if (player.isAlive() && !enemy.isAlive()) // if you are still standing
+                    {
+                        //print the results
+
+                        mobImagePane.setImage(null);
+                        player.addWallet(enemy.getLoot());
+                        player.addXP(enemy.getLevel() * 1.7);
+
+                        updatePlayerInfo();
+                        text.appendText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
+
+
+                    } else if (!player.isAlive()) { //if you died
+
+                        mobImagePane.setImage(null);
+                        text.appendText("You have been shrekt by the " + enemy.getName());
+                        setNewLocation(null);
+
+                    } else
+                        text.appendText("Would you like to continue fighting or run? (attack/run)\n");
+
+                }
+            } //end picking weapon
+
+
+
+            if ((theInputText.equalsIgnoreCase("fight") || theInputText.equalsIgnoreCase("attack") || theInputText.equalsIgnoreCase("die bitch")) && enemy.isAlive()) //if they want to fight
             {
-
-
-                //Player turn
-                boss.setHealth(boss.getHealth() - (player.getDamage() + (player.getXp() * 1.01))); //Sets the monsters health as their current health minus the players damage
-                text.appendText("You attack " + boss.getName() + " for " + (player.getDamage() + (player.getXp() * 1.01)) + " damage!" + "\n" + "boss health is " + boss.getHealth() + "\n");
-
                 //Monster turn
                 //boss.setDamage(boss.getDamage() / player.getArmor().getArmorValue());
-                player.setHealth(player.getHealth() - boss.getDamage()); //Sets the players health as their current health minus the monsters damage
-                text.appendText(boss.getName() + " hit you for " + boss.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
+                player.setHealth(player.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
+                text.appendText(enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
                 updatePlayerInfo();
+
+                isChoosingWepon = true; //your turn
 
                 if (player.getHealth() < 20.0)
                     text.appendText("Your health is low, you should return home and restore health!" + "\n");
@@ -747,49 +757,53 @@ public class Adventure
 
                 //checks if the player or monster is dead
                 player.checkLife(); //calculate if dead
-                boss.checkLife(); //calculate if dead
+                enemy.checkLife(); //calculate if dead
 
 
                 //when someone dies
-                if (player.isAlive() && !boss.isAlive()) // if you are still standing
+                if (player.isAlive() && !enemy.isAlive()) // if you are still standing
                 {
                     //print results (money earned, health remaining)
                     mobImagePane.setImage(null);
-                    player.addWallet(boss.getLoot());
-                    player.addXP(boss.getXp());
+                    player.addWallet(enemy.getLoot());
+                    player.addXP(enemy.getXp());
                     updatePlayerInfo();
-                    text.setText("You shrekt the " + boss.getName() + "\n" + "You got $" + boss.getLoot() + " for winning!" + "\n");
-                    if (boss.getBossLoot() != null)
-                    {
-                        text.appendText("\n" + "Obtained the " + boss.getBossLoot().getItemName() + "!" + "\n");
-                        player.getInventory().add(boss.getBossLoot());
+                    text.setText("You shrekt the " + enemy.getName() + "\n" + "You got $" + enemy.getLoot() + " for winning!" + "\n");
+
+                    if (enemy.getBossLoot() != null) {
+                        text.appendText("\n" + "Obtained the " + enemy.getBossLoot().getItemName() + "!" + "\n");
+                        player.getInventory().add(enemy.getBossLoot());
                     }
 
-                    if (player.containsItem("Argoth's Key Shard") && player.containsItem("Alrothia's Key Shard"))
-                    {
+                    if (player.containsItem("Argoth's Key Shard") && player.containsItem("Alrothia's Key Shard")) {
+
                         player.getInventory().add(new KeyItem("Twin Knight Key", 1000, "Opens the inner sanctum"));
                         player.getInventory().remove(new KeyItem("Argoth's Key Shard", 500, "Combines with Alrothia's Key to form the Twin Knight Key"));
                         player.getInventory().remove(new KeyItem("Alrothia's Key Shard", 500, "Combines with Argoth's Key to form the Twin Knight Key"));
+
                     }
-
-
 
                 } else if (!player.isAlive()) { //if you died
                         mobImagePane.setImage(null);
-                        text.setText("You have been shrekt by the " + boss.getName());
+                        text.setText("You have been shrekt by the " + enemy.getName());
                         setNewLocation(null);
-                } else {
-                    text.appendText("Attack again? (Y/N) \n");
-                }
 
-            } else if (theInputText.equalsIgnoreCase("n")) { // if they don't want to fight
+                } else
+                    text.appendText("What weapon would you like to use? (check your inventory) \n");
+
+
+
+            } else if (theInputText.equalsIgnoreCase("run") || theInputText.equalsIgnoreCase("run away") || theInputText.equalsIgnoreCase("flee") || theInputText.equalsIgnoreCase("FUCK THIS") || theInputText.equalsIgnoreCase("FUCK THIS SHIT")) { // if they don't want to fight
                 mobImagePane.setImage(null);
                 text.appendText("You fled from the fight!" + "\n");
+                player.addXP(-10); //pussy
                 setNewLocation("MEADOW"); // brings you back to town
                 //System.out.print("Will i run?"); //DEBUG
 
-            } else // they don't make any sense
+            } else if (isHandled) // they don't make any sense
                 text.appendText("Unrecognized command. ");
+                //text.appendText("Unrecognized command_" + theInputText + "_" +enemy.isAlive() +"\n");
+
 
         });
 
