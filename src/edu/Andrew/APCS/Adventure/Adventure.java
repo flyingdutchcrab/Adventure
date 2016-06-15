@@ -40,9 +40,13 @@ public class Adventure
      */
     @FXML
     private Button north;
+    @FXML
     private Button east;
+    @FXML
     private Button south;
+    @FXML
     private Button west;
+    @FXML
     private ToggleButton inventory;
 
 
@@ -51,7 +55,6 @@ public class Adventure
     private Shop shop;
     private ArrayList<Location> allLocations;
     private boolean invBtnActive;
-    private boolean mapActive;
     private static final int INDEFINITE = -1;
     private MediaPlayer mPlayer;
     private MediaPlayer sPlayer;
@@ -95,7 +98,6 @@ public class Adventure
         this.player = new Player();
         this.shop = new Shop();
         invBtnActive = false;
-        mapActive = false;
 
         /** images **/
 
