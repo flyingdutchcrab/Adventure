@@ -151,12 +151,19 @@ public class Player
      */
     private void checkLevel() {
 
+        int oldLv = level;
+
+
         if (xp <= 0) //check to make sure that XP is not below 0
             xp = 1;
 
 
         //Maths: http://gamedev.stackexchange.com/a/110456
         level = (int) (Math.sqrt((THRESHOLD * THRESHOLD) + (8 * xp * THRESHOLD)) + THRESHOLD) / (2*THRESHOLD);
+
+
+        if (oldLv < level)
+            health += 50;
 
     }
 
