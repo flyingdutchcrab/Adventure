@@ -181,7 +181,7 @@ public class Player
 
     public int getLevel() { return this.level; }
 
-    public double getXp() { return this.xp; }
+    public int getXp() { return (int) this.xp; }
 
     public void setXp(double xp) { this.xp = xp; checkLevel(); }
 
