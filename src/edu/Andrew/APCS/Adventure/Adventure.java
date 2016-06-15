@@ -524,7 +524,7 @@ public class Adventure
                     String answer = inputText.getText();
                     answer = answer.toUpperCase();
                     if (answer.equals("Y")) //if they want to play again{
-                        text.setText("Alright! Let'shop go!" + "\n");
+                        text.setText("Alright! Let's go!" + "\n");
                         this.reset();
                     } else {
                         text.appendText("Wow. What a skrub, okay bye." + "\n");
@@ -613,6 +613,7 @@ public class Adventure
 
                     //Player turn
                     enemy.setHealth(enemy.getHealth() - (damageToDeal * (1+ (player.getLevel() / 100)))); //Sets the monsters health as their current health minus the players damage
+                    playSound("/sound/slash.mp3");
                     text.appendText("You attack " + enemy.getName() + " for " + (damageToDeal * (1 + (player.getLevel() / 100))) + " damage!" + "\n" + "Enemy health is " + enemy.getHealth() + "\n");
 
 
@@ -653,6 +654,7 @@ public class Adventure
                 //Monster turn
                 enemy.setDamage(enemy.getDamage() / player.getPlayerArmorValue());
                 player.setHealth(player.getHealth() - enemy.getDamage()); //Sets the players health as their current health minus the monsters damage
+                playSound("/sound/smallexplosion.mp3");
                 text.appendText("The " + enemy.getName() + " hit you for " + enemy.getDamage() + " damage!" + "\n" + "Your health is " + player.getHealth() + "\n"); //prints how much damage the monster does to the player
 
                 updatePlayerInfo();
@@ -701,6 +703,8 @@ public class Adventure
                 //text.appendText("Unrecognized command_" + theInputText + "_" +enemy.isAlive() +"\n");
 
         });
+
+        playBattleMusic();
 
 
     } //end doBattle
@@ -894,10 +898,7 @@ public class Adventure
                 }
 
             } else if (theInputText.equalsIgnoreCase("n")) { // if they don't want to fight
-                mobImagePane.setImage(null);
-                text.appendText("You fled from the fight!" + "\n");
-                setNewLocation("MEADOW"); // brings you back to town
-                //System.out.print("Will i run?"); //DEBUG
+                text.appendText("\nThere's nowhere to run!" + "\n");
 
             } else // they don't make any sense
                 text.appendText("Unrecognized command. ");
@@ -941,6 +942,7 @@ public class Adventure
                     if (player.getWallet() >= i.getCost()) {
 
                         text.appendText("You bought the " + i.getItemName() + " for $" + i.getCost() + "\n");
+                        playSound("/sound/powerup.mp3");
                         player.getInventory().add(i);
                         player.addWallet(-i.getCost());
                         updatePlayerInfo();
@@ -1098,7 +1100,7 @@ public class Adventure
         } else if (player.getCurrentLoc().getID().equals("FINALE"))
         {
             player.setHealth(100);
-            player.setLevel(999);
+            //player.setLevel(999);
             imagePane.setImage(player.getCurrentLoc().getImage());
             ArrayList<Monster> monsters = player.getCurrentLoc().getMonsters();
 
@@ -1348,6 +1350,10 @@ public class Adventure
 
         mPlayer.isAutoPlay();
         mPlayer.play();
+        if(player.getCurrentLoc().getID().equals("GRAVEYARD"))
+        {
+            mPlayer.setVolume(0.5);
+        }
         mPlayer.setCycleCount(INDEFINITE);
 
     }
@@ -1358,11 +1364,27 @@ public class Adventure
      */
     private void stopMedia() { mPlayer.stop(); }
 
+    private void playBattleMusic()
+    {
+        if(player.getCurrentLoc().getID().equalsIgnoreCase("FOREST"))
+        {
+            playMedia("/music/forestbattle.mp3");
+
+        }
+        else if(player.getCurrentLoc().getID().equalsIgnoreCase("GRAVEYARD"))
+        {
+            playMedia("/music/graveyard.mp3");
+        }
+
+    }
+
 
     /**
      * Plays the boss's music choice
      * @param boss Boss's music to be played
      */
+
+
     private void playBossMusic(Boss boss) {
 
         if (boss.getName().equalsIgnoreCase("GOD")) {
@@ -1410,6 +1432,7 @@ public class Adventure
         sPlayer = new MediaPlayer(new Media(getClass().getResource(url).toString()));
 
         sPlayer.isAutoPlay();
+        sPlayer.setVolume(2.0);
         sPlayer.play();
         sPlayer.setCycleCount(1);
 
